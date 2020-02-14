@@ -1,0 +1,27 @@
+{
+  "name": "EthicScore",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon ./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/garrett-ethic/scoringproject.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/garrett-ethic/scoringproject/issues"
+  },
+  "homepage": "https://github.com/garrett-ethic/scoringproject#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.9.0"
+  }
+}

@@ -1,1 +1,1 @@
-# scoring project
+# Ethic Score
