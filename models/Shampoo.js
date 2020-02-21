@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+//put in SKU (stock keeping unit)
 const ShampooSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -13,9 +14,15 @@ const ShampooSchema = new mongoose.Schema({
         required: true
     },
     metrics: {
-        metric1: Number,
-        metric2: Number,
-        metric3: Number
+        metric1: {
+            type: Number
+        },
+        metric2: {
+            type: Number
+        },
+        metric3: {
+            type: Number
+        }
     }
 })
 
