@@ -10,8 +10,14 @@ router.get('/', async (req, res) => {
   try {
     const { id } = req.body;
     let user = await User.findOne({ id });
+    
+    if ( user == null ) {
+        return res
+            .status(400)
+            .json({errors: [{ msg: 'User does not exist'}] });
+    }
 
-    res.json(user.metrics);
+    res.json(user);
 
   } catch (err) {
     console.error(err.message);
@@ -28,20 +34,20 @@ router.post('/', async (req, res) => {
   const { name, id, metrics } = req.body;
 
   try {
-    let profile = await User.findOne({ id });
+    let user = await User.findOne({ id });
 
-    if (profile) {
+    if (user) {
       return res
         .status(400)
         .json({ errors: [{ msg: 'User already exists' }] });
     }
 
-    profile = new User({
+    user = new User({
       name,
       id,
       metrics
     });
-    await profile.save();
+    await user.save();
 
     res.send({
       message: 'Profile Posted',
