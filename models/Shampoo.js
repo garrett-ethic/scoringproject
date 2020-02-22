@@ -19,13 +19,16 @@ const ShampooSchema = new mongoose.Schema({
   },
   metrics: {
     metric1: {
-      type: Number
+      type: Number,
+      default: 0
     },
     metric2: {
-      type: Number
+      type: Number,
+      default: 0
     },
     metric3: {
-      type: Number
+      type: Number,
+      default: 0
     }
   }
 });
