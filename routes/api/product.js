@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// @route   POST api/calulate
+// @route   POST api/product
 // @desc    add a new product to the db
 // @access  Public
 router.post('/', async (req, res) => {
@@ -58,6 +58,40 @@ router.post('/', async (req, res) => {
   } catch (err) {
     console.log(err.message);
     res.status(500).send('Server error');
+  }
+});
+
+// @route   GET api/product/:sku
+// @desc    Return a product by SKU
+// @access  Public
+router.get('/:sku', async (req, res) => {
+  try {
+    // console.log(req.params.sku);
+    const shampoo = await Shampoo.find({"sku": req.params.sku});
+    if (!shampoo) {
+      return res.status(404).json({msg: 'Shampoo not found'});
+    }
+
+    res.json(shampoo);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @route   PUT api/product/:id
+// @desc    Put in a product with a given id
+// @access  Public
+// I dont really know why we're doing this - Nathan
+router.put('/:id', async (req, res) => {
+  try {
+    const shampoo = await Shampoo.findById(req.params.id);
+
+    // await shampoo.save();
+    res.json(shampoo);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
   }
 });
 
