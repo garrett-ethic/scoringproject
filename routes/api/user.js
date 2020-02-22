@@ -5,11 +5,10 @@ const User = require('../../models/User');
 // @route   GET api/product
 // @desc    Return all products from a specified category
 // @access  Public
-router.get('/', async (req, res) => {
-  console.log("Get received");
+router.get('/:id', async (req, res) => {
+  // console.log("Get received");
   try {
-    const { id } = req.body;
-    let user = await User.findOne({ id });
+    let user = await User.findById(req.params.id);
     
     if ( user == null ) {
         return res
@@ -18,7 +17,6 @@ router.get('/', async (req, res) => {
     }
 
     res.json(user);
-
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
@@ -31,10 +29,11 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
   console.log(req.body);
 
-  const { name, id, metrics } = req.body;
+  const { name, metrics } = req.body;
 
   try {
-    let user = await User.findOne({ id });
+    // change the findOne param to email or something more unique
+    let user = await User.findOne({ name });
 
     if (user) {
       return res
@@ -44,7 +43,6 @@ router.post('/', async (req, res) => {
 
     user = new User({
       name,
-      id,
       metrics
     });
     await user.save();
@@ -52,7 +50,6 @@ router.post('/', async (req, res) => {
     res.send({
       message: 'Profile Posted',
       name: name,
-      id: id,
       metrics: metrics
     });
   } catch (err) {
