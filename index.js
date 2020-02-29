@@ -30,9 +30,9 @@ const PORT = process.env.PORT || '5000';
 app.use('/api/calculate', require('./routes/api/calculate'));
 app.use('/api/product', require('./routes/api/product'));
 app.use('/api/user', require('./routes/api/user'));
+app.use('/api/shopifyProduct', require('./routes/api/shopifyProduct'));
 
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });
-//hi
 
