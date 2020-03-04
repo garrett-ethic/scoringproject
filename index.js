@@ -1,9 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
+const dotenv = require('dotenv').config();
 
 const db =
-  'mongodb+srv://ethicScore_dev:ethicScore_dev@ethicscore-lvey1.mongodb.net/test?retryWrites=true&w=majority';
+  'mongodb+srv://ethicscore-lvey1.mongodb.net/test?retryWrites=true&w=majority';
+
 const app = express();
 
 // Allows us to read and parse JSON objects
@@ -15,7 +17,9 @@ const connectDB = async () => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
-      useFindAndModify: false
+      useFindAndModify: false,
+      user: process.env.MONGO_USERNAME,
+      pass: process.env.MONGO_PASSWORD
     });
     console.log('MongoDB Connected...');
   } catch (err) {
@@ -23,6 +27,7 @@ const connectDB = async () => {
     process.exit();
   }
 };
+
 connectDB();
 
 const PORT = process.env.PORT || '5000';
@@ -31,7 +36,7 @@ const PORT = process.env.PORT || '5000';
 app.use('/api/calculate', require('./routes/api/calculate'));
 app.use('/api/product', require('./routes/api/product'));
 app.use('/api/user', require('./routes/api/user'));
-// app.use('/api/shopifyProduct', require('./routes/api/shopifyProduct'));
+app.use('/api/shopifyProduct', require('./routes/api/shopifyProduct'));
 
 // Serve HTML file for Mock User interface. Viewd at http://localhost:5000
 app.get('/', (req, res) => {
