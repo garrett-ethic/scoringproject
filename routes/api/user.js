@@ -2,18 +2,16 @@ const express = require('express');
 const router = express.Router();
 const User = require('../../models/User');
 
-// @route   GET api/product
-// @desc    Return all products from a specified category
+// @route   GET api/user
+// @desc    Return a specified user
 // @access  Public
 router.get('/:id', async (req, res) => {
   // console.log("Get received");
   try {
     let user = await User.findById(req.params.id);
-    
-    if ( user == null ) {
-        return res
-            .status(400)
-            .json({errors: [{ msg: 'User does not exist'}] });
+
+    if (user == null) {
+      return res.status(400).json({ errors: [{ msg: 'User does not exist' }] });
     }
 
     res.json(user);
@@ -23,7 +21,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// @route   POST api/calulate
+// @route   POST api/user
 // @desc    add a new user to the db
 // @access  Public
 router.post('/', async (req, res) => {
@@ -36,9 +34,7 @@ router.post('/', async (req, res) => {
     let user = await User.findOne({ name });
 
     if (user) {
-      return res
-        .status(400)
-        .json({ errors: [{ msg: 'User already exists' }] });
+      return res.status(400).json({ errors: [{ msg: 'User already exists' }] });
     }
 
     user = new User({

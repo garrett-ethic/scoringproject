@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
-const dotenv = require('dotenv').config();
+// const dotenv = require('dotenv').config();
 
 const db =
   'mongodb+srv://ethicscore-lvey1.mongodb.net/test?retryWrites=true&w=majority';

@@ -128,6 +128,8 @@ router.get('/:sku', async (req, res) => {
   try {
     let product;
 
+    const { category } = req.body;
+
     switch (category) {
       case 'Conditioner':
         product = await Conditioner.findOne({ sku: req.params.sku });

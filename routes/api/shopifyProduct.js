@@ -18,7 +18,7 @@ function setAuth(myURL) {
   myURL.username = username;
   myURL.password = password;
   return myURL;
-};
+}
 
 async function getProductId(newURL) {
   try {
@@ -34,7 +34,7 @@ async function getProductId(newURL) {
   } catch (err) {
     console.log(err.message);
   }
-};
+}
 
 async function getProduct(id) {
   productURL = new URL(baseURL + '/' + id.toString() + '.json');
@@ -46,7 +46,7 @@ async function getProduct(id) {
   } catch (err) {
     console.error(err);
   }
-};
+}
 
 const sleep = milliseconds => {
   return new Promise(resolve => setTimeout(resolve, milliseconds));
@@ -63,7 +63,7 @@ async function updateDatabase(input_product) {
     tags
   };
   console.log(productFields);
-    
+
   try {
     let product = await ShopifyProduct.findOne({ id: id });
 
@@ -82,7 +82,7 @@ async function updateDatabase(input_product) {
   } catch (err) {
     console.error(err.message);
   }
-};
+}
 
 async function getAllProducts() {
   while (newURL) {
@@ -95,7 +95,7 @@ async function getAllProducts() {
     await sleep(800);
     getProduct(products[index]);
   }
-};
+}
 
 getAllProducts();
 
