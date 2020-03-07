@@ -37,6 +37,7 @@ app.use('/api/calculate', require('./routes/api/calculate'));
 app.use('/api/product', require('./routes/api/product'));
 app.use('/api/user', require('./routes/api/user'));
 app.use('/api/shopifyProduct', require('./routes/api/shopifyProduct'));
+app.use('/api/shopifyUser', require('./routes/api/shopifyUser'));
 
 // Serve HTML file for Mock User interface. Viewd at http://localhost:5000
 app.get('/', (req, res) => {
