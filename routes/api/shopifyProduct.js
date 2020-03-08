@@ -92,11 +92,46 @@ async function getAllProducts() {
     });
   }
   for (index = 0; index < products.length; index++) {
+	// sleep for rate limiting  
     await sleep(800);
     getProduct(products[index]);
   }
 }
 
 // getAllProducts();
+/*
+router.put('/:id', async (req, res) => {
+  console.log(req.body);
+
+  productURL = new URL(baseURL + '/' + req.params.id + '/metafields.json');
+  productURL = setAuth(productURL);
+  
+  try {
+    await axios.put(productURL.toString(), req.body);
+  } catch (err) {
+    console.error(err);
+  }	
+});
+*/
+
+router.put('/:id', async (req, res) => {
+	console.log(req.body)
+	
+	const { m } = req.body;
+
+
+	try {
+		product = await ShopifyProduct.findOneAndUpdate(
+			{ id: req.params.id },
+			{ metrics: JSON.stringify(req.body.metrics) },
+			{ new: true }
+		);
+		return res.json(product);
+	} catch (err) {
+    console.log(err.message);
+    res.status(500).send('Server error');
+  }
+
+});
 
 module.exports = router;
