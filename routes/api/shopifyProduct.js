@@ -97,6 +97,6 @@ async function getAllProducts() {
   }
 }
 
-getAllProducts();
+// getAllProducts();
 
 module.exports = router;
