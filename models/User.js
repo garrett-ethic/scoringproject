@@ -5,10 +5,6 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  id: {
-    type: String,
-    required: true
-  },
   metrics: {
     reuse: {
       type: Number,
