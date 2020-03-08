@@ -108,13 +108,7 @@ router.post('/', async (req, res) => {
     product = new productCat(productFields);
     await product.save();
 
-    res.json({
-      message: 'New Product Posted',
-      sku: sku,
-      name: name,
-      brand: brand,
-      metrics: metrics
-    });
+    res.json(product);
   } catch (err) {
     console.log(err.message);
     res.status(500).send('Server error');
@@ -124,30 +118,29 @@ router.post('/', async (req, res) => {
 // @route   GET api/product/:sku
 // @desc    Return a product by SKU
 // @access  Public
-router.get('/:sku', async (req, res) => {
+router.get('/:category/:sku', async (req, res) => {
   try {
     let product;
-
-    const { category } = req.body;
+    const { category, sku } = req.params;
 
     switch (category) {
       case 'Conditioner':
-        product = await Conditioner.findOne({ sku: req.params.sku });
+        product = await Conditioner.findOne({ sku });
         break;
       case 'FaceWash':
-        product = await FaceWash.findOne({ sku: req.params.sku });
+        product = await FaceWash.findOne({ sku });
         break;
       case 'Lotion':
-        product = await Lotion.findOne({ sku: req.params.sku });
+        product = await Lotion.findOne({ sku });
         break;
       case 'Shampoo':
-        product = await Shampoo.findOne({ sku: req.params.sku });
+        product = await Shampoo.findOne({ sku });
         break;
       case 'SkinCare':
-        product = await SkinCare.findOne({ sku: req.params.sku });
+        product = await SkinCare.findOne({ sku });
         break;
       case 'SunScreen':
-        product = await Sunscreen.findOne({ sku: req.params.sku });
+        product = await Sunscreen.findOne({ sku });
         break;
       default:
         return res

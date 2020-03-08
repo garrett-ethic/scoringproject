@@ -10,8 +10,8 @@
 }
 
 .badge-dot {
-  height: 80px;
-  width: 80px;
+  height: 90px;
+  width: 90px;
   margin: 5px;
   background-color: #bbb;
   border-radius: 50%;
@@ -22,6 +22,7 @@
   text-align: center;
   height: 130px;
   width: 130px;
+  margin-top: 40px;
   background-color: #bbb;
   border-radius: 50%;
   display: inline-block;

@@ -21,6 +21,9 @@ const ShopifyProductSchema = new mongoose.Schema({
   },
   tags: {
     type: String
+  },
+  metrics: {
+	type: String
   }
 });
 
