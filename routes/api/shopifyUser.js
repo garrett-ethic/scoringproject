@@ -4,7 +4,7 @@ const axios = require('axios');
 const ShopifyUser = require('../../models/ShopifyUser');
 
 const shopifyAxios = axios.create({
-    baseURL: 'https://ethic-marketplace.myshopify.com/admin/api/2020-01/customers',
+    baseURL: 'https://ethic-marketplace.myshopify.com/admin/api/2020-01/customers/',
     auth: {
         username: process.env.SHOPIFY_USERNAME,
         password: process.env.SHOPIFY_PASSWORD
@@ -30,19 +30,11 @@ router.get('/:id', async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
-    console.log(req.body);
-    const { note } = req.body;
-    console.log(note);
+    // console.log(req.body);
 
     try {
-        // this doesnt work and i dont know why lol
-        const user = await shopifyAxios.put(req.params.id + '.json', {data: 
-            {
-                "customer": {
-                    "note": note
-                }
-            }});
-        console.log(user);
+        const user = await shopifyAxios.put(req.params.id + '.json', req.body);
+        // console.log(user);
         res.json(user.data['customer']);
     } catch (err) {
         console.log(err.message);
