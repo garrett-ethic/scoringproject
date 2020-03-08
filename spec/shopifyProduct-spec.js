@@ -1,9 +1,6 @@
-const express = require('express');
-const router = express.Router();
-const axios = require('axios');
-const ShopifyProduct = require('../../models/ShopifyProduct');
-const dotenv = require('dotenv').config();
-
+const Jasmine = require('jasmine');
+const testFile = require('../routes/api/shopifyProduct.js');
+/*
 const username = process.env.SHOPIFY_USERNAME;
 const password = process.env.SHOPIFY_PASSWORD;
 
@@ -32,6 +29,7 @@ async function getProductId(newURL) {
     console.log(newURL.toString());
     return await newURL;
   } catch (err) {
+    console.error('url for get product ids invalid'); 
     return false;
   }
 }
@@ -43,7 +41,9 @@ async function getProduct(id) {
     await axios.get(productURL.toString()).then(res => {
       updateDatabase(res['data']['product']);
     });
+    return true;
   } catch (err) {
+    console.error('product id is invalid');
     return false;
   }
 }
@@ -63,7 +63,7 @@ async function updateDatabase(input_product) {
     tags
   };
   console.log(productFields);
-
+    
   try {
     let product = await ShopifyProduct.findOne({ id: id });
 
@@ -96,10 +96,39 @@ async function getAllProducts() {
     getProduct(products[index]);
   }
 }
+*/
+// UNIT TESTS
+describe('unit tests', () => {
 
-getAllProducts();
+  let originalTimeout;
+  beforeEach(function() {
+    originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
+  });
+
+  it('returns false when given a invalid url', async() => {
+    url = await testFile.getProductId('bogusurl');
+    expect(url).toBe(false);
+  });
+
+  it('returns the correct product', async() => {
+    myURL = testFile.setAuth(testFile.newURL);
+    myURL = await testFile.getProductId(myURL);
+    console.log(myURL);
+    expect(myURL['href']).toBeTruthy();
+  });
+
+  it('returns false when given a invalid proudct id', async() => {
+    res = await testFile.getProduct('bogusid');
+    expect(res).toBe(false);
+  });
+  
+  afterEach(function() {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
+  });
+})
+
+//getAllProducts();
 
 
-
-module.exports = router;
 
