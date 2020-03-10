@@ -2,14 +2,57 @@ const express = require('express');
 const router = express.Router();
 const User = require('../../models/User');
 const Shampoo = require('../../models/Shampoo');
+const ShopifyProduct = require('../../models/ShopifyProduct');
+
+// EVENTUALLY, replace user with actual user
 
 // @route   GET api/calulate
-// @desc    Return Graded user preferences when given an input form
+// @desc    Return calculated ethic score given shopify product and userID
+// @access  Public
+router.get('/shopify/:userID/:productID', async (req, res) => {
+  try {
+    const { userID, productID } = req.params;
+
+    let user = await User.findById(userID);
+
+    let product = await ShopifyProduct.findById(productID);
+
+    if (!user) {
+      return res.status(404).json({ msg: 'User not found' });
+    }
+
+    if (!product) {
+      return res.status(404).json({ msg: 'Product not found' });
+    }
+
+    // assume that every product has a metric when initialized
+    userMetrics = user.metrics;
+    productMetrics = product.metrics;
+
+    if (!userMetrics) {
+      return res.status(404).json({ msg: 'User Metrics not found' });
+    }
+
+    let score =
+      productMetrics.reuse * userMetrics.reuse +
+      productMetrics.env * userMetrics.env +
+      productMetrics.social * userMetrics.social;
+    // if score is 0, user does not have any metrics (assume for now)
+    if (score === 0) {
+      score = productMetrics.reuse + productMetrics.env + productMetrics.social;
+    }
+    res.json({ score: score });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @route   GET api/calulate
+// @desc    Return calculated ethic score when given userID and product FROM Temporary models
 // @access  Public
 router.get('/:userID/:category/:sku', async (req, res) => {
   try {
-    // res.json({ msg: 'Test request Works!' });
-
     let product;
     const { category, sku, userID } = req.params;
 

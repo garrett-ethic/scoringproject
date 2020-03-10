@@ -92,7 +92,7 @@ async function getAllProducts() {
     });
   }
   for (index = 0; index < products.length; index++) {
-	// sleep for rate limiting  
+    // sleep for rate limiting
     await sleep(800);
     getProduct(products[index]);
   }
@@ -114,24 +114,57 @@ router.put('/:id', async (req, res) => {
 });
 */
 
+// -------------- Start of HTTP request methods -----------------
+
+// @route   GET api/shopifyProduct/
+// @desc    Return a Shopify product from local database
+// @access  Public
+router.get('/:id', async (req, res) => {
+  try {
+    let product = await ShopifyProduct.findById(req.params.id);
+
+    if (product == null) {
+      return res
+        .status(400)
+        .json({ errors: [{ msg: 'Product does not exist' }] });
+    }
+
+    res.json(product);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @route   PUT api/shopifyProduct/
+// @desc    Updates a Shopify product from local database
+// @access  Public
 router.put('/:id', async (req, res) => {
-	console.log(req.body)
-	
-	const { m } = req.body;
+  console.log(req.body);
 
+  // const { metrics } = req.body;
 
-	try {
-		product = await ShopifyProduct.findOneAndUpdate(
-			{ id: req.params.id },
-			{ metrics: JSON.stringify(req.body.metrics) },
-			{ new: true }
-		);
-		return res.json(product);
-	} catch (err) {
+  // const metricFields = {};
+  // if (req.)
+
+  try {
+    product = await ShopifyProduct.findOneAndUpdate(
+      { _id: req.params.id },
+      { metrics: req.body.metrics },
+      { new: true }
+    );
+
+    if (product == null) {
+      return res
+        .status(400)
+        .json({ errors: [{ msg: 'Product does not exist' }] });
+    }
+
+    return res.json(product);
+  } catch (err) {
     console.log(err.message);
     res.status(500).send('Server error');
   }
-
 });
 
 module.exports = router;
