@@ -17,14 +17,28 @@ const ShopifyProductSchema = new mongoose.Schema({
     required: true
   },
   product_type: {
-    type: String,
+    type: String
   },
   tags: {
     type: String
   },
   metrics: {
-	type: String
+    // Include finalized metric types later
+    //   reuse: {
+    //     type: Number
+    //   },
+    //   env: {
+    //     type: Number
+    //   },
+    //   social: {
+    //     type: String
+    //   }
+    // }
+    type: Object
   }
 });
 
-module.exports = Lotion = mongoose.model('shopifyproducts', ShopifyProductSchema);
+module.exports = Lotion = mongoose.model(
+  'shopifyproducts',
+  ShopifyProductSchema
+);
