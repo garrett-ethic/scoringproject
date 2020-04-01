@@ -17,7 +17,7 @@ describe('unit tests', () => {
   let originalTimeout;
   beforeEach(function() {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 200000;
   });
 
   it('returns all the products given a valid url', async() => {

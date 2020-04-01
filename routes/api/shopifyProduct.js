@@ -15,6 +15,15 @@ const getProduct = async function(id, baseURL) {
     productURL = new URL(baseURL + '/' + id.toString() + '.json');
     productURL = setAuth(productURL);
     product = await axios.get(productURL.toString());
+    const { title, vendor, product_type, tags } = product['data']['product'];
+    productFields = {
+        id,
+        title,
+        vendor,
+        product_type,
+        tags
+    };
+    console.log(productFields);
     /*await axios.get(productURL.toString()).then(res => {
       updateDatabase(res['data']['product']);
     });*/
