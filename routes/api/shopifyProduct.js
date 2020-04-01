@@ -4,55 +4,32 @@ const axios = require('axios');
 const ShopifyProduct = require('../../models/ShopifyProduct');
 const dotenv = require('dotenv').config();
 
-const username = process.env.SHOPIFY_USERNAME;
-const password = process.env.SHOPIFY_PASSWORD;
-
-const baseURL =
-  'https://ethic-marketplace.myshopify.com/admin/api/2020-01/products';
-
-let newURL = new URL(baseURL + '.json');
-let promises = [];
-let products = [];
-
-function setAuth(myURL) {
-  myURL.username = username;
-  myURL.password = password;
+const setAuth = function(myURL) {
+  myURL.username = process.env.SHOPIFY_USERNAME;
+  myURL.password = process.env.SHOPIFY_PASSWORD;
   return myURL;
 }
 
-async function getProductId(newURL) {
+const getProduct = async function(id, baseURL) {
   try {
-    const res = await axios.get(newURL.toString(), {}, {});
-    console.log(`Status: ${res.status}`);
-    const products_raw = res.data['products'];
-    for (index = 0; index < products_raw.length; index++) {
-      products.push(products_raw[index]['id']);
-    }
-    newURL = new URL(res.headers.link.slice(1, -13));
-    console.log(newURL.toString());
-    return await newURL;
-  } catch (err) {
-    return false;
-  }
-}
-
-async function getProduct(id) {
-  productURL = new URL(baseURL + '/' + id.toString() + '.json');
-  productURL = setAuth(productURL);
-  try {
-    await axios.get(productURL.toString()).then(res => {
+    productURL = new URL(baseURL + '/' + id.toString() + '.json');
+    productURL = setAuth(productURL);
+    product = await axios.get(productURL.toString());
+    /*await axios.get(productURL.toString()).then(res => {
       updateDatabase(res['data']['product']);
-    });
+    });*/
   } catch (err) {
+    console.error(err);
     return false;
   }
+  return product;
 }
 
 const sleep = milliseconds => {
   return new Promise(resolve => setTimeout(resolve, milliseconds));
 };
 
-async function updateDatabase(input_product) {
+const updateDatabase = async function(input_product) {
   const { id, title, vendor, product_type, tags } = input_product;
 
   const productFields = {
@@ -62,10 +39,9 @@ async function updateDatabase(input_product) {
     product_type,
     tags
   };
-  console.log(productFields);
 
   try {
-    let product = await ShopifyProduct.findOne({ id: id });
+    let product = await ShopifyProduct.findOne({ id: id.toString() });
 
     // Update if exists
     if (product) {
@@ -82,23 +58,48 @@ async function updateDatabase(input_product) {
   } catch (err) {
     console.error(err.message);
   }
+  return product;
 }
 
-async function getAllProducts() {
+const getAllProducts = async function(baseURL) {
+  let products = [];
+  let newURL;
+  try {
+    newURL = new URL(baseURL + '.json');
+  } catch (err) {
+    return products;
+  }
+  newURL = setAuth(newURL);
   while (newURL) {
     newURL = setAuth(newURL);
-    await getProductId(newURL).then(res => {
-      newURL = res;
-    });
+    try {
+      const res = await axios.get(newURL.toString(), {}, {});
+      //console.log(`Status: ${res.status}`);
+      const products_raw = res.data['products'];
+      for (index = 0; index < products_raw.length; index++) {
+        products.push(products_raw[index]['id']);
+      }
+      newURL = new URL(res.headers.link.slice(1, -13));
+      newURL = await newURL;
+    } catch (err) {
+      //console.error(err);
+      newURL = false;
+    }
   }
+
+  const sleep = milliseconds => {
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
+  };
   for (index = 0; index < products.length; index++) {
     // sleep for rate limiting
     await sleep(800);
-    getProduct(products[index]);
+    getProduct(products[index], baseURL);
   }
+  return products
 }
 
-// getAllProducts();
+//getAllProducts('https://ethic-marketplace.myshopify.com/admin/api/2020-01/products');
+
 /*
 router.put('/:id', async (req, res) => {
   console.log(req.body);
@@ -167,7 +168,8 @@ router.put('/:id', async (req, res) => {
   }
 });
 
+module.exports = { router, getAllProducts,
+                   getProduct, updateDatabase };
 
 
-module.exports = router;
 
