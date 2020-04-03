@@ -177,8 +177,11 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-module.exports = { router, getAllProducts,
-                   getProduct, updateDatabase };
+module.exports = router;
+module.exports.getProduct = getProduct;
+module.exports.getAllProducts = getAllProducts;
+module.exports.updateDatabase = updateDatabase;
+
 
 
 
