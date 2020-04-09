@@ -45,28 +45,23 @@ module.exports = (__webpack_require__(/*! dll-reference dll_2adc2403d89adc16ead0
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-var _this = undefined,
-    _jsxFileName = "C:\\Users\\Brandon Tom\\Desktop\\scoringproject\\pages\\index.js";
-
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
+//import { TextStyle } from '@shopify/polaris';
 var Index = function Index() {
-  return __jsx("div", {
-    __self: _this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 2,
-      columnNumber: 3
-    }
-  }, __jsx("p", {
-    __self: _this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 3,
-      columnNumber: 5
-    }
-  }, "Sample app using React and Next.js"));
+  return (
+    /*
+      <div>
+        <TextStyle variation="positive">
+          Sample app using React and Next.js
+        </TextStyle>
+      </div>
+      */
+    __jsx("div", null, __jsx("a", {
+      href: "https://streamable.com/c0mser"
+    }, "hello!"))
+  );
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Index);
