@@ -2,11 +2,14 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const dotenv = require('dotenv').config();
+const cors = require('cors')
 
 const db =
   'mongodb+srv://ethicscore-lvey1.mongodb.net/test?retryWrites=true&w=majority';
 
 const app = express();
+
+app.use(cors());
 
 // Allows us to read and parse JSON objects
 app.use(express.json());

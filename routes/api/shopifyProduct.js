@@ -5,8 +5,8 @@ const ShopifyProduct = require('../../models/ShopifyProduct');
 const dotenv = require('dotenv').config();
 
 const setAuth = function(myURL) {
-  myURL.username = process.env.SHOPIFY_USERNAME;
-  myURL.password = process.env.SHOPIFY_PASSWORD;
+  myURL.username = process.env.SHOPIFY_STORE_USERNAME;
+  myURL.password = process.env.SHOPIFY_STORE_PASSWORD;
   return myURL;
 }
 
@@ -31,7 +31,7 @@ const getProduct = async function(id, baseURL) {
     console.error(err);
     return false;
   }
-  return product;
+  return productFields;
 }
 
 const sleep = milliseconds => {
@@ -129,6 +129,27 @@ router.put('/:id', async (req, res) => {
 // @route   GET api/shopifyProduct/
 // @desc    Return a Shopify product from local database
 // @access  Public
+
+router.get('/:id', async (req, res) => {
+  try {
+    let product = await getProduct(
+      req.params.id, 'https://ethic-marketplace.myshopify.com/admin/api/2020-01/products');
+
+    if (product == null) {
+      return res
+        .status(400)
+        .json({ errors: [{ msg: 'Product does not exist' }] });
+    }
+
+    res.json(product);
+    console.log(product);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+/*
 router.get('/:id', async (req, res) => {
   try {
     let product = await ShopifyProduct.findById(req.params.id);
@@ -140,6 +161,7 @@ router.get('/:id', async (req, res) => {
     }
 
     res.json(product);
+    console.log(product);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
@@ -176,7 +198,7 @@ router.put('/:id', async (req, res) => {
     res.status(500).send('Server error');
   }
 });
-
+*/
 module.exports = router;
 module.exports.getProduct = getProduct;
 module.exports.getAllProducts = getAllProducts;
