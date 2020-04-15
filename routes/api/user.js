@@ -33,8 +33,17 @@ router.post('/', async (req, res) => {
     // change the findOne param to email or something more unique
     let user = await User.findOne({ name });
 
+    // if (user) {
+    //   return res.status(400).json({ errors: [{ msg: 'User already exists' }] });
+    // }
+
     if (user) {
-      return res.status(400).json({ errors: [{ msg: 'User already exists' }] });
+      user = await User.findOneAndUpdate(
+        { name: name },
+        { metrics: metrics },
+        { new: true }
+      );
+      return res.json(user);
     }
 
     user = new User({

@@ -4,24 +4,33 @@ const axios = require('axios');
 const ShopifyProduct = require('../../models/ShopifyProduct');
 const dotenv = require('dotenv').config();
 
-const setAuth = function(myURL) {
+const shopifyAxios = axios.create({
+  baseURL:
+    'https://ethic-marketplace.myshopify.com/admin/api/2020-01/products/',
+  auth: {
+    username: process.env.SHOPIFY_STORE_USERNAME,
+    password: process.env.SHOPIFY_STORE_PASSWORD,
+  },
+});
+
+const setAuth = function (myURL) {
   myURL.username = process.env.SHOPIFY_STORE_USERNAME;
   myURL.password = process.env.SHOPIFY_STORE_PASSWORD;
   return myURL;
-}
+};
 
-const getProduct = async function(id, baseURL) {
+const getProduct = async function (id, baseURL) {
   try {
     productURL = new URL(baseURL + '/' + id.toString() + '.json');
     productURL = setAuth(productURL);
     product = await axios.get(productURL.toString());
     const { title, vendor, product_type, tags } = product['data']['product'];
     productFields = {
-        id,
-        title,
-        vendor,
-        product_type,
-        tags
+      id,
+      title,
+      vendor,
+      product_type,
+      tags,
     };
     console.log(productFields);
     /*await axios.get(productURL.toString()).then(res => {
@@ -32,13 +41,13 @@ const getProduct = async function(id, baseURL) {
     return false;
   }
   return productFields;
-}
-
-const sleep = milliseconds => {
-  return new Promise(resolve => setTimeout(resolve, milliseconds));
 };
 
-const updateDatabase = async function(input_product) {
+const sleep = (milliseconds) => {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
+};
+
+const updateDatabase = async function (input_product) {
   const { id, title, vendor, product_type, tags } = input_product;
 
   const productFields = {
@@ -46,7 +55,7 @@ const updateDatabase = async function(input_product) {
     title,
     vendor,
     product_type,
-    tags
+    tags,
   };
 
   try {
@@ -68,9 +77,9 @@ const updateDatabase = async function(input_product) {
     console.error(err.message);
   }
   return product;
-}
+};
 
-const getAllProducts = async function(baseURL) {
+const getAllProducts = async function (baseURL) {
   let products = [];
   let newURL;
   try {
@@ -96,16 +105,16 @@ const getAllProducts = async function(baseURL) {
     }
   }
 
-  const sleep = milliseconds => {
-    return new Promise(resolve => setTimeout(resolve, milliseconds));
+  const sleep = (milliseconds) => {
+    return new Promise((resolve) => setTimeout(resolve, milliseconds));
   };
   for (index = 0; index < products.length; index++) {
     // sleep for rate limiting
     await sleep(800);
     getProduct(products[index], baseURL);
   }
-  return products
-}
+  return products;
+};
 
 //getAllProducts('https://ethic-marketplace.myshopify.com/admin/api/2020-01/products');
 
@@ -129,11 +138,12 @@ router.put('/:id', async (req, res) => {
 // @route   GET api/shopifyProduct/
 // @desc    Return a Shopify product from local database
 // @access  Public
-
 router.get('/:id', async (req, res) => {
   try {
     let product = await getProduct(
-      req.params.id, 'https://ethic-marketplace.myshopify.com/admin/api/2020-01/products');
+      req.params.id,
+      'https://ethic-marketplace.myshopify.com/admin/api/2020-01/products'
+    );
 
     if (product == null) {
       return res
@@ -146,6 +156,35 @@ router.get('/:id', async (req, res) => {
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
+  }
+});
+
+// @route   PUT api/metrics/:id
+// @desc    Creates a new metafield for the specified Shopify User. Don't use this route to update metafields.
+// @access  Private
+router.put('/metrics/:id', async (req, res) => {
+  try {
+    const product = await shopifyAxios.put(req.params.id + '.json', req.body);
+    res.json(product.data);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
+// @route   PUT api/metrics/:id
+// @desc    Updates a single metafield for a specified product
+// @access  Private
+router.put('/metrics/:prodID/:metaID', async (req, res) => {
+  try {
+    const metafield = await shopifyAxios.put(
+      req.params.prodID + '/metafields/' + req.params.metaID + '.json',
+      req.body
+    );
+    res.json(metafield.data);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send('Server error');
   }
 });
 
@@ -203,7 +242,3 @@ module.exports = router;
 module.exports.getProduct = getProduct;
 module.exports.getAllProducts = getAllProducts;
 module.exports.updateDatabase = updateDatabase;
-
-
-
-

@@ -34,13 +34,41 @@ router.get('/shopify/:userID/:productID', async (req, res) => {
     }
 
     let score =
-      productMetrics.reuse * userMetrics.reuse +
+      productMetrics.bcorp * userMetrics.reuse +
       productMetrics.env * userMetrics.env +
       productMetrics.social * userMetrics.social;
     // if score is 0, user does not have any metrics (assume for now)
     if (score === 0) {
       score = productMetrics.reuse + productMetrics.env + productMetrics.social;
     }
+    res.json({ score: score });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @route   GET api/calulate
+// @desc    Return default ethic score
+// @access  Public
+router.get('/shopify/:productID', async (req, res) => {
+  try {
+    const { productID } = req.params;
+
+    let product = await ShopifyProduct.findById(productID);
+
+    if (!product) {
+      return res.status(404).json({ msg: 'Product not found' });
+    }
+
+    // assume that every product has a metric when initialized
+    let productMetrics = product.metrics;
+
+    let score =
+      productMetrics.bcorp * 5 +
+      productMetrics.env * 5 +
+      productMetrics.social * 5;
+
     res.json({ score: score });
   } catch (err) {
     console.error(err.message);
