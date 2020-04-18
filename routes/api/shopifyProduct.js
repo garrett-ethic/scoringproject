@@ -6,7 +6,7 @@ const dotenv = require('dotenv').config();
 
 const shopifyAxios = axios.create({
   baseURL:
-    'https://ethic-marketplace.myshopify.com/admin/api/2020-01/products/',
+    'https://ethic-marketplace.myshopify.com/admin/api/2020-01/products',
   auth: {
     username: process.env.SHOPIFY_STORE_USERNAME,
     password: process.env.SHOPIFY_STORE_PASSWORD,
@@ -43,10 +43,6 @@ const getProduct = async function (id, baseURL) {
   return productFields;
 };
 
-const sleep = (milliseconds) => {
-  return new Promise((resolve) => setTimeout(resolve, milliseconds));
-};
-
 const updateDatabase = async function (input_product) {
   const { id, title, vendor, product_type, tags } = input_product;
 
@@ -79,44 +75,53 @@ const updateDatabase = async function (input_product) {
   return product;
 };
 
-const getAllProducts = async function (baseURL) {
+const getTaggedProducts = async function (tag) {
   let products = [];
-  let newURL;
-  try {
-    newURL = new URL(baseURL + '.json');
-  } catch (err) {
-    return products;
-  }
-  newURL = setAuth(newURL);
+  //let tagList = [];
+  let newURL = 'https://ethic-marketplace.myshopify.com/admin/api/2020-01/products.json';
   while (newURL) {
-    newURL = setAuth(newURL);
     try {
-      const res = await axios.get(newURL.toString(), {}, {});
+      let res = await axios.get(
+        newURL.toString() + '?limit=250',
+        {
+          params: {
+            limit: 250
+          },
+          auth: {
+            username: process.env.SHOPIFY_STORE_USERNAME,
+            password: process.env.SHOPIFY_STORE_PASSWORD,
+          }
+        });
       //console.log(`Status: ${res.status}`);
-      const products_raw = res.data['products'];
-      for (index = 0; index < products_raw.length; index++) {
-        products.push(products_raw[index]['id']);
+      let productsRaw = res.data['products'];
+      for (index = 0; index < productsRaw.length; index++) {
+        let productTags = productsRaw[index].tags.split(', ');
+        if (tag === 'ineedtags') {
+          let tagCounter;
+          for (tagCounter = 0; tagCounter < productTags.length; ++tagCounter)
+          {
+            if (!products.includes(productTags[tagCounter])) {
+              products.push(productTags[tagCounter]);
+            }
+          }
+        }
+        else {
+          if (productTags.includes(tag)) {
+            products.push(productsRaw[index]);
+          }
+        }
       }
+      console.log(products);
       newURL = new URL(res.headers.link.slice(1, -13));
       newURL = await newURL;
     } catch (err) {
-      //console.error(err);
+      console.error(err);
       newURL = false;
     }
   }
-
-  const sleep = (milliseconds) => {
-    return new Promise((resolve) => setTimeout(resolve, milliseconds));
-  };
-  for (index = 0; index < products.length; index++) {
-    // sleep for rate limiting
-    await sleep(800);
-    getProduct(products[index], baseURL);
-  }
-  return products;
+  return await products;
 };
 
-//getAllProducts('https://ethic-marketplace.myshopify.com/admin/api/2020-01/products');
 
 /*
 router.put('/:id', async (req, res) => {
@@ -138,7 +143,26 @@ router.put('/:id', async (req, res) => {
 // @route   GET api/shopifyProduct/
 // @desc    Return a Shopify product from local database
 // @access  Public
-router.get('/:id', async (req, res) => {
+
+router.get('/tagList/:tag', async (req, res) => {
+  try {
+    let products = await getTaggedProducts(req.params.tag);
+
+    if (products == null) {
+      return res
+        .status(400)
+        .json({ errors: [{ msg: 'Products does not exist' }] });
+    }
+
+    res.json(products);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+
+router.get(':id', async (req, res) => {
   try {
     let product = await getProduct(
       req.params.id,
@@ -240,5 +264,5 @@ router.put('/:id', async (req, res) => {
 */
 module.exports = router;
 module.exports.getProduct = getProduct;
-module.exports.getAllProducts = getAllProducts;
+module.exports.getAllProducts = getTaggedProducts;
 module.exports.updateDatabase = updateDatabase;
