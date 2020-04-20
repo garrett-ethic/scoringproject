@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["static\\development\\pages\\_app.js"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["static/development/pages/_app.js"],{
 
 /***/ "./node_modules/@babel/runtime/helpers/arrayWithHoles.js":
 /*!***************************************************************!*\
@@ -7473,10 +7473,10 @@ __export(__webpack_require__(/*! ./client */ "./node_modules/@shopify/app-bridge
 /*!*******************************************************!*\
   !*** ./node_modules/@shopify/app-bridge/package.json ***!
   \*******************************************************/
-/*! exports provided: _from, _id, _inBundle, _integrity, _location, _phantomChildren, _requested, _requiredBy, _resolved, _shasum, _spec, _where, author, bugs, bundleDependencies, deprecated, description, devDependencies, files, gitHead, homepage, jsdelivr, license, main, name, private, publishConfig, repository, scripts, sideEffects, size-limit, types, unpkg, version, default */
+/*! exports provided: _args, _from, _id, _inBundle, _integrity, _location, _phantomChildren, _requested, _requiredBy, _resolved, _spec, _where, author, bugs, description, devDependencies, files, gitHead, homepage, jsdelivr, license, main, name, private, publishConfig, repository, scripts, sideEffects, size-limit, types, unpkg, version, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"_from\":\"@shopify/app-bridge@^1.3.0\",\"_id\":\"@shopify/app-bridge@1.20.2\",\"_inBundle\":false,\"_integrity\":\"sha512-POH6zkCGkScFhgKVNLzsEbaHtPbdgUoutu902kNw7XipfgA9yBmupgzKafAdADuSHz4b1MujpE5GwcUaeUYQkg==\",\"_location\":\"/@shopify/app-bridge\",\"_phantomChildren\":{},\"_requested\":{\"type\":\"range\",\"registry\":true,\"raw\":\"@shopify/app-bridge@^1.3.0\",\"name\":\"@shopify/app-bridge\",\"escapedName\":\"@shopify%2fapp-bridge\",\"scope\":\"@shopify\",\"rawSpec\":\"^1.3.0\",\"saveSpec\":null,\"fetchSpec\":\"^1.3.0\"},\"_requiredBy\":[\"/@shopify/polaris\"],\"_resolved\":\"https://registry.npmjs.org/@shopify/app-bridge/-/app-bridge-1.20.2.tgz\",\"_shasum\":\"8e48859af125aa31d3a22f93383ac45fa59c28e3\",\"_spec\":\"@shopify/app-bridge@^1.3.0\",\"_where\":\"C:\\\\Users\\\\Brandon Tom\\\\Desktop\\\\scoringproject\\\\node_modules\\\\@shopify\\\\polaris\",\"author\":{\"name\":\"Shopify Inc.\"},\"bugs\":{\"url\":\"https://github.com/Shopify/app-bridge/issues\"},\"bundleDependencies\":false,\"deprecated\":false,\"description\":\"[![Build Status](https://travis-ci.com/Shopify/app-bridge.svg?token=RBRyvqQyN525bnfz7J8p&branch=master)](https://travis-ci.com/Shopify/app-bridge) [![codecov](https://codecov.io/gh/Shopify/app-bridge/branch/master/graph/badge.svg?token=nZ21m39Dr6)](https://codecov.io/gh/Shopify/app-bridge) [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Fapp-bridge.svg)](https://badge.fury.io/js/%40shopify%2Fapp-bridge.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/app-bridge.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/app-bridge.svg)\",\"devDependencies\":{\"@types/node\":\"^10.12.5\",\"typescript\":\"3.2.1\"},\"files\":[\"/actions/\",\"/client/\",\"/umd/\",\"/util/\",\"/validate/\",\"/MessageTransport.d.ts\",\"/MessageTransport.js\",\"/development.d.ts\",\"/development.js\",\"/index.d.ts\",\"/index.js\",\"/production.d.ts\",\"/production.js\"],\"gitHead\":\"6daa42b659b3f9b9ddfce068e91b852996df2e0d\",\"homepage\":\"https://github.com/Shopify/app-bridge#readme\",\"jsdelivr\":\"umd/index.js\",\"license\":\"MIT\",\"main\":\"index.js\",\"name\":\"@shopify/app-bridge\",\"private\":false,\"publishConfig\":{\"access\":\"public\",\"@shopify:registry\":\"https://registry.npmjs.org\"},\"repository\":{\"type\":\"git\",\"url\":\"git+ssh://git@github.com/Shopify/app-bridge.git\"},\"scripts\":{\"build\":\"yarn build:tsc && yarn build:umd\",\"build:tsc\":\"NODE_ENV=production tsc\",\"build:umd\":\"NODE_ENV=production webpack -p\",\"check\":\"tsc --pretty --noEmit\",\"clean\":\"cat package.json | node -pe \\\"JSON.parse(require('fs').readFileSync('/dev/stdin').toString()).files.map(f => './'+f).join(' ')\\\" | xargs rm -rf\",\"pack\":\"yarn pack\",\"size\":\"size-limit\"},\"sideEffects\":false,\"size-limit\":[{\"limit\":\"16 KB\",\"path\":\"production.js\"}],\"types\":\"index.d.ts\",\"unpkg\":\"umd/index.js\",\"version\":\"1.20.2\"}");
+module.exports = JSON.parse("{\"_args\":[[\"@shopify/app-bridge@1.20.2\",\"/Users/ivanhuang/Desktop/EthicScore\"]],\"_from\":\"@shopify/app-bridge@1.20.2\",\"_id\":\"@shopify/app-bridge@1.20.2\",\"_inBundle\":false,\"_integrity\":\"sha512-POH6zkCGkScFhgKVNLzsEbaHtPbdgUoutu902kNw7XipfgA9yBmupgzKafAdADuSHz4b1MujpE5GwcUaeUYQkg==\",\"_location\":\"/@shopify/app-bridge\",\"_phantomChildren\":{},\"_requested\":{\"type\":\"version\",\"registry\":true,\"raw\":\"@shopify/app-bridge@1.20.2\",\"name\":\"@shopify/app-bridge\",\"escapedName\":\"@shopify%2fapp-bridge\",\"scope\":\"@shopify\",\"rawSpec\":\"1.20.2\",\"saveSpec\":null,\"fetchSpec\":\"1.20.2\"},\"_requiredBy\":[\"/@shopify/app-bridge-react\",\"/@shopify/polaris\"],\"_resolved\":\"https://registry.npmjs.org/@shopify/app-bridge/-/app-bridge-1.20.2.tgz\",\"_spec\":\"1.20.2\",\"_where\":\"/Users/ivanhuang/Desktop/EthicScore\",\"author\":{\"name\":\"Shopify Inc.\"},\"bugs\":{\"url\":\"https://github.com/Shopify/app-bridge/issues\"},\"description\":\"[![Build Status](https://travis-ci.com/Shopify/app-bridge.svg?token=RBRyvqQyN525bnfz7J8p&branch=master)](https://travis-ci.com/Shopify/app-bridge) [![codecov](https://codecov.io/gh/Shopify/app-bridge/branch/master/graph/badge.svg?token=nZ21m39Dr6)](https://codecov.io/gh/Shopify/app-bridge) [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Fapp-bridge.svg)](https://badge.fury.io/js/%40shopify%2Fapp-bridge.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/app-bridge.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/app-bridge.svg)\",\"devDependencies\":{\"@types/node\":\"^10.12.5\",\"typescript\":\"3.2.1\"},\"files\":[\"/actions/\",\"/client/\",\"/umd/\",\"/util/\",\"/validate/\",\"/MessageTransport.d.ts\",\"/MessageTransport.js\",\"/development.d.ts\",\"/development.js\",\"/index.d.ts\",\"/index.js\",\"/production.d.ts\",\"/production.js\"],\"gitHead\":\"6daa42b659b3f9b9ddfce068e91b852996df2e0d\",\"homepage\":\"https://github.com/Shopify/app-bridge#readme\",\"jsdelivr\":\"umd/index.js\",\"license\":\"MIT\",\"main\":\"index.js\",\"name\":\"@shopify/app-bridge\",\"private\":false,\"publishConfig\":{\"access\":\"public\",\"@shopify:registry\":\"https://registry.npmjs.org\"},\"repository\":{\"type\":\"git\",\"url\":\"git+ssh://git@github.com/Shopify/app-bridge.git\"},\"scripts\":{\"build\":\"yarn build:tsc && yarn build:umd\",\"build:tsc\":\"NODE_ENV=production tsc\",\"build:umd\":\"NODE_ENV=production webpack -p\",\"check\":\"tsc --pretty --noEmit\",\"clean\":\"cat package.json | node -pe \\\"JSON.parse(require('fs').readFileSync('/dev/stdin').toString()).files.map(f => './'+f).join(' ')\\\" | xargs rm -rf\",\"pack\":\"yarn pack\",\"size\":\"size-limit\"},\"sideEffects\":false,\"size-limit\":[{\"limit\":\"16 KB\",\"path\":\"production.js\"}],\"types\":\"index.d.ts\",\"unpkg\":\"umd/index.js\",\"version\":\"1.20.2\"}");
 
 /***/ }),
 
@@ -34573,7 +34573,7 @@ module.exports = __webpack_require__(/*! ./dist/index.common.js */ "./node_modul
 /*!***************************************************!*\
   !*** ./node_modules/@shopify/polaris/index.es.js ***!
   \***************************************************/
-/*! exports provided: Months, AccountConnection, ActionList, ActionMenu, AppBridgeContext, AppProvider, Autocomplete, Avatar, Backdrop, Badge, Banner, Breadcrumbs, Button, ButtonGroup, CalloutCard, Caption, Card, Checkbox, ChoiceList, Collapsible, ColorPicker, Connected, ContextualSaveBar, DATA_ATTRIBUTE, DEFAULT_TOAST_DURATION, DEFAULT_TOAST_DURATION_WITH_ACTION, DataTable, DatePicker, DescriptionList, DisplayText, DropZone, EmptySearchResult, EmptyState, EventListener, ExceptionList, FilterType, Filters, Focus, FooterHelp, Form, FormLayout, Frame, Heading, Icon, Image, Indicator, InlineError, Key, KeyboardKey, KeypressListener, Label, Labelled, Layout, Link, List, Loading, Modal, Navigation, OptionList, Page, PageActions, Pagination, PolarisTestProvider, Popover, PopoverCloseSource, Portal, ProgressBar, RadioButton, RangeSlider, ResourceItem, ResourceList, ResourcePicker, ScrollLock, Scrollable, Select, SettingToggle, Sheet, SkeletonBodyText, SkeletonDisplayText, SkeletonPage, SkeletonThumbnail, Spinner, Stack, Sticky, Subheading, Tabs, Tag, TextContainer, TextField, TextStyle, ThemeProvider, Thumbnail, Toast, Tooltip, TopBar, TrapFocus, Truncate, TypeOf, UNSTABLE_Tokens, UNSTABLE_toCssCustomPropertySyntax, UnstyledLink, VisuallyHidden, _SECRET_INTERNAL_SCROLL_LOCK_MANAGER_CONTEXT, _SECRET_INTERNAL_WITHIN_CONTENT_CONTEXT, buttonFrom, buttonsFrom, errorTextID, hsbToHex, hsbToRgb, hslToRgb, isNavigationItemActive, isNewDesignLanguageColor, rgbString, rgbToHex, rgbToHsb, rgbToHsl, rgbaString */
+/*! exports provided: Months, AccountConnection, ActionList, ActionMenu, AppBridgeContext, AppProvider, Autocomplete, Avatar, Backdrop, Badge, Banner, Breadcrumbs, Button, ButtonGroup, CalloutCard, Caption, Card, Checkbox, ChoiceList, Collapsible, ColorPicker, Connected, ContextualSaveBar, DATA_ATTRIBUTE, DEFAULT_TOAST_DURATION, DEFAULT_TOAST_DURATION_WITH_ACTION, DataTable, DatePicker, DescriptionList, DisplayText, DropZone, EmptySearchResult, EmptyState, EventListener, ExceptionList, FilterType, Filters, Focus, FooterHelp, Form, FormLayout, Frame, Heading, Icon, Image, Indicator, InlineError, Key, KeyboardKey, KeypressListener, Label, Labelled, Layout, Link, List, Loading, MediaCard, Modal, Navigation, OptionList, Page, PageActions, Pagination, PolarisTestProvider, Popover, PopoverCloseSource, Portal, ProgressBar, RadioButton, RangeSlider, ResourceItem, ResourceList, ResourcePicker, ScrollLock, Scrollable, Select, SettingToggle, Sheet, SkeletonBodyText, SkeletonDisplayText, SkeletonPage, SkeletonThumbnail, Spinner, Stack, Sticky, Subheading, Tabs, Tag, TextContainer, TextField, TextStyle, ThemeProvider, Thumbnail, Toast, Tooltip, TopBar, TrapFocus, Truncate, TypeOf, UNSTABLE_Tokens, UNSTABLE_toCssCustomPropertySyntax, UnstyledLink, VideoThumbnail, VisuallyHidden, _SECRET_INTERNAL_SCROLL_LOCK_MANAGER_CONTEXT, _SECRET_INTERNAL_WITHIN_CONTENT_CONTEXT, buttonFrom, buttonsFrom, errorTextID, hsbToHex, hsbToRgb, hslToRgb, isNavigationItemActive, isNewDesignLanguageColor, rgbString, rgbToHex, rgbToHsb, rgbToHsl, rgbaString */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -34633,6 +34633,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Link", function() { return Link; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "List", function() { return List; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Loading", function() { return Loading$1; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MediaCard", function() { return MediaCard; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Modal", function() { return Modal; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Navigation", function() { return Navigation$1; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OptionList", function() { return OptionList; });
@@ -34678,6 +34679,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UNSTABLE_Tokens", function() { return Tokens; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UNSTABLE_toCssCustomPropertySyntax", function() { return toCssCustomPropertySyntax; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UnstyledLink", function() { return UnstyledLink; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VideoThumbnail", function() { return VideoThumbnail; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VisuallyHidden", function() { return VisuallyHidden; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_SECRET_INTERNAL_SCROLL_LOCK_MANAGER_CONTEXT", function() { return ScrollLockManagerContext; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_SECRET_INTERNAL_WITHIN_CONTENT_CONTEXT", function() { return WithinContentContext; });
@@ -34766,10 +34768,10 @@ var _shopify_polaris_tokens_dist_modern_theme_base_json__WEBPACK_IMPORTED_MODULE
 
 if (typeof window !== 'undefined') {
   window.Polaris = window.Polaris || {};
-  window.Polaris.VERSION = '4.17.0';
+  window.Polaris.VERSION = '4.18.0';
 }
 
-var polarisVersion = '4.17.0';
+var polarisVersion = '4.18.0';
 
 var NEW_DESIGN_LANGUAGE_COLORS = ['base', 'subdued', 'critical', 'warning', 'highlight', 'success', 'primary'];
 function isNewDesignLanguageColor(color) {
@@ -47210,11 +47212,89 @@ var Loading$1 = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function Loadi
   return null;
 });
 
+var styles$1d = {
+  "MediaCard": "Polaris-MediaCard",
+  "portrait": "Polaris-MediaCard--portrait",
+  "MediaContainer": "Polaris-MediaCard__MediaContainer",
+  "InfoContainer": "Polaris-MediaCard__InfoContainer",
+  "Popover": "Polaris-MediaCard__Popover",
+  "Heading": "Polaris-MediaCard__Heading",
+  "PrimaryAction": "Polaris-MediaCard__PrimaryAction",
+  "SecondaryAction": "Polaris-MediaCard__SecondaryAction",
+  "ActionContainer": "Polaris-MediaCard__ActionContainer"
+};
+
+function MediaCard(_ref) {
+  var title = _ref.title,
+      children = _ref.children,
+      primaryAction = _ref.primaryAction,
+      secondaryAction = _ref.secondaryAction,
+      description = _ref.description,
+      _ref$popoverActions = _ref.popoverActions,
+      popoverActions = _ref$popoverActions === void 0 ? [] : _ref$popoverActions,
+      _ref$portrait = _ref.portrait,
+      portrait = _ref$portrait === void 0 ? false : _ref$portrait;
+  var i18n = useI18n();
+
+  var _useToggle = useToggle(false),
+      popoverActive = _useToggle.value,
+      togglePopoverActive = _useToggle.toggle;
+
+  var popoverActivator = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Button, {
+    icon: _shopify_polaris_icons__WEBPACK_IMPORTED_MODULE_2__["HorizontalDotsMinor"],
+    onClick: togglePopoverActive,
+    size: "slim",
+    plain: true,
+    accessibilityLabel: i18n.translate('Polaris.MediaCard.popoverButton')
+  });
+  var popoverActionsMarkup = popoverActions.length > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: styles$1d.Popover
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Popover, {
+    active: popoverActive,
+    activator: popoverActivator,
+    onClose: togglePopoverActive,
+    preferredAlignment: "left",
+    preferredPosition: "below"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ActionList, {
+    items: popoverActions,
+    onActionAnyItem: togglePopoverActive
+  }))) : null;
+  var primaryActionMarkup = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: styles$1d.PrimaryAction
+  }, buttonFrom(primaryAction));
+  var secondaryActionMarkup = secondaryAction ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: styles$1d.SecondaryAction
+  }, buttonFrom(secondaryAction, {
+    plain: true
+  })) : null;
+  var actionClassName = classNames(styles$1d.ActionContainer, portrait && styles$1d.portrait);
+  var actionMarkup = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: actionClassName
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ButtonGroup, null, primaryActionMarkup, secondaryActionMarkup));
+  var mediaCardClassName = classNames(styles$1d.MediaCard, portrait && styles$1d.portrait);
+  var mediaContainerClassName = classNames(styles$1d.MediaContainer, portrait && styles$1d.portrait);
+  var infoContainerClassName = classNames(styles$1d.InfoContainer, portrait && styles$1d.portrait);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Card, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: mediaCardClassName
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: mediaContainerClassName
+  }, children), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: infoContainerClassName
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Card.Section, null, popoverActionsMarkup, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Stack, {
+    vertical: true,
+    spacing: "tight"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: styles$1d.Heading
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Heading, null, title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    className: styles$1d.Description
+  }, description), actionMarkup)))));
+}
+
 var NavigationContext = react__WEBPACK_IMPORTED_MODULE_0___default.a.createContext({
   location: ''
 });
 
-var styles$1d = {
+var styles$1e = {
   "Navigation": "Polaris-Navigation",
   "Navigation-newDesignLanguage": "Polaris-Navigation__Navigation--newDesignLanguage",
   "Navigation-noMedia": "Polaris-Navigation__Navigation--noMedia",
@@ -47258,7 +47338,7 @@ function Secondary(_ref) {
     id: id,
     open: expanded
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-    className: styles$1d.List
+    className: styles$1e.List
   }, children));
 }
 
@@ -47326,12 +47406,12 @@ function Item$7(_ref) {
     return subNavigationItem.new;
   }).length > 0;
   var indicatorMarkup = hasNewChild ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-    className: styles$1d.Indicator
+    className: styles$1e.Indicator
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Indicator, {
     pulse: true
   })) : null;
   var iconMarkup = icon ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1d.Icon
+    className: styles$1e.Icon
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Icon, {
     source: icon
   })) : null;
@@ -47352,17 +47432,17 @@ function Item$7(_ref) {
   }
 
   var wrappedBadgeMarkup = badgeMarkup == null ? null : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1d.Badge
+    className: styles$1e.Badge
   }, badgeMarkup);
   var itemContentMarkup = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, iconMarkup, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-    className: styles$1d.Text
+    className: styles$1e.Text
   }, label, indicatorMarkup), wrappedBadgeMarkup);
 
   if (url == null) {
-    var _className = classNames(styles$1d.Item, disabled && styles$1d['Item-disabled'], keyFocused && styles$1d.keyFocused);
+    var _className = classNames(styles$1e.Item, disabled && styles$1e['Item-disabled'], keyFocused && styles$1e.keyFocused);
 
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-      className: styles$1d.ListItem
+      className: styles$1e.ListItem
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       type: "button",
       className: _className,
@@ -47378,7 +47458,7 @@ function Item$7(_ref) {
   var secondaryActionMarkup = secondaryAction && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(UnstyledLink, {
     external: true,
     url: secondaryAction.url,
-    className: styles$1d.SecondaryAction,
+    className: styles$1e.SecondaryAction,
     tabIndex: tabIndex,
     "aria-disabled": disabled,
     "aria-label": secondaryAction.accessibilityLabel
@@ -47399,7 +47479,7 @@ function Item$7(_ref) {
   var childIsActive = matchingSubNavigationItems.length > 0;
   var selected = selectedOverride == null ? matchState === MatchState.MatchForced || matchState === MatchState.MatchUrl || matchState === MatchState.MatchPaths : selectedOverride;
   var showExpanded = selected || expanded || childIsActive;
-  var itemClassName = classNames(styles$1d.Item, disabled && styles$1d['Item-disabled'], selected && subNavigationItems.length === 0 && styles$1d['Item-selected'], showExpanded && styles$1d.subNavigationActive, keyFocused && styles$1d.keyFocused);
+  var itemClassName = classNames(styles$1e.Item, disabled && styles$1e['Item-disabled'], selected && subNavigationItems.length === 0 && styles$1e['Item-selected'], showExpanded && styles$1e.subNavigationActive, keyFocused && styles$1e.keyFocused);
   var secondaryNavigationMarkup = null;
 
   if (subNavigationItems.length > 0 && showExpanded) {
@@ -47408,7 +47488,7 @@ function Item$7(_ref) {
       var secondUrl = _ref3.url;
       return secondUrl.length - firstUrl.length;
     })[0];
-    var SecondaryNavigationClassName = classNames(styles$1d.SecondaryNavigation, !icon && styles$1d['SecondaryNavigation-noIcon']);
+    var SecondaryNavigationClassName = classNames(styles$1e.SecondaryNavigation, !icon && styles$1e['SecondaryNavigation-noIcon']);
     secondaryNavigationMarkup = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: SecondaryNavigationClassName
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Secondary, {
@@ -47426,11 +47506,11 @@ function Item$7(_ref) {
     })));
   }
 
-  var className = classNames(styles$1d.ListItem, secondaryAction && styles$1d['ListItem-hasAction']);
+  var className = classNames(styles$1e.ListItem, secondaryAction && styles$1e['ListItem-hasAction']);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
     className: className
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1d.ItemWrapper
+    className: styles$1e.ItemWrapper
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(UnstyledLink, {
     url: url,
     className: itemClassName,
@@ -47560,19 +47640,19 @@ function Section$5(_ref) {
       animationFrame.current && cancelAnimationFrame(animationFrame.current);
     };
   });
-  var className = classNames(styles$1d.Section, separator && styles$1d['Section-withSeparator'], fill && styles$1d['Section-fill']);
+  var className = classNames(styles$1e.Section, separator && styles$1e['Section-withSeparator'], fill && styles$1e['Section-fill']);
   var actionMarkup = action && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     type: "button",
-    className: styles$1d.Action,
+    className: styles$1e.Action,
     "aria-label": action.accessibilityLabel,
     onClick: action.onClick
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Icon, {
     source: action.icon
   }));
   var sectionHeadingMarkup = title && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-    className: styles$1d.SectionHeading
+    className: styles$1e.SectionHeading
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-    className: styles$1d.Text
+    className: styles$1e.Text
   }, title), actionMarkup);
   var itemsMarkup = items.map(function (item) {
     var onClick = item.onClick,
@@ -47588,10 +47668,10 @@ function Section$5(_ref) {
       onClick: handleClick(onClick, hasSubNavItems)
     }));
   });
-  var toggleClassName = classNames(styles$1d.Item, styles$1d.RollupToggle);
+  var toggleClassName = classNames(styles$1e.Item, styles$1e.RollupToggle);
   var ariaLabel = rollup && (expanded ? rollup.hide : rollup.view);
   var toggleRollup = rollup && items.length > rollup.after && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1d.ListItem,
+    className: styles$1e.ListItem,
     key: "List Item"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     type: "button",
@@ -47599,7 +47679,7 @@ function Section$5(_ref) {
     onClick: toggleExpanded,
     "aria-label": ariaLabel
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-    className: styles$1d.Icon
+    className: styles$1e.Icon
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Icon, {
     source: _shopify_polaris_icons__WEBPACK_IMPORTED_MODULE_2__["HorizontalDotsMinor"]
   }))));
@@ -47622,12 +47702,12 @@ function Section$5(_ref) {
 
   var additionalItemsId = useUniqueId('AdditionalItems');
   var activeItemsMarkup = rollup && additionalItems.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-    className: styles$1d.RollupSection
+    className: styles$1e.RollupSection
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Collapsible, {
     id: additionalItemsId,
     open: expanded
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-    className: styles$1d.List
+    className: styles$1e.List
   }, additionalItems)), toggleRollup);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     className: className
@@ -47648,25 +47728,25 @@ var Navigation$1 = function Navigation(_ref) {
 
   var width = getWidth(logo, 104);
   var logoMarkup = logo && newDesignLanguage ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1d.LogoContainer
+    className: styles$1e.LogoContainer
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(UnstyledLink, {
     url: logo.url || '',
-    className: styles$1d.LogoLink,
+    className: styles$1e.LogoLink,
     style: {
       width
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Image, {
     source: logo.topBarSource || '',
     alt: logo.accessibilityLabel || '',
-    className: styles$1d.Logo,
+    className: styles$1e.Logo,
     style: {
       width
     }
   }))) : null;
   var mediaMarkup = contextControl ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1d.ContextControl
+    className: styles$1e.ContextControl
   }, contextControl) : logoMarkup;
-  var className = classNames(styles$1d.Navigation, !mediaMarkup && newDesignLanguage && styles$1d['Navigation-noMedia'], newDesignLanguage && styles$1d['Navigation-newDesignLanguage']);
+  var className = classNames(styles$1e.Navigation, !mediaMarkup && newDesignLanguage && styles$1e['Navigation-noMedia'], newDesignLanguage && styles$1e['Navigation-newDesignLanguage']);
   var context = {
     location,
     onNavigationDismiss: onDismiss
@@ -47678,7 +47758,7 @@ var Navigation$1 = function Navigation(_ref) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
     className: className
   }, mediaMarkup, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Scrollable, {
-    className: styles$1d.PrimaryNavigation
+    className: styles$1e.PrimaryNavigation
   }, children))));
 };
 Navigation$1.Item = Item$7;
@@ -47702,7 +47782,7 @@ function isInputFocused() {
   return tagName === EditableTarget.Input || tagName === EditableTarget.Textarea || tagName === EditableTarget.Select || document.activeElement.hasAttribute(EditableTarget.ContentEditable);
 }
 
-var styles$1e = {
+var styles$1f = {
   "Tooltip": "Polaris-Tooltip",
   "measuring": "Polaris-Tooltip--measuring",
   "positionedAbove": "Polaris-Tooltip--positionedAbove",
@@ -47746,18 +47826,18 @@ var TooltipOverlay = /*#__PURE__*/function (_React$PureComponent) {
           id = _this$props2.id,
           children = _this$props2.children,
           light = _this$props2.light;
-      var containerClassName = classNames(styles$1e.Tooltip, light && styles$1e.light, measuring && styles$1e.measuring, positioning === 'above' && styles$1e.positionedAbove);
+      var containerClassName = classNames(styles$1f.Tooltip, light && styles$1f.light, measuring && styles$1f.measuring, positioning === 'above' && styles$1f.positionedAbove);
       var contentStyles = measuring ? undefined : {
         minHeight: desiredHeight
       };
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", Object.assign({
         className: containerClassName
       }, layer.props), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: styles$1e.Wrapper
+        className: styles$1f.Wrapper
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: id,
         role: "tooltip",
-        className: styles$1e.Content,
+        className: styles$1f.Content,
         style: contentStyles
       }, children)));
     };
@@ -47817,7 +47897,7 @@ function Tooltip(_ref) {
     onClose: noop$8,
     light: light
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1e.Label
+    className: styles$1f.Label
   }, content))) : null;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(WrapperComponent, {
     onFocus: handleFocus,
@@ -47859,7 +47939,7 @@ function Tooltip(_ref) {
 
 function noop$8() {}
 
-var styles$1f = {
+var styles$1g = {
   "Pagination": "Polaris-Pagination",
   "plain": "Polaris-Pagination--plain",
   "Button": "Polaris-Pagination__Button",
@@ -47890,9 +47970,9 @@ function Pagination(_ref) {
 
   var node = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
   var navLabel = accessibilityLabel || i18n.translate('Polaris.Pagination.pagination');
-  var className = classNames(styles$1f.Pagination, plain && styles$1f.plain);
-  var previousClassName = classNames(styles$1f.Button, !label && styles$1f.PreviousButton);
-  var nextClassName = classNames(styles$1f.Button, !label && styles$1f.NextButton);
+  var className = classNames(styles$1g.Pagination, plain && styles$1g.plain);
+  var previousClassName = classNames(styles$1g.Button, !label && styles$1g.PreviousButton);
+  var nextClassName = classNames(styles$1g.Button, !label && styles$1g.NextButton);
   var previousButton = previousURL ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(UnstyledLink, {
     className: previousClassName,
     url: previousURL,
@@ -47971,7 +48051,7 @@ function Pagination(_ref) {
     variation: "subdued"
   }, label);
   var labelMarkup = label ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: newDesignLanguage ? undefined : styles$1f.Label,
+    className: newDesignLanguage ? undefined : styles$1g.Label,
     "aria-live": "polite"
   }, labelTextMarkup) : null;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
@@ -48014,7 +48094,7 @@ function handleCallback(fn) {
 
 function noop$9() {}
 
-var styles$1g = {
+var styles$1h = {
   "Title": "Polaris-Header-Title",
   "SubTitle": "Polaris-Header-Title__SubTitle",
   "hasThumbnail": "Polaris-Header-Title--hasThumbnail",
@@ -48034,30 +48114,30 @@ function Title(_ref) {
       newDesignLanguage = _useFeatures.newDesignLanguage;
 
   var titleMarkup = title ? /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: styles$1g.Title
+    className: styles$1h.Title
   }, /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_0__["createElement"])(DisplayText, {
     size: "large",
     element: "h1"
   }, title)) : null;
   var titleMetadataMarkup = titleMetadata ? /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: classNames(styles$1g.TitleMetadata, newDesignLanguage && styles$1g.newDesignLanguage)
+    className: classNames(styles$1h.TitleMetadata, newDesignLanguage && styles$1h.newDesignLanguage)
   }, titleMetadata) : null;
   var wrappedTitleMarkup = titleMetadata ? /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: styles$1g.TitleWithMetadataWrapper
+    className: styles$1h.TitleWithMetadataWrapper
   }, titleMarkup, titleMetadataMarkup) : titleMarkup;
   var subtitleMarkup = subtitle ? /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: styles$1g.SubTitle
+    className: styles$1h.SubTitle
   }, /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, subtitle)) : null;
   var thumbnailMarkup = thumbnail ? /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, thumbnail) : null;
-  var pageTitleClassName = thumbnail ? classNames(styles$1g.hasThumbnail) : undefined;
+  var pageTitleClassName = thumbnail ? classNames(styles$1h.hasThumbnail) : undefined;
   return /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: pageTitleClassName
   }, thumbnailMarkup, /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: styles$1g.TitleAndSubtitleWrapper
+    className: styles$1h.TitleAndSubtitleWrapper
   }, wrappedTitleMarkup, subtitleMarkup));
 }
 
-var styles$1h = {
+var styles$1i = {
   "Header": "Polaris-Page-Header",
   "newDesignLanguage": "Polaris-Page-Header--newDesignLanguage",
   "separator": "Polaris-Page-Header--separator",
@@ -48101,17 +48181,17 @@ function Header$2(_ref) {
       newDesignLanguage = _useFeatures.newDesignLanguage;
 
   var breadcrumbMarkup = breadcrumbs.length > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: classNames(styles$1h.BreadcrumbWrapper, newDesignLanguage && styles$1h.newDesignLanguage)
+    className: classNames(styles$1i.BreadcrumbWrapper, newDesignLanguage && styles$1i.newDesignLanguage)
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Breadcrumbs, {
     breadcrumbs: breadcrumbs
   })) : null;
   var paginationMarkup = pagination && !isNavigationCollapsed ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1h.PaginationWrapper
+    className: styles$1i.PaginationWrapper
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Pagination, Object.assign({}, pagination, {
     plain: true
   }))) : null;
   var navigationMarkup = breadcrumbMarkup || paginationMarkup ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1h.Navigation
+    className: styles$1i.Navigation
   }, breadcrumbMarkup, paginationMarkup) : null;
   var pageTitleMarkup = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Title, {
     title: title,
@@ -48124,7 +48204,7 @@ function Header$2(_ref) {
     condition: newDesignLanguage === false,
     wrapper: function wrapper(children) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: styles$1h.PrimaryActionWrapper
+        className: styles$1i.PrimaryActionWrapper
       }, children);
     }
   }, buttonsFrom(shouldShowIconOnly(newDesignLanguage, isNavigationCollapsed, primaryAction), {
@@ -48134,7 +48214,7 @@ function Header$2(_ref) {
     condition: newDesignLanguage === false,
     wrapper: function wrapper(children) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: styles$1h.ActionMenuWrapper
+        className: styles$1i.ActionMenuWrapper
       }, children);
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ActionMenu, {
@@ -48142,7 +48222,7 @@ function Header$2(_ref) {
     groups: actionGroups,
     rollup: isNavigationCollapsed
   })) : null;
-  var headerClassNames = classNames(styles$1h.Header, titleHidden && styles$1h.titleHidden, separator && styles$1h.separator, navigationMarkup && styles$1h.hasNavigation, actionMenuMarkup && styles$1h.hasActionMenu, isNavigationCollapsed && styles$1h.mobileView, newDesignLanguage && styles$1h.newDesignLanguage);
+  var headerClassNames = classNames(styles$1i.Header, titleHidden && styles$1i.titleHidden, separator && styles$1i.separator, navigationMarkup && styles$1i.hasNavigation, actionMenuMarkup && styles$1i.hasActionMenu, isNavigationCollapsed && styles$1i.mobileView, newDesignLanguage && styles$1i.newDesignLanguage);
 
   if (newDesignLanguage) {
     var _determineLayout = determineLayout({
@@ -48166,13 +48246,13 @@ function Header$2(_ref) {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ConditionalRender, {
       condition: [slot1, slot2, slot3, slot4].some(notNull)
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: styles$1h.Row
+      className: styles$1i.Row
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: styles$1h.LeftAlign
+      className: styles$1i.LeftAlign
     }, slot1, slot2), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ConditionalRender, {
       condition: [slot3, slot4].some(notNull)
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: styles$1h.RightAlign
+      className: styles$1i.RightAlign
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ConditionalWrapper, {
       condition: [slot3, slot4].every(notNull),
       wrapper: function wrapper(children) {
@@ -48181,22 +48261,22 @@ function Header$2(_ref) {
     }, slot3, slot4))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ConditionalRender, {
       condition: [slot5, slot6].some(notNull)
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: styles$1h.Row
+      className: styles$1i.Row
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: styles$1h.LeftAlign
+      className: styles$1i.LeftAlign
     }, slot5), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ConditionalRender, {
       condition: slot6 != null
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: styles$1h.RightAlign
+      className: styles$1i.RightAlign
     }, slot6)))));
   }
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: headerClassNames
   }, navigationMarkup, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1h.MainContent
+    className: styles$1i.MainContent
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1h.TitleActionMenuWrapper
+    className: styles$1i.TitleActionMenuWrapper
   }, pageTitleMarkup, actionMenuMarkup), primaryActionMarkup));
 }
 
@@ -48295,7 +48375,7 @@ function determineLayout(_ref2) {
   return layout.slots;
 }
 
-var styles$1i = {
+var styles$1j = {
   "Page": "Polaris-Page",
   "fullWidth": "Polaris-Page--fullWidth",
   "narrowWidth": "Polaris-Page--narrowWidth",
@@ -48369,12 +48449,12 @@ var PageInner = /*#__PURE__*/function (_React$PureComponent) {
         console.warn('Deprecation: The singleColumn prop has been renamed to narrowWidth to better represents its use and will be removed in v5.0.');
       }
 
-      var className = classNames(styles$1i.Page, fullWidth && styles$1i.fullWidth, (narrowWidth || singleColumn) && styles$1i.narrowWidth);
+      var className = classNames(styles$1j.Page, fullWidth && styles$1j.fullWidth, (narrowWidth || singleColumn) && styles$1j.narrowWidth);
       var headerMarkup = this.delegateToAppbridge() || this.hasHeaderContent() === false ? null : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Header$2, rest);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: className
       }, headerMarkup, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: styles$1i.Content
+        className: styles$1j.Content
       }, children));
     }
   }, {
@@ -48447,7 +48527,7 @@ var PageInner = /*#__PURE__*/function (_React$PureComponent) {
 
 var Page = withAppProvider()(PageInner);
 
-var styles$1j = {
+var styles$1k = {
   "PageActions": "Polaris-PageActions"
 };
 
@@ -48460,7 +48540,7 @@ function PageActions(_ref) {
   var secondaryActionsMarkup = secondaryActions ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ButtonGroup, null, buttonsFrom(secondaryActions)) : null;
   var distribution = secondaryActionsMarkup ? 'equalSpacing' : 'trailing';
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1j.PageActions
+    className: styles$1k.PageActions
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Stack, {
     distribution: distribution,
     spacing: "tight"
@@ -48549,7 +48629,7 @@ function createFrameContext() {
   };
 }
 
-var styles$1k = {
+var styles$1l = {
   "ProgressBar": "Polaris-ProgressBar",
   "sizeSmall": "Polaris-ProgressBar--sizeSmall",
   "sizeMedium": "Polaris-ProgressBar--sizeMedium",
@@ -48566,7 +48646,7 @@ function ProgressBar(_ref) {
       _ref$size = _ref.size,
       size = _ref$size === void 0 ? 'medium' : _ref$size;
   var i18n = useI18n();
-  var className = classNames(styles$1k.ProgressBar, size && styles$1k[variationName('size', size)]);
+  var className = classNames(styles$1l.ProgressBar, size && styles$1l[variationName('size', size)]);
   var warningMessage = i18n.translate(progress < 0 ? 'Polaris.ProgressBar.negativeWarningMessage' : 'Polaris.ProgressBar.exceedWarningMessage', {
     progress
   });
@@ -48574,16 +48654,16 @@ function ProgressBar(_ref) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: className
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("progress", {
-    className: styles$1k.Progress,
+    className: styles$1l.Progress,
     value: parsedProgress,
     max: "100"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1k.Indicator,
+    className: styles$1l.Indicator,
     style: {
       width: "".concat(parsedProgress, "%")
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-    className: styles$1k.Label
+    className: styles$1l.Label
   }, parsedProgress, "%")));
 }
 
@@ -48623,7 +48703,7 @@ function invertNumber(number) {
 
 var CSS_VAR_PREFIX = '--Polaris-RangeSlider-';
 
-var styles$1l = {
+var styles$1m = {
   "Wrapper": "Polaris-RangeSlider-DualThumb__Wrapper",
   "TrackWrapper": "Polaris-RangeSlider-DualThumb__TrackWrapper",
   "disabled": "Polaris-RangeSlider-DualThumb--disabled",
@@ -48946,14 +49026,14 @@ var DualThumb = /*#__PURE__*/function (_React$Component) {
       }
 
       var ariaDescribedBy = describedBy.length ? describedBy.join(' ') : undefined;
-      var trackWrapperClassName = classNames(styles$1l.TrackWrapper, error && styles$1l.error, disabled && styles$1l.disabled);
-      var thumbLowerClassName = classNames(styles$1l.Thumbs, styles$1l.ThumbLower, disabled && styles$1l.disabled);
-      var thumbUpperClassName = classNames(styles$1l.Thumbs, styles$1l.ThumbUpper, disabled && styles$1l.disabled);
+      var trackWrapperClassName = classNames(styles$1m.TrackWrapper, error && styles$1m.error, disabled && styles$1m.disabled);
+      var thumbLowerClassName = classNames(styles$1m.Thumbs, styles$1m.ThumbLower, disabled && styles$1m.disabled);
+      var thumbUpperClassName = classNames(styles$1m.Thumbs, styles$1m.ThumbUpper, disabled && styles$1m.disabled);
       var trackWidth = this.state.trackWidth;
       var range = max - min;
       var leftPositionThumbLower = value[0] / range * trackWidth;
       var leftPositionThumbUpper = value[1] / range * trackWidth;
-      var outputLowerClassName = classNames(styles$1l.Output, styles$1l.OutputLower);
+      var outputLowerClassName = classNames(styles$1m.Output, styles$1m.OutputLower);
       var outputMarkupLower = !disabled && output ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("output", {
         htmlFor: idLower,
         className: outputLowerClassName,
@@ -48961,11 +49041,11 @@ var DualThumb = /*#__PURE__*/function (_React$Component) {
           left: "".concat(leftPositionThumbLower, "px")
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: styles$1l.OutputBubble
+        className: styles$1m.OutputBubble
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: styles$1l.OutputText
+        className: styles$1m.OutputText
       }, value[0]))) : null;
-      var outputUpperClassName = classNames(styles$1l.Output, styles$1l.OutputUpper);
+      var outputUpperClassName = classNames(styles$1m.Output, styles$1m.OutputUpper);
       var outputMarkupUpper = !disabled && output ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("output", {
         htmlFor: idUpper,
         className: outputUpperClassName,
@@ -48973,19 +49053,19 @@ var DualThumb = /*#__PURE__*/function (_React$Component) {
           left: "".concat(leftPositionThumbUpper, "px")
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: styles$1l.OutputBubble
+        className: styles$1m.OutputBubble
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: styles$1l.OutputText
+        className: styles$1m.OutputText
       }, value[1]))) : null;
       var cssVars = {
         ["".concat(CSS_VAR_PREFIX, "progress-lower")]: "".concat(leftPositionThumbLower, "px"),
         ["".concat(CSS_VAR_PREFIX, "progress-upper")]: "".concat(leftPositionThumbUpper, "px")
       };
       var prefixMarkup = prefix && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: styles$1l.Prefix
+        className: styles$1m.Prefix
       }, prefix);
       var suffixMarkup = suffix && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: styles$1l.Suffix
+        className: styles$1m.Suffix
       }, suffix);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Labelled, {
         id: id,
@@ -48995,17 +49075,17 @@ var DualThumb = /*#__PURE__*/function (_React$Component) {
         labelHidden: labelHidden,
         helpText: helpText
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: styles$1l.Wrapper
+        className: styles$1m.Wrapper
       }, prefixMarkup, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: trackWrapperClassName,
         onMouseDown: this.handleMouseDownTrack,
         ref: this.trackWrapper
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: styles$1l.Track,
+        className: styles$1m.Track,
         style: cssVars,
         ref: this.track
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: styles$1l['Track--dashed']
+        className: styles$1m['Track--dashed']
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         id: idLower,
         className: thumbLowerClassName,
@@ -49162,7 +49242,7 @@ function clamp(number, min, max) {
   return number;
 }
 
-var styles$1m = {
+var styles$1n = {
   "SingleThumb": "Polaris-RangeSlider-SingleThumb",
   "disabled": "Polaris-RangeSlider-SingleThumb--disabled",
   "InputWrapper": "Polaris-RangeSlider-SingleThumb__InputWrapper",
@@ -49215,19 +49295,19 @@ function SingleThumb(props) {
   };
   var outputMarkup = !disabled && output && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("output", {
     htmlFor: id,
-    className: styles$1m.Output
+    className: styles$1n.Output
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1m.OutputBubble
+    className: styles$1n.OutputBubble
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-    className: styles$1m.OutputText
+    className: styles$1n.OutputText
   }, clampedValue)));
   var prefixMarkup = prefix && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1m.Prefix
+    className: styles$1n.Prefix
   }, prefix);
   var suffixMarkup = suffix && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1m.Suffix
+    className: styles$1n.Suffix
   }, suffix);
-  var className = classNames(styles$1m.SingleThumb, error && styles$1m.error, disabled && styles$1m.disabled);
+  var className = classNames(styles$1n.SingleThumb, error && styles$1n.error, disabled && styles$1n.disabled);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Labelled, {
     id: id,
     label: label,
@@ -49239,10 +49319,10 @@ function SingleThumb(props) {
     className: className,
     style: cssVars
   }, prefixMarkup, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1m.InputWrapper
+    className: styles$1n.InputWrapper
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
     type: "range",
-    className: styles$1m.Input,
+    className: styles$1n.Input,
     id: id,
     name: id,
     min: min,
@@ -49294,7 +49374,7 @@ function isDualThumb(value) {
   return Array.isArray(value);
 }
 
-var styles$1n = {
+var styles$1o = {
   "CheckboxWrapper": "Polaris-ResourceItem__CheckboxWrapper",
   "ResourceItem": "Polaris-ResourceItem",
   "persistActions": "Polaris-ResourceItem--persistActions",
@@ -49523,17 +49603,17 @@ var BaseResourceItem = /*#__PURE__*/function (_React$Component) {
       var ownedMarkup = null;
       var handleMarkup = null;
       var mediaMarkup = media ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: styles$1n.Media
+        className: styles$1o.Media
       }, media) : null;
 
       if (selectable) {
         var checkboxAccessibilityLabel = name || accessibilityLabel || i18n.translate('Polaris.Common.checkbox');
         handleMarkup = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: styles$1n.Handle,
+          className: styles$1o.Handle,
           onClick: this.handleLargerSelectionArea
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           onClick: stopPropagation$1,
-          className: styles$1n.CheckboxWrapper
+          className: styles$1o.CheckboxWrapper
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           onChange: this.handleLargerSelectionArea
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Checkbox$1, {
@@ -49547,18 +49627,18 @@ var BaseResourceItem = /*#__PURE__*/function (_React$Component) {
 
       if (media || selectable) {
         ownedMarkup = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: styles$1n.Owned
+          className: styles$1o.Owned
         }, handleMarkup, mediaMarkup);
       }
 
-      var className = classNames(styles$1n.ResourceItem, newDesignLanguage && styles$1n.newDesignLanguage, focused && styles$1n.focused, selectable && styles$1n.selectable, selected && styles$1n.selected, selectMode && styles$1n.selectMode, persistActions && styles$1n.persistActions, focusedInner && styles$1n.focusedInner);
+      var className = classNames(styles$1o.ResourceItem, newDesignLanguage && styles$1o.newDesignLanguage, focused && styles$1o.focused, selectable && styles$1o.selectable, selected && styles$1o.selected, selectMode && styles$1o.selectMode, persistActions && styles$1o.persistActions, focusedInner && styles$1o.focusedInner);
       var actionsMarkup = null;
       var disclosureMarkup = null;
 
       if (shortcutActions && !loading) {
         if (persistActions) {
           actionsMarkup = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-            className: styles$1n.Actions,
+            className: styles$1o.Actions,
             onClick: stopPropagation$1
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ButtonGroup, null, buttonsFrom(shortcutActions, {
             plain: true
@@ -49567,7 +49647,7 @@ var BaseResourceItem = /*#__PURE__*/function (_React$Component) {
             accessibilityLabel: name
           }) : i18n.translate('Polaris.ResourceList.Item.actionsDropdown');
           disclosureMarkup = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-            className: styles$1n.Disclosure,
+            className: styles$1o.Disclosure,
             onClick: stopPropagation$1
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Popover, {
             activator: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Button, {
@@ -49583,7 +49663,7 @@ var BaseResourceItem = /*#__PURE__*/function (_React$Component) {
           })));
         } else {
           actionsMarkup = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-            className: styles$1n.Actions,
+            className: styles$1o.Actions,
             onClick: stopPropagation$1
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ButtonGroup, {
             segmented: true
@@ -49594,9 +49674,9 @@ var BaseResourceItem = /*#__PURE__*/function (_React$Component) {
       }
 
       var content = children ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: styles$1n.Content
+        className: styles$1o.Content
       }, children) : null;
-      var containerClassName = classNames(styles$1n.Container, verticalAlignment && styles$1n[variationName('alignment', verticalAlignment)]);
+      var containerClassName = classNames(styles$1o.Container, verticalAlignment && styles$1o[variationName('alignment', verticalAlignment)]);
       var containerMarkup = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: containerClassName,
         id: this.props.id
@@ -49608,13 +49688,13 @@ var BaseResourceItem = /*#__PURE__*/function (_React$Component) {
       var accessibleMarkup = url ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(UnstyledLink, {
         "aria-describedby": this.props.id,
         "aria-label": ariaLabel,
-        className: styles$1n.Link,
+        className: styles$1o.Link,
         url: url,
         external: external,
         tabIndex: tabIndex,
         id: this.overlayId
       }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: styles$1n.Button,
+        className: styles$1o.Button,
         "aria-label": ariaLabel,
         "aria-controls": ariaControls,
         "aria-expanded": ariaExpanded,
@@ -49783,7 +49863,7 @@ function isFunction(arg) {
 
 var Sticky = withAppProvider()(StickyInner);
 
-var styles$1o = {
+var styles$1p = {
   "Select": "Polaris-Select",
   "disabled": "Polaris-Select--disabled",
   "Content": "Polaris-Select__Content",
@@ -49822,7 +49902,7 @@ function Select(_ref) {
   var _useFeatures = useFeatures(),
       newDesignLanguage = _useFeatures.newDesignLanguage;
 
-  var className = classNames(styles$1o.Select, error && styles$1o.error, disabled && styles$1o.disabled, newDesignLanguage && styles$1o.newDesignLanguage);
+  var className = classNames(styles$1p.Select, error && styles$1p.error, disabled && styles$1p.disabled, newDesignLanguage && styles$1p.newDesignLanguage);
   var handleChange = onChange ? function (event) {
     return onChange(event.currentTarget.value, id);
   } : undefined;
@@ -49848,17 +49928,17 @@ function Select(_ref) {
   }
 
   var inlineLabelMarkup = labelInline && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-    className: styles$1o.InlineLabel
+    className: styles$1p.InlineLabel
   }, label);
   var selectedOption = getSelectedOption(normalizedOptions, value);
   var contentMarkup = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1o.Content,
+    className: styles$1p.Content,
     "aria-hidden": true,
     "aria-disabled": disabled
   }, inlineLabelMarkup, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-    className: styles$1o.SelectedOption
+    className: styles$1p.SelectedOption
   }, selectedOption), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-    className: styles$1o.Icon
+    className: styles$1p.Icon
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Icon, {
     source: _shopify_polaris_icons__WEBPACK_IMPORTED_MODULE_2__["ArrowUpDownMinor"]
   })));
@@ -49876,7 +49956,7 @@ function Select(_ref) {
     id: id,
     name: name,
     value: value,
-    className: styles$1o.Input,
+    className: styles$1p.Input,
     disabled: disabled,
     onFocus: onFocus,
     onBlur: onBlur,
@@ -49884,7 +49964,7 @@ function Select(_ref) {
     "aria-invalid": Boolean(error),
     "aria-describedby": describedBy.length ? describedBy.join(' ') : undefined
   }, optionsMarkup), contentMarkup, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1o.Backdrop
+    className: styles$1p.Backdrop
   })));
 }
 
@@ -49985,7 +50065,7 @@ function renderOption(optionOrGroup) {
   return renderSingleOption(optionOrGroup);
 }
 
-var styles$1p = {
+var styles$1q = {
   "CheckableButton": "Polaris-ResourceList-CheckableButton",
   "newDesignLanguage": "Polaris-ResourceList-CheckableButton--newDesignLanguage",
   "CheckableButton-selectMode": "Polaris-ResourceList-CheckableButton__CheckableButton--selectMode",
@@ -50028,12 +50108,12 @@ function CheckableButton(_ref) {
       registerCheckableButtons(currentKey, checkBoxRef.current);
     }
   }, [currentKey, registerCheckableButtons]);
-  var className = plain ? classNames(styles$1p.CheckableButton, styles$1p['CheckableButton-plain'], newDesignLanguage && styles$1p.newDesignLanguage) : classNames(styles$1p.CheckableButton, newDesignLanguage && styles$1p.newDesignLanguage, selectMode && styles$1p['CheckableButton-selectMode'], selected && styles$1p['CheckableButton-selected'], measuring && styles$1p['CheckableButton-measuring']);
+  var className = plain ? classNames(styles$1q.CheckableButton, styles$1q['CheckableButton-plain'], newDesignLanguage && styles$1q.newDesignLanguage) : classNames(styles$1q.CheckableButton, newDesignLanguage && styles$1q.newDesignLanguage, selectMode && styles$1q['CheckableButton-selectMode'], selected && styles$1q['CheckableButton-selected'], measuring && styles$1q['CheckableButton-measuring']);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: className,
     onClick: onToggleAll
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1p.Checkbox
+    className: styles$1q.Checkbox
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Checkbox$1, {
     label: accessibilityLabel,
     labelHidden: true,
@@ -50042,11 +50122,11 @@ function CheckableButton(_ref) {
     onChange: onToggleAll,
     ref: checkBoxRef
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-    className: styles$1p.Label
+    className: styles$1q.Label
   }, label));
 }
 
-var styles$1q = {
+var styles$1r = {
   "Group": "Polaris-ResourceList-BulkActions__Group",
   "Group-measuring": "Polaris-ResourceList-BulkActions__Group--measuring",
   "Group-entering": "Polaris-ResourceList-BulkActions__Group--entering",
@@ -50086,7 +50166,7 @@ function BulkActionButton(_ref) {
     }
   });
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1q.BulkActionButton,
+    className: styles$1r.BulkActionButton,
     ref: bulkActionButton
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Button, {
     external: external,
@@ -50100,11 +50180,11 @@ function BulkActionButton(_ref) {
 
 var MAX_PROMOTED_ACTIONS = 2;
 var slideClasses = {
-  appear: classNames(styles$1q.Slide, styles$1q['Slide-appear']),
-  appearActive: classNames(styles$1q.Slide, styles$1q['Slide-appearing']),
-  enter: classNames(styles$1q.Slide, styles$1q['Slide-enter']),
-  enterActive: classNames(styles$1q.Slide, styles$1q['Slide-entering']),
-  exit: classNames(styles$1q.Slide, styles$1q['Slide-exit'])
+  appear: classNames(styles$1r.Slide, styles$1r['Slide-appear']),
+  appearActive: classNames(styles$1r.Slide, styles$1r['Slide-appearing']),
+  enter: classNames(styles$1r.Slide, styles$1r['Slide-enter']),
+  enterActive: classNames(styles$1r.Slide, styles$1r['Slide-entering']),
+  exit: classNames(styles$1r.Slide, styles$1r['Slide-exit'])
 };
 
 var BulkActionsInner = /*#__PURE__*/function (_React$PureComponent) {
@@ -50342,7 +50422,7 @@ var BulkActionsInner = /*#__PURE__*/function (_React$PureComponent) {
         "aria-live": "polite"
       }, paginatedSelectAllText) : paginatedSelectAllText;
       var paginatedSelectAllMarkup = paginatedSelectAllActionMarkup || paginatedSelectAllTextMarkup ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: styles$1q.PaginatedSelectAll
+        className: styles$1r.PaginatedSelectAll
       }, paginatedSelectAllTextMarkup, " ", paginatedSelectAllActionMarkup) : null;
       var cancelButton = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Button, {
         onClick: this.setSelectMode.bind(this, false),
@@ -50350,7 +50430,7 @@ var BulkActionsInner = /*#__PURE__*/function (_React$PureComponent) {
       }, intl.translate('Polaris.Common.cancel'));
       var numberOfPromotedActionsToRender = this.numberOfPromotedActionsToRender();
       var allActionsPopover = this.hasActions() ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: styles$1q.Popover,
+        className: styles$1r.Popover,
         ref: this.setMoreActionsNode
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Popover, {
         active: smallScreenPopoverVisible,
@@ -50391,7 +50471,7 @@ var BulkActionsInner = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       var actionsPopover = actionSections || rolledInPromotedActions.length > 0 || measuring ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: styles$1q.Popover,
+        className: styles$1r.Popover,
         ref: this.setMoreActionsNode
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Popover, {
         active: largeScreenPopoverVisible,
@@ -50421,12 +50501,12 @@ var BulkActionsInner = /*#__PURE__*/function (_React$PureComponent) {
         key: "smallGroup",
         findDOMNode: this.findSmallScreenGroupNode
       }, function (status) {
-        var smallScreenGroupClassName = classNames(styles$1q.Group, styles$1q['Group-smallScreen'], styles$1q["Group-".concat(status)]);
+        var smallScreenGroupClassName = classNames(styles$1r.Group, styles$1r['Group-smallScreen'], styles$1r["Group-".concat(status)]);
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: smallScreenGroupClassName,
           ref: _this2.smallScreenGroupNode
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: styles$1q.ButtonGroupWrapper
+          className: styles$1r.ButtonGroupWrapper
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ButtonGroup, {
           segmented: true
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_react_transition_group__WEBPACK_IMPORTED_MODULE_21__["CSSTransition"], {
@@ -50436,7 +50516,7 @@ var BulkActionsInner = /*#__PURE__*/function (_React$PureComponent) {
           classNames: slideClasses,
           appear: !selectMode
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: styles$1q.CheckableContainer,
+          className: styles$1r.CheckableContainer,
           ref: _this2.checkableWrapperNode
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(CheckableButton, Object.assign({}, checkableButtonProps, {
           smallScreen: true
@@ -50451,7 +50531,7 @@ var BulkActionsInner = /*#__PURE__*/function (_React$PureComponent) {
         key: "largeGroup",
         findDOMNode: this.findLargeScreenGroupNode
       }, function (status) {
-        var largeScreenGroupClassName = classNames(styles$1q.Group, styles$1q['Group-largeScreen'], !measuring && styles$1q["Group-".concat(status)], measuring && styles$1q['Group-measuring']);
+        var largeScreenGroupClassName = classNames(styles$1r.Group, styles$1r['Group-largeScreen'], !measuring && styles$1r["Group-".concat(status)], measuring && styles$1r['Group-measuring']);
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: largeScreenGroupClassName,
           ref: _this2.largeScreenGroupNode
@@ -50459,7 +50539,7 @@ var BulkActionsInner = /*#__PURE__*/function (_React$PureComponent) {
           event: "resize",
           handler: _this2.handleResize
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: styles$1q.ButtonGroupWrapper,
+          className: styles$1r.ButtonGroupWrapper,
           ref: _this2.setLargeScreenButtonsNode
         }, largeGroupContent), paginatedSelectAllMarkup);
       });
@@ -50488,7 +50568,7 @@ function instanceOfBulkActionArray(actions) {
 
 var BulkActions = withAppProvider()(BulkActionsInner);
 
-var styles$1r = {
+var styles$1s = {
   "DateTextField": "Polaris-FilterControl-DateSelector__DateTextField",
   "DatePicker": "Polaris-FilterControl-DateSelector__DatePicker"
 };
@@ -50621,7 +50701,7 @@ var DateSelector = Object(react__WEBPACK_IMPORTED_MODULE_0__["memo"])(function D
   var dateFilterOption = getDateFilterOption(filterValue, filterKey, filterMinKey, filterMaxKey);
   var showDatePredicate = dateFilterOption === DateFilterOption.OnOrBefore || dateFilterOption === DateFilterOption.OnOrAfter;
   var datePredicateMarkup = showDatePredicate && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1r.DateTextField
+    className: styles$1s.DateTextField
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(TextField, {
     label: i18n.translate('Polaris.ResourceList.DateSelector.dateValueLabel'),
     placeholder: i18n.translate('Polaris.ResourceList.DateSelector.dateValuePlaceholder'),
@@ -50635,7 +50715,7 @@ var DateSelector = Object(react__WEBPACK_IMPORTED_MODULE_0__["memo"])(function D
     onChange: handleDateFieldChange,
     onBlur: handleDateBlur
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1r.DatePicker
+    className: styles$1s.DatePicker
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(DatePicker, {
     selected: selectedDate,
     month: datePickerMonth,
@@ -50994,7 +51074,7 @@ function FilterCreator(_ref) {
   }), filterValueSelectionMarkup, addFilterButtonMarkup)));
 }
 
-var styles$1s = {
+var styles$1t = {
   "AppliedFilters": "Polaris-ResourceList-FilterControl__AppliedFilters",
   "AppliedFilter": "Polaris-ResourceList-FilterControl__AppliedFilter"
 };
@@ -51077,7 +51157,7 @@ function FilterControl(_ref) {
     var activeFilterLabel = getFilterLabel(appliedFilter);
     var filterId = idFromFilter(appliedFilter);
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-      className: styles$1s.AppliedFilter,
+      className: styles$1t.AppliedFilter,
       key: filterId
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Tag, {
       onRemove: getRemoveFilterCallback(filterId),
@@ -51085,7 +51165,7 @@ function FilterControl(_ref) {
     }, activeFilterLabel));
   });
   var appliedFiltersWrapper = appliedFilters.length > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-    className: styles$1s.AppliedFilters
+    className: styles$1t.AppliedFilters
   }, appliedFiltersMarkup) : null;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(FormLayout, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(TextField, {
     connectedLeft: filterCreatorMarkup,
@@ -51214,7 +51294,7 @@ function findOperatorLabel(filter, appliedFilter) {
   }
 }
 
-var styles$1t = {
+var styles$1u = {
   "FiltersWrapper": "Polaris-ResourceList__FiltersWrapper",
   "ResourceList": "Polaris-ResourceList",
   "HeaderOuterWrapper": "Polaris-ResourceList__HeaderOuterWrapper",
@@ -51322,7 +51402,7 @@ var ResourceListInner = /*#__PURE__*/function (_React$Component) {
       var id = idForItem(item, index);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         key: id,
-        className: styles$1t.ItemWrapper
+        className: styles$1u.ItemWrapper
       }, renderItem(item, id, index));
     };
 
@@ -51705,10 +51785,10 @@ var ResourceListInner = /*#__PURE__*/function (_React$Component) {
           loadingPosition = _this$state2.loadingPosition,
           smallScreen = _this$state2.smallScreen;
       var filterControlMarkup = filterControl ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: styles$1t.FiltersWrapper
+        className: styles$1u.FiltersWrapper
       }, filterControl) : null;
       var bulkActionsMarkup = this.selectable() ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: styles$1t.BulkActionsWrapper
+        className: styles$1u.BulkActionsWrapper
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(BulkActions, {
         label: this.bulkActionsLabel(),
         accessibilityLabel: this.bulkActionsAccessibilityLabel(),
@@ -51724,7 +51804,7 @@ var ResourceListInner = /*#__PURE__*/function (_React$Component) {
         smallScreen: smallScreen
       })) : null;
       var sortingSelectMarkup = sortOptions && sortOptions.length > 0 && !alternateTool ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: styles$1t.SortWrapper
+        className: styles$1u.SortWrapper
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Select, {
         label: intl.translate('Polaris.ResourceList.sortingLabel'),
         labelInline: !smallScreen,
@@ -51735,20 +51815,20 @@ var ResourceListInner = /*#__PURE__*/function (_React$Component) {
         disabled: selectMode
       })) : null;
       var alternateToolMarkup = alternateTool && !sortingSelectMarkup ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: styles$1t.AlternateToolWrapper
+        className: styles$1u.AlternateToolWrapper
       }, alternateTool) : null;
       var headerTitleMarkup = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: styles$1t.HeaderTitleWrapper
+        className: styles$1u.HeaderTitleWrapper
       }, this.headerTitle());
       var selectButtonMarkup = this.selectable() ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: styles$1t.SelectButtonWrapper
+        className: styles$1u.SelectButtonWrapper
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Button, {
         disabled: selectMode,
         icon: _shopify_polaris_icons__WEBPACK_IMPORTED_MODULE_2__["EnableSelectionMinor"],
         onClick: this.handleSelectMode.bind(this, true)
       }, intl.translate('Polaris.ResourceList.selectButtonText'))) : null;
       var checkableButtonMarkup = this.selectable() ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: styles$1t.CheckableButtonWrapper
+        className: styles$1u.CheckableButtonWrapper
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(CheckableButton, {
         accessibilityLabel: this.bulkActionsAccessibilityLabel(),
         label: this.headerTitle(),
@@ -51758,26 +51838,26 @@ var ResourceListInner = /*#__PURE__*/function (_React$Component) {
       })) : null;
       var needsHeader = this.selectable() || sortOptions && sortOptions.length > 0 || alternateTool;
       var headerWrapperOverlay = loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: styles$1t['HeaderWrapper-overlay']
+        className: styles$1u['HeaderWrapper-overlay']
       }) : null;
       var showEmptyState = filterControl && !this.itemsExist() && !loading;
       var headerMarkup = !showEmptyState && (showHeader || needsHeader) && this.listRef.current && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: styles$1t.HeaderOuterWrapper
+        className: styles$1u.HeaderOuterWrapper
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Sticky, {
         boundingElement: this.listRef.current
       }, function (isSticky) {
-        var headerClassName = classNames(styles$1t.HeaderWrapper, sortOptions && sortOptions.length > 0 && !alternateTool && styles$1t['HeaderWrapper-hasSort'], alternateTool && styles$1t['HeaderWrapper-hasAlternateTool'], _this2.selectable() && styles$1t['HeaderWrapper-hasSelect'], loading && styles$1t['HeaderWrapper-disabled'], _this2.selectable() && selectMode && styles$1t['HeaderWrapper-inSelectMode'], isSticky && styles$1t['HeaderWrapper-isSticky']);
+        var headerClassName = classNames(styles$1u.HeaderWrapper, sortOptions && sortOptions.length > 0 && !alternateTool && styles$1u['HeaderWrapper-hasSort'], alternateTool && styles$1u['HeaderWrapper-hasAlternateTool'], _this2.selectable() && styles$1u['HeaderWrapper-hasSelect'], loading && styles$1u['HeaderWrapper-disabled'], _this2.selectable() && selectMode && styles$1u['HeaderWrapper-inSelectMode'], isSticky && styles$1u['HeaderWrapper-isSticky']);
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: headerClassName
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(EventListener, {
           event: "resize",
           handler: _this2.handleResize
         }), headerWrapperOverlay, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: styles$1t.HeaderContentWrapper
+          className: styles$1u.HeaderContentWrapper
         }, headerTitleMarkup, checkableButtonMarkup, alternateToolMarkup, sortingSelectMarkup, selectButtonMarkup), bulkActionsMarkup);
       }));
       var emptyStateMarkup = showEmptyState ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: styles$1t.EmptySearchResultWrapper
+        className: styles$1u.EmptySearchResultWrapper
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(EmptySearchResult, Object.assign({}, this.emptySearchResultText(), {
         withIllustration: true
       }))) : null;
@@ -51788,20 +51868,20 @@ var ResourceListInner = /*#__PURE__*/function (_React$Component) {
       };
       var spinnerSize = items.length < 2 ? 'small' : 'large';
       var loadingOverlay = loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: styles$1t.SpinnerContainer,
+        className: styles$1u.SpinnerContainer,
         style: spinnerStyle
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Spinner, {
         size: spinnerSize,
         accessibilityLabel: "Items are loading"
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: styles$1t.LoadingOverlay
+        className: styles$1u.LoadingOverlay
       })) : null;
-      var className = classNames(styles$1t.ItemWrapper, loading && styles$1t['ItemWrapper-isLoading']);
+      var className = classNames(styles$1u.ItemWrapper, loading && styles$1u['ItemWrapper-isLoading']);
       var loadingWithoutItemsMarkup = loading && !this.itemsExist() ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: className,
         tabIndex: -1
       }, loadingOverlay) : null;
-      var resourceListClassName = classNames(styles$1t.ResourceList, loading && styles$1t.disabledPointerEvents, selectMode && styles$1t.disableTextSelection);
+      var resourceListClassName = classNames(styles$1u.ResourceList, loading && styles$1u.disabledPointerEvents, selectMode && styles$1u.disableTextSelection);
       var listMarkup = this.itemsExist() ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: resourceListClassName,
         ref: this.listRef,
@@ -51820,7 +51900,7 @@ var ResourceListInner = /*#__PURE__*/function (_React$Component) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ResourceListContext.Provider, {
         value: context
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: styles$1t.ResourceListWrapper
+        className: styles$1u.ResourceListWrapper
       }, filterControlMarkup, headerMarkup, listMarkup, loadingWithoutItemsMarkup));
     }
   }, {
@@ -52022,7 +52102,7 @@ function SettingToggle(_ref) {
   }, children));
 }
 
-var styles$1u = {
+var styles$1v = {
   "SkeletonBodyTextContainer": "Polaris-SkeletonBodyText__SkeletonBodyTextContainer",
   "SkeletonBodyText": "Polaris-SkeletonBodyText"
 };
@@ -52034,17 +52114,17 @@ function SkeletonBodyText(_ref) {
 
   for (var i = 0; i < lines; i++) {
     bodyTextLines.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: styles$1u.SkeletonBodyText,
+      className: styles$1v.SkeletonBodyText,
       key: i
     }));
   }
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1u.SkeletonBodyTextContainer
+    className: styles$1v.SkeletonBodyTextContainer
   }, bodyTextLines);
 }
 
-var styles$1v = {
+var styles$1w = {
   "DisplayText": "Polaris-SkeletonDisplayText__DisplayText",
   "sizeSmall": "Polaris-SkeletonDisplayText--sizeSmall",
   "sizeMedium": "Polaris-SkeletonDisplayText--sizeMedium",
@@ -52055,13 +52135,13 @@ var styles$1v = {
 function SkeletonDisplayText(_ref) {
   var _ref$size = _ref.size,
       size = _ref$size === void 0 ? 'medium' : _ref$size;
-  var className = classNames(styles$1v.DisplayText, size && styles$1v[variationName('size', size)]);
+  var className = classNames(styles$1w.DisplayText, size && styles$1w[variationName('size', size)]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: className
   });
 }
 
-var styles$1w = {
+var styles$1x = {
   "Page": "Polaris-SkeletonPage__Page",
   "fullWidth": "Polaris-SkeletonPage--fullWidth",
   "narrowWidth": "Polaris-SkeletonPage--narrowWidth",
@@ -52095,17 +52175,17 @@ function SkeletonPage(_ref) {
 
   var i18n = useI18n();
   var appBridge = useAppBridge();
-  var className = classNames(styles$1w.Page, fullWidth && styles$1w.fullWidth, (narrowWidth || singleColumn) && styles$1w.narrowWidth);
-  var headerClassName = classNames(styles$1w.Header, breadcrumbs && styles$1w['Header-hasBreadcrumbs'], secondaryActions && styles$1w['Header-hasSecondaryActions']);
+  var className = classNames(styles$1x.Page, fullWidth && styles$1x.fullWidth, (narrowWidth || singleColumn) && styles$1x.narrowWidth);
+  var headerClassName = classNames(styles$1x.Header, breadcrumbs && styles$1x['Header-hasBreadcrumbs'], secondaryActions && styles$1x['Header-hasSecondaryActions']);
   var titleMarkup = title !== null ? renderTitle(title) : null;
   var primaryActionMarkup = primaryAction ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1w.PrimaryAction
+    className: styles$1x.PrimaryAction
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(SkeletonDisplayText, {
     size: "large"
   })) : null;
   var secondaryActionsMarkup = secondaryActions ? renderSecondaryActions(secondaryActions) : null;
   var breadcrumbMarkup = breadcrumbs ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1w.BreadcrumbAction,
+    className: styles$1x.BreadcrumbAction,
     style: {
       width: 60
     }
@@ -52115,14 +52195,14 @@ function SkeletonPage(_ref) {
   var headerMarkup = !appBridge ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: headerClassName
   }, breadcrumbMarkup, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1w.TitleAndPrimaryAction
+    className: styles$1x.TitleAndPrimaryAction
   }, titleMarkup, primaryActionMarkup), secondaryActionsMarkup) : null;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: className,
     role: "status",
     "aria-label": i18n.translate('Polaris.SkeletonPage.loadingLabel')
   }, headerMarkup, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1w.Content
+    className: styles$1x.Content
   }, children));
 }
 
@@ -52132,7 +52212,7 @@ function renderSecondaryActions(actionCount) {
   for (var i = 0; i < actionCount; i++) {
     var width = Math.round(Math.random() * 40 + 60);
     actions.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: styles$1w.Action,
+      className: styles$1x.Action,
       style: {
         width
       },
@@ -52143,7 +52223,7 @@ function renderSecondaryActions(actionCount) {
   }
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1w.Actions
+    className: styles$1x.Actions
   }, actions);
 }
 
@@ -52155,11 +52235,11 @@ function renderTitle(title) {
     element: "h1"
   }, title);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1w.Title
+    className: styles$1x.Title
   }, titleContent);
 }
 
-var styles$1x = {
+var styles$1y = {
   "SkeletonThumbnail": "Polaris-SkeletonThumbnail",
   "sizeSmall": "Polaris-SkeletonThumbnail--sizeSmall",
   "sizeMedium": "Polaris-SkeletonThumbnail--sizeMedium",
@@ -52169,7 +52249,7 @@ var styles$1x = {
 function SkeletonThumbnail(_ref) {
   var _ref$size = _ref.size,
       size = _ref$size === void 0 ? 'medium' : _ref$size;
-  var className = classNames(styles$1x.SkeletonThumbnail, size && styles$1x[variationName('size', size)]);
+  var className = classNames(styles$1y.SkeletonThumbnail, size && styles$1y[variationName('size', size)]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: className
   });
@@ -52211,7 +52291,7 @@ function getVisibleAndHiddenTabIndices(tabs, selected, disclosureWidth, tabWidth
   };
 }
 
-var styles$1y = {
+var styles$1z = {
   "Tabs": "Polaris-Tabs",
   "Wrapper": "Polaris-Tabs__Wrapper",
   "newDesignLanguage": "Polaris-Tabs--newDesignLanguage",
@@ -52286,7 +52366,7 @@ var Item$8 = /*#__PURE__*/function (_React$PureComponent) {
       var _ref = this.context || {},
           newDesignLanguage = _ref.newDesignLanguage;
 
-      var classname = classNames(styles$1y.Item, newDesignLanguage && styles$1y.newDesignLanguage);
+      var classname = classNames(styles$1z.Item, newDesignLanguage && styles$1z.newDesignLanguage);
       var sharedProps = {
         id,
         ref: this.setFocusedNode,
@@ -52355,7 +52435,7 @@ var List$1 = /*#__PURE__*/function (_React$PureComponent) {
           onClick: onClick.bind(null, id)
         }), content);
       });
-      var classname = classNames(styles$1y.List, newDesignLanguage && styles$1y.newDesignLanguage);
+      var classname = classNames(styles$1z.List, newDesignLanguage && styles$1z.newDesignLanguage);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: classname,
         onKeyDown: handleKeyDown$1,
@@ -52384,7 +52464,7 @@ function Panel(_ref) {
       id = _ref.id,
       tabID = _ref.tabID,
       children = _ref.children;
-  var className = classNames(styles$1y.Panel, hidden && styles$1y['Panel-hidden']);
+  var className = classNames(styles$1z.Panel, hidden && styles$1z['Panel-hidden']);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: className,
     id: id,
@@ -52440,7 +52520,7 @@ function Tab(_ref) {
     wasSelected.current = selected;
   }, [focused, id, measuring, panelID, selected]);
   var handleClick = onClick && onClick.bind(null, id);
-  var className = classNames(styles$1y.Tab, selected && styles$1y['Tab-selected']);
+  var className = classNames(styles$1z.Tab, selected && styles$1z['Tab-selected']);
   var tabIndex;
 
   if (selected && !siblingTabHasFocus && !measuring) {
@@ -52451,8 +52531,8 @@ function Tab(_ref) {
     tabIndex = -1;
   }
 
-  var tabContainerClassNames = classNames(styles$1y.TabContainer, selected && styles$1y.Underline, newDesignLanguage && styles$1y.newDesignLanguage);
-  var tabTitleClassNames = classNames(styles$1y.Title, newDesignLanguage && styles$1y.newDesignLanguage);
+  var tabContainerClassNames = classNames(styles$1z.TabContainer, selected && styles$1z.Underline, newDesignLanguage && styles$1z.newDesignLanguage);
+  var tabTitleClassNames = classNames(styles$1z.Title, newDesignLanguage && styles$1z.newDesignLanguage);
   var markup = url ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(UnstyledLink, {
     id: id,
     url: url,
@@ -52549,7 +52629,7 @@ var TabMeasurer = Object(react__WEBPACK_IMPORTED_MODULE_0__["memo"])(function Ta
       url: tab.url
     }, tab.content);
   });
-  var classname = classNames(styles$1y.Tabs, styles$1y.TabMeasurer);
+  var classname = classNames(styles$1z.Tabs, styles$1z.TabMeasurer);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: classname,
     ref: containerNode
@@ -52636,7 +52716,7 @@ var TabsInner = /*#__PURE__*/function (_React$PureComponent) {
 
       var target = event.target;
 
-      if (target.classList.contains(styles$1y.Tab) || target.classList.contains(styles$1y.Item)) {
+      if (target.classList.contains(styles$1z.Tab) || target.classList.contains(styles$1z.Item)) {
         var tabToFocus = -1;
         tabs.every(function (tab, index) {
           if (tab.id === target.id) {
@@ -52654,7 +52734,7 @@ var TabsInner = /*#__PURE__*/function (_React$PureComponent) {
         return;
       }
 
-      if (target.classList.contains(styles$1y.DisclosureActivator)) {
+      if (target.classList.contains(styles$1z.DisclosureActivator)) {
         return;
       } // If we are coming in from somewhere other than another tab, focus the
       // selected tab, and the focus (click) is not on the disclosure activator,
@@ -52671,7 +52751,7 @@ var TabsInner = /*#__PURE__*/function (_React$PureComponent) {
 
       var relatedTarget = event.relatedTarget;
 
-      if (relatedTarget instanceof HTMLElement && !relatedTarget.classList.contains(styles$1y.Tab) && !relatedTarget.classList.contains(styles$1y.Item) && !relatedTarget.classList.contains(styles$1y.DisclosureActivator)) {
+      if (relatedTarget instanceof HTMLElement && !relatedTarget.classList.contains(styles$1z.Tab) && !relatedTarget.classList.contains(styles$1z.Item) && !relatedTarget.classList.contains(styles$1z.DisclosureActivator)) {
         _this.setState({
           tabToFocus: selected
         });
@@ -52690,7 +52770,7 @@ var TabsInner = /*#__PURE__*/function (_React$PureComponent) {
 
       var target = event.relatedTarget; // If we are going to anywhere other than another tab, lose the last focused tab
 
-      if (target instanceof HTMLElement && !target.classList.contains(styles$1y.Tab) && !target.classList.contains(styles$1y.Item)) {
+      if (target instanceof HTMLElement && !target.classList.contains(styles$1z.Tab) && !target.classList.contains(styles$1z.Item)) {
         _this.setState({
           tabToFocus: -1
         });
@@ -52796,16 +52876,16 @@ var TabsInner = /*#__PURE__*/function (_React$PureComponent) {
         return _this2.renderTabMarkup(tabs[tabIndex], tabIndex);
       });
       var disclosureActivatorVisible = visibleTabs.length < tabs.length;
-      var classname = classNames(styles$1y.Tabs, fitted && styles$1y.fitted, disclosureActivatorVisible && styles$1y.fillSpace, newDesignLanguage && styles$1y.newDesignLanguage);
-      var wrapperClassName = classNames(styles$1y.Wrapper, newDesignLanguage && styles$1y.newDesignLanguage);
-      var disclosureTabClassName = classNames(styles$1y.DisclosureTab, disclosureActivatorVisible && styles$1y['DisclosureTab-visible']);
+      var classname = classNames(styles$1z.Tabs, fitted && styles$1z.fitted, disclosureActivatorVisible && styles$1z.fillSpace, newDesignLanguage && styles$1z.newDesignLanguage);
+      var wrapperClassName = classNames(styles$1z.Wrapper, newDesignLanguage && styles$1z.newDesignLanguage);
+      var disclosureTabClassName = classNames(styles$1z.DisclosureTab, disclosureActivatorVisible && styles$1z['DisclosureTab-visible']);
       var activator = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
-        className: styles$1y.DisclosureActivator,
+        className: styles$1z.DisclosureActivator,
         onClick: this.handleDisclosureActivatorClick,
         "aria-label": intl.translate('Polaris.Tabs.toggleTabsLabel')
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: styles$1y.Title
+        className: styles$1z.Title
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Icon, {
         source: _shopify_polaris_icons__WEBPACK_IMPORTED_MODULE_2__["HorizontalDotsMinor"]
       })));
@@ -52876,7 +52956,7 @@ function handleKeyDown$2(event) {
 
 var Tabs = withAppProvider()(TabsInner);
 
-var styles$1z = {
+var styles$1A = {
   "Thumbnail": "Polaris-Thumbnail",
   "sizeSmall": "Polaris-Thumbnail--sizeSmall",
   "sizeMedium": "Polaris-Thumbnail--sizeMedium",
@@ -52889,13 +52969,13 @@ function Thumbnail(_ref) {
       alt = _ref.alt,
       _ref$size = _ref.size,
       size = _ref$size === void 0 ? 'medium' : _ref$size;
-  var className = classNames(styles$1z.Thumbnail, size && styles$1z[variationName('size', size)]);
+  var className = classNames(styles$1A.Thumbnail, size && styles$1A[variationName('size', size)]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: className
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Image, {
     alt: alt,
     source: source,
-    className: styles$1z.Image
+    className: styles$1A.Image
   }));
 }
 
@@ -52944,7 +53024,7 @@ var Toast$1 = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function Toast(p
   return null;
 });
 
-var styles$1A = {
+var styles$1B = {
   "SearchDismissOverlay": "Polaris-TopBar-SearchDismissOverlay",
   "visible": "Polaris-TopBar-SearchDismissOverlay--visible",
   "fade-in": "Polaris-TopBar-SearchDismissOverlay__fade--in"
@@ -52963,12 +53043,12 @@ function SearchDismissOverlay(_ref) {
   }, [onDismiss]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, visible ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ScrollLock, null) : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     ref: node,
-    className: classNames(styles$1A.SearchDismissOverlay, visible && styles$1A.visible),
+    className: classNames(styles$1B.SearchDismissOverlay, visible && styles$1B.visible),
     onClick: handleDismiss
   }));
 }
 
-var styles$1B = {
+var styles$1C = {
   "Search": "Polaris-TopBar-Search",
   "visible": "Polaris-TopBar-Search--visible",
   "Results": "Polaris-TopBar-Search__Results"
@@ -52990,13 +53070,13 @@ function Search(_ref) {
     visible: overlayVisible
   }) : null;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: classNames(styles$1B.Search, visible && styles$1B.visible)
+    className: classNames(styles$1C.Search, visible && styles$1C.visible)
   }, overlayMarkup, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1B.Results
+    className: styles$1C.Results
   }, children));
 }
 
-var styles$1C = {
+var styles$1D = {
   "SearchField": "Polaris-TopBar-SearchField",
   "SearchField-newDesignLanguage": "Polaris-TopBar-SearchField__SearchField--newDesignLanguage",
   "Backdrop": "Polaris-TopBar-SearchField__Backdrop",
@@ -53065,7 +53145,7 @@ function SearchField(_ref) {
   var clearMarkup = value !== '' && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     type: "button",
     "aria-label": i18n.translate('Polaris.TopBar.SearchField.clearButtonLabel'),
-    className: styles$1C.Clear,
+    className: styles$1D.Clear,
     onClick: handleClear,
     onBlur: function onBlur() {
       setForceActive(false);
@@ -53078,7 +53158,7 @@ function SearchField(_ref) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Icon, {
     source: _shopify_polaris_icons__WEBPACK_IMPORTED_MODULE_2__["CircleCancelMinor"]
   }));
-  var className = classNames(styles$1C.SearchField, (focused || active || forceActive) && styles$1C.focused, newDesignLanguage && styles$1C['SearchField-newDesignLanguage']);
+  var className = classNames(styles$1D.SearchField, (focused || active || forceActive) && styles$1D.focused, newDesignLanguage && styles$1D['SearchField-newDesignLanguage']);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: className,
     onFocus: handleFocus,
@@ -53087,7 +53167,7 @@ function SearchField(_ref) {
     htmlFor: searchId
   }, i18n.translate('Polaris.TopBar.SearchField.search'))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
     id: searchId,
-    className: styles$1C.Input,
+    className: styles$1D.Input,
     placeholder: placeholder,
     type: "search",
     autoCapitalize: "off",
@@ -53098,11 +53178,11 @@ function SearchField(_ref) {
     onChange: handleChange,
     onKeyDown: preventDefault
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-    className: styles$1C.Icon
+    className: styles$1D.Icon
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Icon, {
     source: _shopify_polaris_icons__WEBPACK_IMPORTED_MODULE_2__["SearchMinor"]
   })), clearMarkup, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: classNames(styles$1C.Backdrop, showFocusBorder && styles$1C.BackdropShowFocusBorder)
+    className: classNames(styles$1D.Backdrop, showFocusBorder && styles$1D.BackdropShowFocusBorder)
   }));
 }
 
@@ -53112,7 +53192,7 @@ function preventDefault(event) {
   }
 }
 
-var styles$1D = {
+var styles$1E = {
   "MessageIndicatorWrapper": "Polaris-MessageIndicator__MessageIndicatorWrapper",
   "MessageIndicator": "Polaris-MessageIndicator"
 };
@@ -53121,14 +53201,14 @@ function MessageIndicator(_ref) {
   var children = _ref.children,
       active = _ref.active;
   var indicatorMarkup = active && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1D.MessageIndicator
+    className: styles$1E.MessageIndicator
   });
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1D.MessageIndicatorWrapper
+    className: styles$1E.MessageIndicatorWrapper
   }, indicatorMarkup, children);
 }
 
-var styles$1E = {
+var styles$1F = {
   "Section": "Polaris-Menu-Message__Section"
 };
 
@@ -53146,7 +53226,7 @@ function Message(_ref) {
   var onClick = action.onClick,
       actionContent = action.content;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1E.Section
+    className: styles$1F.Section
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Popover.Section, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Stack, {
     vertical: true,
     spacing: "tight"
@@ -53158,7 +53238,7 @@ function Message(_ref) {
   }, actionContent))));
 }
 
-var styles$1F = {
+var styles$1G = {
   "ActivatorWrapper": "Polaris-TopBar-Menu__ActivatorWrapper",
   "Activator": "Polaris-TopBar-Menu__Activator",
   "Section": "Polaris-TopBar-Menu__Section"
@@ -53191,10 +53271,10 @@ function Menu(props) {
   var isFullHeight = Boolean(message);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Popover, {
     activator: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: styles$1F.ActivatorWrapper
+      className: styles$1G.ActivatorWrapper
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       type: "button",
-      className: styles$1F.Activator,
+      className: styles$1G.Activator,
       onClick: onOpen
     }, activatorContent)),
     active: open,
@@ -53208,7 +53288,7 @@ function Menu(props) {
   }), messageMarkup);
 }
 
-var styles$1G = {
+var styles$1H = {
   "Details": "Polaris-TopBar-UserMenu__Details",
   "Name": "Polaris-TopBar-UserMenu__Name",
   "Detail": "Polaris-TopBar-UserMenu__Detail"
@@ -53231,11 +53311,11 @@ function UserMenu(_ref) {
     source: avatar,
     initials: initials && initials.replace(' ', '')
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-    className: styles$1G.Details
+    className: styles$1H.Details
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-    className: styles$1G.Name
+    className: styles$1H.Name
   }, name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-    className: styles$1G.Detail
+    className: styles$1H.Detail
   }, detail)));
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Menu, {
     activatorContent: activatorContentMarkup,
@@ -53247,7 +53327,7 @@ function UserMenu(_ref) {
   });
 }
 
-var styles$1H = {
+var styles$1I = {
   "TopBar": "Polaris-TopBar",
   "TopBar-newDesignLanguage": "Polaris-TopBar__TopBar--newDesignLanguage",
   "isScrolled": "Polaris-TopBar--isScrolled",
@@ -53308,7 +53388,7 @@ var TopBar = function TopBar(_ref) {
       return setScrolled(Boolean(isScrolled));
     });
   }, 20), []);
-  var iconClassName = classNames(styles$1H.NavigationIcon, focused && styles$1H.focused);
+  var iconClassName = classNames(styles$1I.NavigationIcon, focused && styles$1I.focused);
   var navigationButtonMarkup = showNavigationToggle ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     type: "button",
     className: iconClassName,
@@ -53324,21 +53404,21 @@ var TopBar = function TopBar(_ref) {
 
   if (contextControl && !newDesignLanguage) {
     contextMarkup = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: styles$1H.ContextControl
+      className: styles$1I.ContextControl
     }, contextControl);
   } else if (logo && !newDesignLanguage) {
     contextMarkup = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: styles$1H.LogoContainer
+      className: styles$1I.LogoContainer
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(UnstyledLink, {
       url: logo.url || '',
-      className: styles$1H.LogoLink,
+      className: styles$1I.LogoLink,
       style: {
         width
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Image, {
       source: logo.topBarSource || '',
       alt: logo.accessibilityLabel || '',
-      className: styles$1H.Logo,
+      className: styles$1I.Logo,
       style: {
         width
       }
@@ -53355,20 +53435,144 @@ var TopBar = function TopBar(_ref) {
     handler: handleScroll,
     passive: true
   }) : null;
-  var className = classNames(styles$1H.TopBar, newDesignLanguage && styles$1H['TopBar-newDesignLanguage'], scrolled && styles$1H.isScrolled);
+  var className = classNames(styles$1I.TopBar, newDesignLanguage && styles$1I['TopBar-newDesignLanguage'], scrolled && styles$1I.isScrolled);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: className
   }, navigationButtonMarkup, contextMarkup, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1H.Contents
+    className: styles$1I.Contents
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1H.SearchField
+    className: styles$1I.SearchField
   }, searchMarkup), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: styles$1H.SecondaryMenu
+    className: styles$1I.SecondaryMenu
   }, secondaryMenu), userMenu), scrollListenerMarkup);
 };
 TopBar.Menu = Menu;
 TopBar.SearchField = SearchField;
 TopBar.UserMenu = UserMenu;
+
+var MINUTE = 60;
+var HOUR = MINUTE * 60;
+function ensureTwoDigits(num) {
+  return num > 9 ? String(num) : "0".concat(num);
+}
+function secondsToTimeComponents(seconds) {
+  return {
+    hours: Math.floor(seconds / HOUR),
+    minutes: Math.floor(seconds % HOUR / MINUTE),
+    seconds: seconds % MINUTE
+  };
+}
+function secondsToTimestamp(numSeconds) {
+  var _secondsToTimeCompone = secondsToTimeComponents(numSeconds),
+      hours = _secondsToTimeCompone.hours,
+      minutes = _secondsToTimeCompone.minutes,
+      seconds = _secondsToTimeCompone.seconds;
+
+  var hasHours = numSeconds > HOUR;
+  var hoursText = hasHours ? "".concat(hours, ":") : '';
+  var minutesText = "".concat(hasHours ? ensureTwoDigits(minutes) : minutes, ":");
+  var secondsText = "".concat(ensureTwoDigits(seconds));
+  return "".concat(hoursText).concat(minutesText).concat(secondsText);
+}
+function secondsToDurationTranslationKey(numSeconds) {
+  var _secondsToTimeCompone2 = secondsToTimeComponents(numSeconds),
+      hours = _secondsToTimeCompone2.hours,
+      minutes = _secondsToTimeCompone2.minutes,
+      seconds = _secondsToTimeCompone2.seconds;
+
+  var durationKey = 'Polaris.VideoThumbnail.playButtonA11yLabel.duration';
+
+  if (hours) {
+    durationKey += ".hours.".concat(hours > 1 ? 'other' : 'one');
+
+    if (seconds) {
+      if (minutes > 1) {
+        durationKey += "".concat(seconds > 1 ? '.minutesAndSeconds' : '.minutesAndSecond');
+      } else if (minutes === 1) {
+        durationKey += "".concat(seconds > 1 ? '.minuteAndSeconds' : '.minuteAndSecond');
+      } else {
+        durationKey += "".concat(seconds > 1 ? '.andSeconds' : '.andSecond');
+      }
+    } else if (minutes) {
+      durationKey += "".concat(minutes > 1 ? '.andMinutes' : '.andMinute');
+    } else {
+      durationKey += '.only';
+    }
+  } else if (minutes) {
+    durationKey += ".minutes.".concat(minutes > 1 ? 'other' : 'one');
+
+    if (seconds) {
+      durationKey += "".concat(seconds > 1 ? '.andSeconds' : '.andSecond');
+    } else {
+      durationKey += '.only';
+    }
+  } else if (seconds) {
+    durationKey += seconds > 1 ? '.seconds.other' : '.seconds.one';
+  }
+
+  return durationKey;
+}
+
+var PlayIcon = 'data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMzggMzgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0xOSAxQzkuMDYgMSAxIDkuMDU3IDEgMTljMCA5Ljk0IDguMDU3IDE4IDE4IDE4IDkuOTQgMCAxOC04LjA1NyAxOC0xOCAwLTkuOTQtOC4wNTctMTgtMTgtMTh6IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTE5IDFDOS4wNiAxIDEgOS4wNTcgMSAxOWMwIDkuOTQgOC4wNTcgMTggMTggMTggOS45NCAwIDE4LTguMDU3IDE4LTE4IDAtOS45NC04LjA1Ny0xOC0xOC0xOHoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2I1YjViNSIvPjxwYXRoIGQ9Ik0xNSAxMS43MjNjMC0uNjA1LjctLjk0MiAxLjE3My0uNTY0bDEwLjkzIDcuMjE1YS43Mi43MiAwIDAxMCAxLjEyOGwtMTAuOTMgNy4yMTZBLjcyMy43MjMgMCAwMTE1IDI2LjE1M3YtMTQuNDN6IiBmaWxsLW9wYWNpdHk9Ii41NTciLz48L3N2Zz4K';
+
+var styles$1J = {
+  "Thumbnail": "Polaris-VideoThumbnail__Thumbnail",
+  "WithPlayer": "Polaris-VideoThumbnail__WithPlayer",
+  "PlayButton": "Polaris-VideoThumbnail__PlayButton",
+  "PlayIcon": "Polaris-VideoThumbnail__PlayIcon",
+  "Timestamp": "Polaris-VideoThumbnail__Timestamp"
+};
+
+function VideoThumbnail(_ref) {
+  var thumbnailUrl = _ref.thumbnailUrl,
+      videoLength = _ref.videoLength,
+      accessibilityLabel = _ref.accessibilityLabel,
+      onClick = _ref.onClick,
+      onBeforeStartPlaying = _ref.onBeforeStartPlaying;
+  var i18n = useI18n();
+  var buttonLabel;
+
+  if (accessibilityLabel) {
+    buttonLabel = accessibilityLabel;
+  } else if (videoLength) {
+    var _secondsToTimeCompone = secondsToTimeComponents(videoLength),
+        hours = _secondsToTimeCompone.hours,
+        minutes = _secondsToTimeCompone.minutes,
+        seconds = _secondsToTimeCompone.seconds;
+
+    buttonLabel = i18n.translate('Polaris.VideoThumbnail.playButtonA11yLabel.defaultWithDuration', {
+      duration: i18n.translate(secondsToDurationTranslationKey(videoLength), {
+        hourCount: hours,
+        minuteCount: minutes,
+        secondCount: seconds
+      })
+    });
+  } else {
+    buttonLabel = i18n.translate('Polaris.VideoThumbnail.playButtonA11yLabel.default');
+  }
+
+  var timeStampMarkup = videoLength ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    className: styles$1J.Timestamp
+  }, secondsToTimestamp(videoLength)) : null;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: styles$1J.Thumbnail,
+    style: {
+      backgroundImage: "url(".concat(thumbnailUrl, ")")
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    type: "button",
+    className: styles$1J.PlayButton,
+    "aria-label": buttonLabel,
+    onClick: onClick,
+    onMouseEnter: onBeforeStartPlaying,
+    onFocus: onBeforeStartPlaying,
+    onTouchStart: onBeforeStartPlaying
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    className: styles$1J.PlayIcon,
+    src: PlayIcon,
+    alt: ""
+  })), timeStampMarkup);
+}
 
 
 
@@ -53382,7 +53586,7 @@ TopBar.UserMenu = UserMenu;
 /*! exports provided: Polaris, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"Polaris\":{\"Avatar\":{\"label\":\"Avatar\",\"labelWithInitials\":\"Avatar with initials {initials}\"},\"Autocomplete\":{\"spinnerAccessibilityLabel\":\"Loading\"},\"Badge\":{\"PROGRESS_LABELS\":{\"incomplete\":\"Incomplete\",\"partiallyComplete\":\"Partially complete\",\"complete\":\"Complete\"},\"STATUS_LABELS\":{\"info\":\"Info\",\"success\":\"Success\",\"warning\":\"Warning\",\"attention\":\"Attention\",\"new\":\"New\"}},\"Button\":{\"spinnerAccessibilityLabel\":\"Loading\",\"connectedDisclosureAccessibilityLabel\":\"Related actions\"},\"Common\":{\"checkbox\":\"checkbox\",\"undo\":\"Undo\",\"cancel\":\"Cancel\",\"newWindowAccessibilityHint\":\"(opens a new window)\",\"clear\":\"Clear\",\"close\":\"Close\",\"submit\":\"Submit\",\"more\":\"More\"},\"ContextualSaveBar\":{\"save\":\"Save\",\"discard\":\"Discard\"},\"DataTable\":{\"sortAccessibilityLabel\":\"sort {direction} by\",\"navAccessibilityLabel\":\"Scroll table {direction} one column\",\"totalsRowHeading\":\"Totals\",\"totalRowHeading\":\"Total\"},\"DatePicker\":{\"previousMonth\":\"Show previous month, {previousMonthName} {showPreviousYear}\",\"nextMonth\":\"Show next month, {nextMonth} {nextYear}\",\"today\":\"Today \",\"months\":{\"january\":\"January\",\"february\":\"February\",\"march\":\"March\",\"april\":\"April\",\"may\":\"May\",\"june\":\"June\",\"july\":\"July\",\"august\":\"August\",\"september\":\"September\",\"october\":\"October\",\"november\":\"November\",\"december\":\"December\"},\"daysAbbreviated\":{\"monday\":\"Mo\",\"tuesday\":\"Tu\",\"wednesday\":\"We\",\"thursday\":\"Th\",\"friday\":\"Fr\",\"saturday\":\"Sa\",\"sunday\":\"Su\"}},\"DiscardConfirmationModal\":{\"title\":\"Discard all unsaved changes\",\"message\":\"If you discard changes, you’ll delete any edits you made since you last saved.\",\"primaryAction\":\"Discard changes\",\"secondaryAction\":\"Continue editing\"},\"DropZone\":{\"overlayTextFile\":\"Drop file to upload\",\"overlayTextImage\":\"Drop image to upload\",\"errorOverlayTextFile\":\"File type is not valid\",\"errorOverlayTextImage\":\"Image type is not valid\",\"FileUpload\":{\"actionTitleFile\":\"Add file\",\"actionTitleImage\":\"Add image\",\"actionHintFile\":\"or drop files to upload\",\"actionHintImage\":\"or drop images to upload\",\"label\":\"Upload file\"}},\"EmptySearchResult\":{\"altText\":\"Empty search results\"},\"Frame\":{\"skipToContent\":\"Skip to content\",\"Navigation\":{\"closeMobileNavigationLabel\":\"Close navigation\"}},\"Icon\":{\"backdropWarning\":\"The {color} icon doesn’t accept backdrops. The icon colors that have backdrops are: {colorsWithBackDrops}\"},\"ActionMenu\":{\"RollupActions\":{\"rollupButton\":\"Actions\"}},\"Filters\":{\"moreFilters\":\"More filters\",\"moreFiltersWithCount\":\"More filters ({count})\",\"filter\":\"Filter {resourceName}\",\"noFiltersApplied\":\"No filters applied\",\"cancel\":\"Cancel\",\"done\":\"Done\",\"clearAllFilters\":\"Clear all filters\",\"clear\":\"Clear\",\"clearLabel\":\"Clear {filterName}\"},\"Modal\":{\"iFrameTitle\":\"body markup\",\"modalWarning\":\"These required properties are missing from Modal: {missingProps}\"},\"Pagination\":{\"previous\":\"Previous\",\"next\":\"Next\",\"pagination\":\"Pagination\"},\"ProgressBar\":{\"negativeWarningMessage\":\"Values passed to the progress prop shouldn’t be negative. Resetting {progress} to 0.\",\"exceedWarningMessage\":\"Values passed to the progress prop shouldn’t exceed 100. Setting {progress} to 100.\"},\"ResourceList\":{\"sortingLabel\":\"Sort by\",\"defaultItemSingular\":\"item\",\"defaultItemPlural\":\"items\",\"showing\":\"Showing {itemsCount} {resource}\",\"showingTotalCount\":\"Showing {itemsCount} of {totalItemsCount} {resource}\",\"loading\":\"Loading {resource}\",\"selected\":\"{selectedItemsCount} selected\",\"allItemsSelected\":\"All {itemsLength}+ {resourceNamePlural} in your store are selected.\",\"selectAllItems\":\"Select all {itemsLength}+ {resourceNamePlural} in your store\",\"emptySearchResultTitle\":\"No {resourceNamePlural} found\",\"emptySearchResultDescription\":\"Try changing the filters or search term\",\"selectButtonText\":\"Select\",\"a11yCheckboxDeselectAllSingle\":\"Deselect {resourceNameSingular}\",\"a11yCheckboxSelectAllSingle\":\"Select {resourceNameSingular}\",\"a11yCheckboxDeselectAllMultiple\":\"Deselect all {itemsLength} {resourceNamePlural}\",\"a11yCheckboxSelectAllMultiple\":\"Select all {itemsLength} {resourceNamePlural}\",\"ariaLiveSingular\":\"{itemsLength} item\",\"ariaLivePlural\":\"{itemsLength} items\",\"Item\":{\"actionsDropdownLabel\":\"Actions for {accessibilityLabel}\",\"actionsDropdown\":\"Actions dropdown\",\"viewItem\":\"View details for {itemName}\"},\"BulkActions\":{\"actionsActivatorLabel\":\"Actions\",\"moreActionsActivatorLabel\":\"More actions\",\"warningMessage\":\"To provide a better user experience. There should only be a maximum of {maxPromotedActions} promoted actions.\"},\"FilterCreator\":{\"filterButtonLabel\":\"Filter\",\"selectFilterKeyPlaceholder\":\"Select a filter…\",\"addFilterButtonLabel\":\"Add filter\",\"showAllWhere\":\"Show all {resourceNamePlural} where:\"},\"FilterControl\":{\"textFieldLabel\":\"Search {resourceNamePlural}\"},\"FilterValueSelector\":{\"selectFilterValuePlaceholder\":\"Select a filter…\"},\"DateSelector\":{\"dateFilterLabel\":\"Select a value\",\"dateValueLabel\":\"Date\",\"dateValueError\":\"Match YYYY-MM-DD format\",\"dateValuePlaceholder\":\"YYYY-MM-DD\",\"SelectOptions\":{\"PastWeek\":\"in the last week\",\"PastMonth\":\"in the last month\",\"PastQuarter\":\"in the last 3 months\",\"PastYear\":\"in the last year\",\"ComingWeek\":\"next week\",\"ComingMonth\":\"next month\",\"ComingQuarter\":\"in the next 3 months\",\"ComingYear\":\"in the next year\",\"OnOrBefore\":\"on or before\",\"OnOrAfter\":\"on or after\"},\"FilterLabelForValue\":{\"past_week\":\"in the last week\",\"past_month\":\"in the last month\",\"past_quarter\":\"in the last 3 months\",\"past_year\":\"in the last year\",\"coming_week\":\"next week\",\"coming_month\":\"next month\",\"coming_quarter\":\"in the next 3 months\",\"coming_year\":\"in the next year\",\"on_or_before\":\"before {date}\",\"on_or_after\":\"after {date}\"}}},\"SkeletonPage\":{\"loadingLabel\":\"Page loading\"},\"Spinner\":{\"warningMessage\":\"The color {color} is not meant to be used on {size} spinners. The colors available on large spinners are: {colors}\"},\"Tabs\":{\"toggleTabsLabel\":\"More tabs\"},\"Tag\":{\"ariaLabel\":\"Remove {children}\"},\"TextField\":{\"characterCount\":\"{count} characters\",\"characterCountWithMaxLength\":\"{count} of {limit} characters used\"},\"TopBar\":{\"toggleMenuLabel\":\"Toggle menu\",\"SearchField\":{\"clearButtonLabel\":\"Clear\",\"search\":\"Search\"}}}}");
+module.exports = JSON.parse("{\"Polaris\":{\"Avatar\":{\"label\":\"Avatar\",\"labelWithInitials\":\"Avatar with initials {initials}\"},\"Autocomplete\":{\"spinnerAccessibilityLabel\":\"Loading\"},\"Badge\":{\"PROGRESS_LABELS\":{\"incomplete\":\"Incomplete\",\"partiallyComplete\":\"Partially complete\",\"complete\":\"Complete\"},\"STATUS_LABELS\":{\"info\":\"Info\",\"success\":\"Success\",\"warning\":\"Warning\",\"attention\":\"Attention\",\"new\":\"New\"}},\"Button\":{\"spinnerAccessibilityLabel\":\"Loading\",\"connectedDisclosureAccessibilityLabel\":\"Related actions\"},\"Common\":{\"checkbox\":\"checkbox\",\"undo\":\"Undo\",\"cancel\":\"Cancel\",\"newWindowAccessibilityHint\":\"(opens a new window)\",\"clear\":\"Clear\",\"close\":\"Close\",\"submit\":\"Submit\",\"more\":\"More\"},\"ContextualSaveBar\":{\"save\":\"Save\",\"discard\":\"Discard\"},\"DataTable\":{\"sortAccessibilityLabel\":\"sort {direction} by\",\"navAccessibilityLabel\":\"Scroll table {direction} one column\",\"totalsRowHeading\":\"Totals\",\"totalRowHeading\":\"Total\"},\"DatePicker\":{\"previousMonth\":\"Show previous month, {previousMonthName} {showPreviousYear}\",\"nextMonth\":\"Show next month, {nextMonth} {nextYear}\",\"today\":\"Today \",\"months\":{\"january\":\"January\",\"february\":\"February\",\"march\":\"March\",\"april\":\"April\",\"may\":\"May\",\"june\":\"June\",\"july\":\"July\",\"august\":\"August\",\"september\":\"September\",\"october\":\"October\",\"november\":\"November\",\"december\":\"December\"},\"daysAbbreviated\":{\"monday\":\"Mo\",\"tuesday\":\"Tu\",\"wednesday\":\"We\",\"thursday\":\"Th\",\"friday\":\"Fr\",\"saturday\":\"Sa\",\"sunday\":\"Su\"}},\"DiscardConfirmationModal\":{\"title\":\"Discard all unsaved changes\",\"message\":\"If you discard changes, you’ll delete any edits you made since you last saved.\",\"primaryAction\":\"Discard changes\",\"secondaryAction\":\"Continue editing\"},\"DropZone\":{\"overlayTextFile\":\"Drop file to upload\",\"overlayTextImage\":\"Drop image to upload\",\"errorOverlayTextFile\":\"File type is not valid\",\"errorOverlayTextImage\":\"Image type is not valid\",\"FileUpload\":{\"actionTitleFile\":\"Add file\",\"actionTitleImage\":\"Add image\",\"actionHintFile\":\"or drop files to upload\",\"actionHintImage\":\"or drop images to upload\",\"label\":\"Upload file\"}},\"EmptySearchResult\":{\"altText\":\"Empty search results\"},\"Frame\":{\"skipToContent\":\"Skip to content\",\"Navigation\":{\"closeMobileNavigationLabel\":\"Close navigation\"}},\"Icon\":{\"backdropWarning\":\"The {color} icon doesn’t accept backdrops. The icon colors that have backdrops are: {colorsWithBackDrops}\"},\"ActionMenu\":{\"RollupActions\":{\"rollupButton\":\"Actions\"}},\"Filters\":{\"moreFilters\":\"More filters\",\"moreFiltersWithCount\":\"More filters ({count})\",\"filter\":\"Filter {resourceName}\",\"noFiltersApplied\":\"No filters applied\",\"cancel\":\"Cancel\",\"done\":\"Done\",\"clearAllFilters\":\"Clear all filters\",\"clear\":\"Clear\",\"clearLabel\":\"Clear {filterName}\"},\"Modal\":{\"iFrameTitle\":\"body markup\",\"modalWarning\":\"These required properties are missing from Modal: {missingProps}\"},\"Pagination\":{\"previous\":\"Previous\",\"next\":\"Next\",\"pagination\":\"Pagination\"},\"ProgressBar\":{\"negativeWarningMessage\":\"Values passed to the progress prop shouldn’t be negative. Resetting {progress} to 0.\",\"exceedWarningMessage\":\"Values passed to the progress prop shouldn’t exceed 100. Setting {progress} to 100.\"},\"ResourceList\":{\"sortingLabel\":\"Sort by\",\"defaultItemSingular\":\"item\",\"defaultItemPlural\":\"items\",\"showing\":\"Showing {itemsCount} {resource}\",\"showingTotalCount\":\"Showing {itemsCount} of {totalItemsCount} {resource}\",\"loading\":\"Loading {resource}\",\"selected\":\"{selectedItemsCount} selected\",\"allItemsSelected\":\"All {itemsLength}+ {resourceNamePlural} in your store are selected.\",\"selectAllItems\":\"Select all {itemsLength}+ {resourceNamePlural} in your store\",\"emptySearchResultTitle\":\"No {resourceNamePlural} found\",\"emptySearchResultDescription\":\"Try changing the filters or search term\",\"selectButtonText\":\"Select\",\"a11yCheckboxDeselectAllSingle\":\"Deselect {resourceNameSingular}\",\"a11yCheckboxSelectAllSingle\":\"Select {resourceNameSingular}\",\"a11yCheckboxDeselectAllMultiple\":\"Deselect all {itemsLength} {resourceNamePlural}\",\"a11yCheckboxSelectAllMultiple\":\"Select all {itemsLength} {resourceNamePlural}\",\"ariaLiveSingular\":\"{itemsLength} item\",\"ariaLivePlural\":\"{itemsLength} items\",\"Item\":{\"actionsDropdownLabel\":\"Actions for {accessibilityLabel}\",\"actionsDropdown\":\"Actions dropdown\",\"viewItem\":\"View details for {itemName}\"},\"BulkActions\":{\"actionsActivatorLabel\":\"Actions\",\"moreActionsActivatorLabel\":\"More actions\",\"warningMessage\":\"To provide a better user experience. There should only be a maximum of {maxPromotedActions} promoted actions.\"},\"FilterCreator\":{\"filterButtonLabel\":\"Filter\",\"selectFilterKeyPlaceholder\":\"Select a filter…\",\"addFilterButtonLabel\":\"Add filter\",\"showAllWhere\":\"Show all {resourceNamePlural} where:\"},\"FilterControl\":{\"textFieldLabel\":\"Search {resourceNamePlural}\"},\"FilterValueSelector\":{\"selectFilterValuePlaceholder\":\"Select a filter…\"},\"DateSelector\":{\"dateFilterLabel\":\"Select a value\",\"dateValueLabel\":\"Date\",\"dateValueError\":\"Match YYYY-MM-DD format\",\"dateValuePlaceholder\":\"YYYY-MM-DD\",\"SelectOptions\":{\"PastWeek\":\"in the last week\",\"PastMonth\":\"in the last month\",\"PastQuarter\":\"in the last 3 months\",\"PastYear\":\"in the last year\",\"ComingWeek\":\"next week\",\"ComingMonth\":\"next month\",\"ComingQuarter\":\"in the next 3 months\",\"ComingYear\":\"in the next year\",\"OnOrBefore\":\"on or before\",\"OnOrAfter\":\"on or after\"},\"FilterLabelForValue\":{\"past_week\":\"in the last week\",\"past_month\":\"in the last month\",\"past_quarter\":\"in the last 3 months\",\"past_year\":\"in the last year\",\"coming_week\":\"next week\",\"coming_month\":\"next month\",\"coming_quarter\":\"in the next 3 months\",\"coming_year\":\"in the next year\",\"on_or_before\":\"before {date}\",\"on_or_after\":\"after {date}\"}}},\"SkeletonPage\":{\"loadingLabel\":\"Page loading\"},\"Spinner\":{\"warningMessage\":\"The color {color} is not meant to be used on {size} spinners. The colors available on large spinners are: {colors}\"},\"Tabs\":{\"toggleTabsLabel\":\"More tabs\"},\"Tag\":{\"ariaLabel\":\"Remove {children}\"},\"TextField\":{\"characterCount\":\"{count} characters\",\"characterCountWithMaxLength\":\"{count} of {limit} characters used\"},\"TopBar\":{\"toggleMenuLabel\":\"Toggle menu\",\"SearchField\":{\"clearButtonLabel\":\"Clear\",\"search\":\"Search\"}},\"MediaCard\":{\"popoverButton\":\"Actions\"},\"VideoThumbnail\":{\"playButtonA11yLabel\":{\"default\":\"Play video\",\"defaultWithDuration\":\"Play video of length {duration}\",\"duration\":{\"hours\":{\"other\":{\"only\":\"{hourCount} hours\",\"andMinutes\":\"{hourCount} hours and {minuteCount} minutes\",\"andMinute\":\"{hourCount} hours and {minuteCount} minute\",\"minutesAndSeconds\":\"{hourCount} hours, {minuteCount} minutes, and {secondCount} seconds\",\"minutesAndSecond\":\"{hourCount} hours, {minuteCount} minutes, and {secondCount} second\",\"minuteAndSeconds\":\"{hourCount} hours, {minuteCount} minute, and {secondCount} seconds\",\"minuteAndSecond\":\"{hourCount} hours, {minuteCount} minute, and {secondCount} second\",\"andSeconds\":\"{hourCount} hours and {secondCount} seconds\",\"andSecond\":\"{hourCount} hours and {secondCount} second\"},\"one\":{\"only\":\"{hourCount} hour\",\"andMinutes\":\"{hourCount} hour and {minuteCount} minutes\",\"andMinute\":\"{hourCount} hour and {minuteCount} minute\",\"minutesAndSeconds\":\"{hourCount} hour, {minuteCount} minutes, and {secondCount} seconds\",\"minutesAndSecond\":\"{hourCount} hour, {minuteCount} minutes, and {secondCount} second\",\"minuteAndSeconds\":\"{hourCount} hour, {minuteCount} minute, and {secondCount} seconds\",\"minuteAndSecond\":\"{hourCount} hour, {minuteCount} minute, and {secondCount} second\",\"andSeconds\":\"{hourCount} hour and {secondCount} seconds\",\"andSecond\":\"{hourCount} hour and {secondCount} second\"}},\"minutes\":{\"other\":{\"only\":\"{minuteCount} minutes\",\"andSeconds\":\"{minuteCount} minutes and {secondCount} seconds\",\"andSecond\":\"{minuteCount} minutes and {secondCount} second\"},\"one\":{\"only\":\"{minuteCount} minute\",\"andSeconds\":\"{minuteCount} minute and {secondCount} seconds\",\"andSecond\":\"{minuteCount} minute and {secondCount} second\"}},\"seconds\":{\"other\":\"{secondCount} seconds\",\"one\":\"{secondCount} second\"}}}}}}");
 
 /***/ }),
 
@@ -61954,34 +62158,31 @@ module.exports = function(module) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
-/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/classCallCheck */ "./node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
-/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/esm/createClass */ "./node_modules/@babel/runtime/helpers/esm/createClass.js");
-/* harmony import */ var _babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/esm/possibleConstructorReturn */ "./node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js");
-/* harmony import */ var _babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/esm/getPrototypeOf */ "./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js");
-/* harmony import */ var _babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inherits */ "./node_modules/@babel/runtime/helpers/esm/inherits.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var next_app__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! next/app */ "./node_modules/next/app.js");
-/* harmony import */ var next_app__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(next_app__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! next/head */ "./node_modules/next/dist/next-server/lib/head.js");
-/* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(next_head__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _shopify_polaris__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @shopify/polaris */ "./node_modules/@shopify/polaris/index.es.js");
-/* harmony import */ var _shopify_polaris_styles_css__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @shopify/polaris/styles.css */ "./node_modules/@shopify/polaris/styles.css");
-/* harmony import */ var _shopify_polaris_styles_css__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_shopify_polaris_styles_css__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var _shopify_polaris_locales_en_json__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @shopify/polaris/locales/en.json */ "./node_modules/@shopify/polaris/locales/en.json");
-var _shopify_polaris_locales_en_json__WEBPACK_IMPORTED_MODULE_11___namespace = /*#__PURE__*/__webpack_require__.t(/*! @shopify/polaris/locales/en.json */ "./node_modules/@shopify/polaris/locales/en.json", 1);
+/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/classCallCheck */ "./node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
+/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/createClass */ "./node_modules/@babel/runtime/helpers/esm/createClass.js");
+/* harmony import */ var _babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/esm/possibleConstructorReturn */ "./node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js");
+/* harmony import */ var _babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/esm/getPrototypeOf */ "./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js");
+/* harmony import */ var _babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inherits */ "./node_modules/@babel/runtime/helpers/esm/inherits.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var next_app__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! next/app */ "./node_modules/next/app.js");
+/* harmony import */ var next_app__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(next_app__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! next/head */ "./node_modules/next/dist/next-server/lib/head.js");
+/* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(next_head__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _shopify_polaris__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @shopify/polaris */ "./node_modules/@shopify/polaris/index.es.js");
+/* harmony import */ var _shopify_polaris_styles_css__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @shopify/polaris/styles.css */ "./node_modules/@shopify/polaris/styles.css");
+/* harmony import */ var _shopify_polaris_styles_css__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_shopify_polaris_styles_css__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _shopify_polaris_locales_en_json__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @shopify/polaris/locales/en.json */ "./node_modules/@shopify/polaris/locales/en.json");
+var _shopify_polaris_locales_en_json__WEBPACK_IMPORTED_MODULE_10___namespace = /*#__PURE__*/__webpack_require__.t(/*! @shopify/polaris/locales/en.json */ "./node_modules/@shopify/polaris/locales/en.json", 1);
 
 
 
 
 
 
-var _jsxFileName = "C:\\Users\\Brandon Tom\\Desktop\\scoringproject\\pages\\_app.js";
+var __jsx = react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement;
 
-var __jsx = react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement;
-
-function _createSuper(Derived) { return function () { var Super = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__["default"])(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__["default"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__["default"])(this, result); }; }
+function _createSuper(Derived) { return function () { var Super = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__["default"])(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__["default"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__["default"])(this, result); }; }
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
@@ -61992,72 +62193,32 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 
 var MyApp = /*#__PURE__*/function (_App) {
-  Object(_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__["default"])(MyApp, _App);
+  Object(_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__["default"])(MyApp, _App);
 
   var _super = _createSuper(MyApp);
 
   function MyApp() {
-    Object(_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__["default"])(this, MyApp);
+    Object(_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, MyApp);
 
     return _super.apply(this, arguments);
   }
 
-  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__["default"])(MyApp, [{
+  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(MyApp, [{
     key: "render",
     value: function render() {
       var _this$props = this.props,
           Component = _this$props.Component,
           pageProps = _this$props.pageProps;
-      return __jsx(react__WEBPACK_IMPORTED_MODULE_6___default.a.Fragment, {
-        __self: this,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 11,
-          columnNumber: 7
-        }
-      }, __jsx(next_head__WEBPACK_IMPORTED_MODULE_8___default.a, {
-        __self: this,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 12,
-          columnNumber: 9
-        }
-      }, __jsx("title", {
-        __self: this,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 13,
-          columnNumber: 11
-        }
-      }, "Sample App"), __jsx("meta", {
-        charSet: "utf-8",
-        __self: this,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 14,
-          columnNumber: 11
-        }
-      })), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_9__["AppProvider"], {
-        i18n: _shopify_polaris_locales_en_json__WEBPACK_IMPORTED_MODULE_11__,
-        __self: this,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 16,
-          columnNumber: 9
-        }
-      }, __jsx(Component, Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, pageProps, {
-        __self: this,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 17,
-          columnNumber: 11
-        }
-      }))));
+      return __jsx(react__WEBPACK_IMPORTED_MODULE_5___default.a.Fragment, null, __jsx(next_head__WEBPACK_IMPORTED_MODULE_7___default.a, null, __jsx("title", null, "Sample App"), __jsx("meta", {
+        charSet: "utf-8"
+      })), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_8__["AppProvider"], {
+        i18n: _shopify_polaris_locales_en_json__WEBPACK_IMPORTED_MODULE_10__
+      }, __jsx(Component, pageProps)));
     }
   }]);
 
   return MyApp;
-}(next_app__WEBPACK_IMPORTED_MODULE_7___default.a);
+}(next_app__WEBPACK_IMPORTED_MODULE_6___default.a);
 
 /* harmony default export */ __webpack_exports__["default"] = (MyApp);
 
@@ -62071,7 +62232,7 @@ var MyApp = /*#__PURE__*/function (_App) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! next-client-pages-loader?page=%2F_app&absolutePagePath=private-next-pages%2F_app.js! */"./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2F_app&absolutePagePath=private-next-pages%2F_app.js!./");
-module.exports = __webpack_require__(/*! C:\Users\Brandon Tom\Desktop\scoringproject\node_modules\next\dist\client\router.js */"./node_modules/next/dist/client/router.js");
+module.exports = __webpack_require__(/*! /Users/ivanhuang/Desktop/EthicScore/node_modules/next/dist/client/router.js */"./node_modules/next/dist/client/router.js");
 
 
 /***/ }),

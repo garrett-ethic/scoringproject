@@ -1,5 +1,5 @@
 :root{
-  --polaris-version-number:'4.17.0'; }
+  --polaris-version-number:'4.18.0'; }
 
 html,
 body{
@@ -7054,6 +7054,49 @@ button::-moz-focus-inner,
     margin-top:0.8rem; }
 
 
+.Polaris-MediaCard{
+  height:100%;
+  width:100%;
+  display:flex;
+  flex-flow:row wrap; }
+  .Polaris-MediaCard.Polaris-MediaCard--portrait{
+    flex-flow:column nowrap; }
+  @media (max-width: 50.25em){
+    .Polaris-MediaCard{
+      flex-flow:column nowrap; } }
+
+.Polaris-MediaCard__MediaContainer:not(.Polaris-MediaCard--portrait){
+  flex-basis:40%; }
+
+.Polaris-MediaCard__InfoContainer{
+  position:relative; }
+  .Polaris-MediaCard__InfoContainer:not(.Polaris-MediaCard--portrait){
+    flex-basis:60%; }
+
+.Polaris-MediaCard__Popover{
+  position:absolute;
+  z-index:400;
+  top:1.6rem;
+  right:1.6rem; }
+
+.Polaris-MediaCard__Heading{
+  margin-right:3.2rem; }
+
+.Polaris-MediaCard__PrimaryAction{
+  margin-right:0.8rem; }
+
+.Polaris-MediaCard__SecondaryAction{
+  margin-left:-spacing(tight); }
+
+.Polaris-MediaCard__ActionContainer{
+  padding-top:0.8rem; }
+  .Polaris-MediaCard__ActionContainer.Polaris-MediaCard--portrait{
+    padding-top:3.2rem; }
+  @media (max-width: 50.25em){
+    .Polaris-MediaCard__ActionContainer{
+      padding-top:3.2rem; } }
+
+
 @keyframes Polaris-Navigation__fade--in{
   0%{
     opacity:0; }
@@ -10479,7 +10522,7 @@ body{
   margin-right:0.8rem;
   padding:0.8rem;
   border-radius:3px;
-  fill:var(--p-icon, white); }
+  fill:var(--p-icon, var(--top-bar-color)); }
   .Polaris-TopBar__NavigationIcon:focus{
     outline:none; }
   .Polaris-TopBar__NavigationIcon.Polaris-TopBar--focused{
@@ -10543,6 +10586,64 @@ body{
 @media (max-width: 48.0525em){
   .Polaris-TopBar__SecondaryMenu{
     display:none; } }
+
+
+.Polaris-VideoThumbnail__Thumbnail{
+  position:relative;
+  padding-bottom:56.25%;
+  background-size:cover;
+  background-position:center center;
+  background-repeat:no-repeat;
+  width:100%;
+  height:100%; }
+  .Polaris-VideoThumbnail__Thumbnail.Polaris-VideoThumbnail__WithPlayer{
+    position:absolute;
+    z-index:1;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    padding-bottom:auto; }
+
+.Polaris-VideoThumbnail__PlayButton{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  padding:0;
+  border:none;
+  background:transparent;
+  opacity:0.8;
+  transition:opacity 0.2s ease-in;
+  cursor:pointer; }
+  .Polaris-VideoThumbnail__PlayButton:hover, .Polaris-VideoThumbnail__PlayButton:focus{
+    opacity:1; }
+  .Polaris-VideoThumbnail__PlayButton:focus{
+    outline:none;
+    box-shadow:inset 0.2rem 0 0 #5c6ac4;
+    background-image:linear-gradient(rgba(223, 227, 232, 0.3), rgba(223, 227, 232, 0.3)); }
+
+.Polaris-VideoThumbnail__PlayIcon{
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:6rem;
+  height:6rem;
+  margin-top:-3rem;
+  margin-left:-3rem; }
+
+.Polaris-VideoThumbnail__Timestamp{
+  position:absolute;
+  bottom:0;
+  padding:0 0.4rem;
+  margin-bottom:0.8rem;
+  margin-left:0.8rem;
+  border-radius:var(--p-border-radius-base, 3px);
+  color:var(--p-text, #f9fafb);
+  background-color:var(--p-surface, #212b36);
+  opacity:0.8;
+  text-align:center; }
 
 
 /*# sourceMappingURL=styles.chunk.css.map*/

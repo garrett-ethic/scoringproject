@@ -21,6 +21,14 @@
     "/_polyfills": [
       "static/runtime/polyfills.js",
       "static/runtime/polyfills.js.map"
+    ],
+    "/product-tag": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
+    "/update-product": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
     ]
   }
 }
