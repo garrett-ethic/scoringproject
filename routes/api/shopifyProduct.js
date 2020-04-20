@@ -5,8 +5,7 @@ const ShopifyProduct = require('../../models/ShopifyProduct');
 const dotenv = require('dotenv').config();
 
 const shopifyAxios = axios.create({
-  baseURL:
-    'https://ethic-marketplace.myshopify.com/admin/api/2020-01/products',
+  baseURL: 'https://ethic-marketplace.myshopify.com/admin/api/2020-01/products',
   auth: {
     username: process.env.SHOPIFY_STORE_USERNAME,
     password: process.env.SHOPIFY_STORE_PASSWORD,
@@ -78,34 +77,31 @@ const updateDatabase = async function (input_product) {
 const getTaggedProducts = async function (tag) {
   let products = [];
   //let tagList = [];
-  let newURL = 'https://ethic-marketplace.myshopify.com/admin/api/2020-01/products.json';
+  let newURL =
+    'https://ethic-marketplace.myshopify.com/admin/api/2020-01/products.json';
   while (newURL) {
     try {
-      let res = await axios.get(
-        newURL.toString() + '?limit=250',
-        {
-          params: {
-            limit: 250
-          },
-          auth: {
-            username: process.env.SHOPIFY_STORE_USERNAME,
-            password: process.env.SHOPIFY_STORE_PASSWORD,
-          }
-        });
+      let res = await axios.get(newURL.toString() + '?limit=250', {
+        params: {
+          limit: 250,
+        },
+        auth: {
+          username: process.env.SHOPIFY_STORE_USERNAME,
+          password: process.env.SHOPIFY_STORE_PASSWORD,
+        },
+      });
       //console.log(`Status: ${res.status}`);
       let productsRaw = res.data['products'];
       for (index = 0; index < productsRaw.length; index++) {
         let productTags = productsRaw[index].tags.split(', ');
         if (tag === 'ineedtags') {
           let tagCounter;
-          for (tagCounter = 0; tagCounter < productTags.length; ++tagCounter)
-          {
+          for (tagCounter = 0; tagCounter < productTags.length; ++tagCounter) {
             if (!products.includes(productTags[tagCounter])) {
               products.push(productTags[tagCounter]);
             }
           }
-        }
-        else {
+        } else {
           if (productTags.includes(tag)) {
             products.push(productsRaw[index]);
           }
@@ -121,7 +117,6 @@ const getTaggedProducts = async function (tag) {
   }
   return await products;
 };
-
 
 /*
 router.put('/:id', async (req, res) => {
@@ -161,8 +156,7 @@ router.get('/tagList/:tag', async (req, res) => {
   }
 });
 
-
-router.get(':id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     let product = await getProduct(
       req.params.id,
@@ -180,6 +174,21 @@ router.get(':id', async (req, res) => {
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
+  }
+});
+
+// @route   PUT api/metrics/:id
+// @desc    Creates a new metafield for the specified Shopify User. Don't use this route to update metafields.
+// @access  Private
+router.get('/metrics/:id', async (req, res) => {
+  try {
+    const productMetrics = await shopifyAxios.get(
+      req.params.id + '/metafields.json'
+    );
+    res.json(productMetrics.data);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send('Server error');
   }
 });
 

@@ -1,3 +1,5 @@
+import React from 'react';
+import axios from 'axios';
 import {
   Button,
   Card,
@@ -10,11 +12,55 @@ import {
   TextStyle,
   FooterHelp,
   Link,
+  Heading,
+  Subheading,
 } from '@shopify/polaris';
 
 class UpdateProduct extends React.Component {
-  state = {
-    product: '',
+  constructor(props) {
+    super(props);
+    this.state = {
+      productID: '',
+      productName: '',
+      productVendor: '',
+      productTags: '',
+      productMetrics: [],
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
+  }
+
+  handleSearchSubmit = () => {
+    console.log(
+      'http://localhost:5000/api/shopifyProduct/' + this.state.productID
+    );
+    axios
+      .get('http://localhost:5000/api/shopifyProduct/' + this.state.productID)
+      .then((res) => {
+        const prodInfo = res.data;
+        console.log(prodInfo);
+        this.setState({
+          productName: prodInfo.title,
+          productVendor: prodInfo.vendor,
+          productTags: prodInfo.tags,
+        });
+      });
+    axios
+      .get(
+        'http://localhost:5000/api/shopifyProduct/metrics/' +
+          this.state.productID
+      )
+      .then((res) => {
+        const prodMetrics = res.data;
+        console.log(prodMetrics);
+        this.setState({
+          productMetrics: prodMetrics.metafields,
+        });
+      });
+  };
+
+  handleChange = (field) => {
+    return (value) => this.setState({ [field]: value });
   };
 
   render() {
@@ -28,7 +74,7 @@ class UpdateProduct extends React.Component {
             description='Search for a product by entering a product ID.'
           >
             <Card sectioned>
-              <Form onSubmit={this.handleSubmit}>
+              <Form onSubmit={this.handleSearchSubmit}>
                 <FormLayout>
                   <TextField
                     value={productID}
@@ -46,18 +92,27 @@ class UpdateProduct extends React.Component {
             </Card>
           </Layout.AnnotatedSection>
           <Layout.AnnotatedSection
-            title='Price updates'
-            description='Temporarily disable all Sample App price updates'
+            title='Product Information'
+            description='Information and Current Product Metrics'
           >
-            {/* <SettingToggle
-              action={{
-                content: contentStatus,
-                onAction: this.handleToggle,
-              }}
-              enabled={enabled}
-            > */}
-            This setting is <TextStyle variation='strong'>Hi</TextStyle>.
-            {/* </SettingToggle> */}
+            <Card>
+              <Heading>Product Name:</Heading>
+              <Subheading>{this.state.productName}</Subheading>
+              <Heading>Vendor:</Heading>
+              <Subheading>{this.state.productVendor}</Subheading>
+              <Heading>Tags:</Heading>
+              <Subheading>{this.state.productTags}</Subheading>
+              <Heading>Ethical Metrics:</Heading>
+              <p>
+                {this.state.productMetrics.map((metric) => {
+                  return (
+                    <li key={metric.key}>
+                      {metric.key}":" {metric.value}
+                    </li>
+                  );
+                })}
+              </p>
+            </Card>
           </Layout.AnnotatedSection>
           <Layout.Section>
             <FooterHelp>
@@ -74,17 +129,6 @@ class UpdateProduct extends React.Component {
       </Page>
     );
   }
-
-  handleSubmit = () => {
-    this.setState({
-      discount: this.state.discount,
-    });
-    console.log('submission', this.state);
-  };
-
-  handleChange = (field) => {
-    return (value) => this.setState({ [field]: value });
-  };
 }
 
 export default UpdateProduct;
