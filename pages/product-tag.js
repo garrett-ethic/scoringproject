@@ -2,12 +2,15 @@ import React from 'react';
 import axios from 'axios';
 import {
   Card,
+  Checkbox,
+  ChoiceList,
   Scrollable,
   FormLayout,
   TextField,
   Button,
   Form,
   Heading,
+  RangeSlider,
   Subheading,
   Layout,
   Page,
@@ -27,14 +30,34 @@ class ProductTag extends React.Component {
       productNumber: 0,
       productRows: [],
       data: [],
+      selected: [],
+      //design decision not to make a metrics object and store metrics in it
+      // https://stackoverflow.com/a/51136076
+      metric1: -1,
+      metric2: -1,
+      metric3: -1,
+      metric4: -1,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleUpdateChange = this.handleUpdateChange.bind(this);
+    this.handleProductChange = this.handleProductChange.bind(this);
+    this.handleMetricSubmit = this.handleMetricSubmit.bind(this);
   }
 
-  handleChange(e, result) {
-    //console.log(e);
-    this.setState({ tag: e });
+  handleChange(value) {
+    this.setState({ tag: value });
+  }
+
+  handleUpdateChange(value, id) {
+    this.setState({
+      [id]: value
+    });
+  }
+  handleProductChange(value) {
+    this.setState({
+      selected: value
+    });
   }
 
   componentDidMount() {
@@ -46,7 +69,8 @@ class ProductTag extends React.Component {
         for (i = 0; i < results.length; ++i) {
           console.log(results[i]);
           this.setState({
-            tagList: this.state.tagList.concat(results[i]),
+            //tagList: this.state.tagList.concat(results[i]),
+            tagList: [...this.state.tagList, results[i]]
           });
         }
       });
@@ -84,6 +108,13 @@ class ProductTag extends React.Component {
     this.setState({ finishedTag: this.state.tag });
     this.setState({ tag: '' });
   }
+  handleMetricSubmit(event) {
+    console.log(this.state.metric1);
+    console.log(this.state.metric2);
+    console.log(this.state.metric3);
+    console.log(this.state.metric4);
+  }
+
   render() {
     return (
       <Page>
@@ -125,13 +156,63 @@ class ProductTag extends React.Component {
 
             <Card>
               <Scrollable shadow style={{ height: '400px' }}>
-                <DataTable
-                  columnContentTypes={['text', 'numeric', 'text', 'text']}
-                  headings={['Product Name', 'Product ID', 'Vendor', 'Tags']}
-                  rows={this.state.productRows}
+                <ChoiceList
+                  allowMultiple
+                  title=""
+                  choices={this.state.productRows.map((value, index) => {
+                      return {label: value[0],
+                              value: value[1],
+                              helpText: value[1] + '\t' + value[2] + '\t' + value[3]}
+                    })}
+                  selected={this.state.selected}
+                  onChange={this.handleProductChange}
                 />
               </Scrollable>
             </Card>
+            <Card sectioned title = "Move the slider to -1 to leave the metric alone">
+              <Form onSubmit={this.handleMetricSubmit}>
+                <FormLayout>
+                  <RangeSlider
+                    min={-1}
+                    max={10}
+                    label="Metric 1"
+                    value={this.state.metric1}
+                    onChange={this.handleUpdateChange}
+                    id='metric1'
+                    output
+                  />
+                  <RangeSlider
+                    min={-1}
+                    max={10}
+                    label="Metric 2"
+                    value={this.state.metric2}
+                    onChange={this.handleUpdateChange}
+                    id='metric2'
+                    output
+                  />
+                  <RangeSlider
+                    min={-1}
+                    max={10}
+                    label="Metric 3"
+                    value={this.state.metric3}
+                    onChange={this.handleUpdateChange}
+                    id='metric3'
+                    output
+                  />
+                  <RangeSlider
+                    min={-1}
+                    max={10}
+                    label="Metric 4"
+                    value={this.state.metric4}
+                    onChange={this.handleUpdateChange}
+                    id='metric4'
+                    output
+                  />
+                <Button submit>Submit</Button>
+                </FormLayout>
+              </Form>
+            </Card>
+
             <FooterHelp>
               Ethic Score's{' '}
               <Link
@@ -144,16 +225,15 @@ class ProductTag extends React.Component {
           </Layout.Section>
         </Layout>
       </Page>
-      /*
-      <ul>
-        {this.state.data.map(d => <div>{d.id}</div>)}
-        {this.state.data.map(d => <div>{d.title}</div>)}
-        {this.state.data.map(d => <div>{d.vendor}</div>)}
-        {this.state.data.map(d => <div>{d.product_type}</div>)}
-      </ul>*/
-      //</div>
     );
   }
 }
+                /*
+                <DataTable
+                  columnContentTypes={['text', 'numeric', 'text', 'text']}
+                  headings={['Product Name', 'Product ID', 'Vendor', 'Tags']}
+                  rows={this.state.productRows}
+                />
+                */
 
 export default ProductTag;
