@@ -30,7 +30,9 @@ class ProductTag extends React.Component {
       productNumber: 0,
       productRows: [],
       data: [],
+      idList: [],
       selected: [],
+      selectedAll: false,
       //design decision not to make a metrics object and store metrics in it
       // https://stackoverflow.com/a/51136076
       metric1: -1,
@@ -41,6 +43,7 @@ class ProductTag extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleUpdateChange = this.handleUpdateChange.bind(this);
+    this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handleProductChange = this.handleProductChange.bind(this);
     this.handleMetricSubmit = this.handleMetricSubmit.bind(this);
   }
@@ -54,10 +57,26 @@ class ProductTag extends React.Component {
       [id]: value
     });
   }
+  
+  handleSelectChange(value) {
+    this.setState({
+      selectedAll: value
+    });
+    if (value) {
+      this.setState({
+        selected: this.state.idList
+      });
+    } else {
+      this.setState({
+        selected: []
+      });
+    }
+  }
   handleProductChange(value) {
     this.setState({
       selected: value
     });
+    
   }
 
   componentDidMount() {
@@ -82,6 +101,12 @@ class ProductTag extends React.Component {
     axios
       .get('http://localhost:5000/api/shopifyProduct/tagList/' + this.state.tag)
       .then((res) => {
+        this.setState({
+          data: [],
+          idList: [],
+          productRows: [],
+          selected: []
+        });
         const results = res.data;
         console.log(results);
         let i;
@@ -94,10 +119,9 @@ class ProductTag extends React.Component {
             results[i].tags,
           ];
           this.setState({
-            // data: this.state.data.concat(results[i]),
-            // @Preston, I think the spread operator ( ... ) is a more common notation of doing the same thing as concat
             data: [...this.state.data, results[i]],
             productRows: [...this.state.productRows, newProductRow],
+            idList: [...this.state.idList, results[i].id]
           });
         }
         this.setState({
@@ -107,6 +131,7 @@ class ProductTag extends React.Component {
       });
     this.setState({ finishedTag: this.state.tag });
     this.setState({ tag: '' });
+    this.setState({ selectedAll: false});
   }
   handleMetricSubmit(event) {
     console.log(this.state.metric1);
@@ -155,6 +180,11 @@ class ProductTag extends React.Component {
             </Subheading>
 
             <Card>
+              <Checkbox
+                label="Select all products"
+                checked={this.state.selectedAll}
+                onChange={this.handleSelectChange}
+              />
               <Scrollable shadow style={{ height: '400px' }}>
                 <ChoiceList
                   allowMultiple
