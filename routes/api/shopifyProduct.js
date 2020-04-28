@@ -118,6 +118,12 @@ const getTaggedProducts = async function (tag) {
   return await products;
 };
 
+const getTaggedProducts = async function (tag) {
+  let products = [];
+  // Write this function so that it returns a list of products
+  // that do not have metrics yet
+  return products;
+};
 /*
 router.put('/:id', async (req, res) => {
   console.log(req.body);
@@ -155,6 +161,24 @@ router.get('/tagList/:tag', async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
+router.get('newProducts', async (req, res) => {
+  try {
+    let products = await getNewProducts();
+
+    if (products == null) {
+      return res
+        .status(400)
+        .json({ errors: [{ msg: 'No new products exist' }] });
+    }
+
+    res.json(products);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+}
+
 
 router.get('/:id', async (req, res) => {
   try {
