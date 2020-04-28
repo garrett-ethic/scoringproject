@@ -118,26 +118,14 @@ const getTaggedProducts = async function (tag) {
   return await products;
 };
 
-const getTaggedProducts = async function (tag) {
+const getNewProducts = async function (tag) {
   let products = [];
   // Write this function so that it returns a list of products
   // that do not have metrics yet
+  // Read the metafield routes at the bottom of this file for
+  // more ideas
   return products;
 };
-/*
-router.put('/:id', async (req, res) => {
-  console.log(req.body);
-
-  productURL = new URL(baseURL + '/' + req.params.id + '/metafields.json');
-  productURL = setAuth(productURL);
-  
-  try {
-    await axios.put(productURL.toString(), req.body);
-  } catch (err) {
-    console.error(err);
-  }	
-});
-*/
 
 // -------------- Start of HTTP request methods -----------------
 
