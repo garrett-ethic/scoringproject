@@ -50,6 +50,8 @@ app.get('/', (req, res) => {
 // Serves static files for mock user interface
 app.use(express.static('public'));
 
-app.listen(PORT, () => {
+var server = app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });
+
+server.timeout = 600000;

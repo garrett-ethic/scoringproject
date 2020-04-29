@@ -21,10 +21,13 @@ export default class Info extends React.Component {
   }
 
   componentDidMount() {
+    console.log('test1');
     axios
       .get('http://localhost:5000/api/shopifyProduct/newProducts')
       .then((res) => {
         const results = res.data;
+        console.log('test2');
+        console.log(results);
         let i;
         for (i = 0; i < results.length; ++i) {
           let newProductRow = [

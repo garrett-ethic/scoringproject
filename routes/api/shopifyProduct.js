@@ -18,6 +18,10 @@ const setAuth = function (myURL) {
   return myURL;
 };
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 const getProduct = async function (id, baseURL) {
   try {
     productURL = new URL(baseURL + '/' + id.toString() + '.json');
@@ -31,7 +35,7 @@ const getProduct = async function (id, baseURL) {
       product_type,
       tags,
     };
-    console.log(productFields);
+    //console.log(productFields);
     /*await axios.get(productURL.toString()).then(res => {
       updateDatabase(res['data']['product']);
     });*/
@@ -40,6 +44,19 @@ const getProduct = async function (id, baseURL) {
     return false;
   }
   return productFields;
+};
+
+const getProductMetafields = async function (id, baseURL) {
+  try {
+    productURL = new URL(baseURL + '/' + id.toString() + '/metafields.json');
+    productURL = setAuth(productURL);
+    metafields = await axios.get(productURL.toString());
+    metafields = metafields['data']['metafields']
+  } catch (err) {
+    console.error(err);
+    return false;
+  }
+  return metafields;
 };
 
 const updateDatabase = async function (input_product) {
@@ -118,12 +135,60 @@ const getTaggedProducts = async function (tag) {
   return await products;
 };
 
-const getNewProducts = async function (tag) {
+const getNewProducts = async function () {
   let products = [];
   // Write this function so that it returns a list of products
   // that do not have metrics yet
   // Read the metafield routes at the bottom of this file for
   // more ideas
+
+  console.log('Searching for new products ...');
+
+  let newURL =
+    'https://ethic-marketplace.myshopify.com/admin/api/2020-01/products.json';
+  //while (newURL) {
+    try {
+      let res = await axios.get(newURL.toString() + '?limit=250', {
+        params: {
+          limit: 250,
+        },
+        auth: {
+          username: process.env.SHOPIFY_STORE_USERNAME,
+          password: process.env.SHOPIFY_STORE_PASSWORD,
+        },
+      });
+
+      let productsRaw = res.data['products'];
+      let i;
+
+      for (i = 0; i < productsRaw.length; ++i) {
+        metafield = await getProductMetafields(productsRaw[i].id, 'https://ethic-marketplace.myshopify.com/admin/api/2020-01/products');
+        await sleep(550);
+
+        if (metafield.length == 0) {
+            products.push(await getProduct(productsRaw[i].id, 'https://ethic-marketplace.myshopify.com/admin/api/2020-01/products'));
+            await sleep(550);
+        }
+        else {
+            let metricExists = false;
+            let j;
+            for (j = 0; j < metafield.length; ++j) {
+                if ('metric1' in metafield[j] || 'metric2' in metafield[j] || 'metric3' in metafield[j]) {
+                    metricExists = true;
+                }
+            }
+            if (!metricExists) {
+                products.push(await getProduct(productsRaw[i].id, 'https://ethic-marketplace.myshopify.com/admin/api/2020-01/products'));
+                await sleep(550);
+            }
+        }
+      }
+     } catch (err) {
+      console.error(err);
+    }
+  //}
+
+  console.log(products)
   return products;
 };
 
@@ -150,7 +215,7 @@ router.get('/tagList/:tag', async (req, res) => {
   }
 });
 
-router.get('newProducts', async (req, res) => {
+router.get('/newProducts', async (req, res) => {
   try {
     let products = await getNewProducts();
 
@@ -165,8 +230,7 @@ router.get('newProducts', async (req, res) => {
     console.error(err.message);
     res.status(500).send('Server Error');
   }
-}
-
+});
 
 router.get('/:id', async (req, res) => {
   try {
