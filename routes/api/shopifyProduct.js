@@ -91,9 +91,30 @@ const updateDatabase = async function (input_product) {
   return product;
 };
 
-const getTaggedProducts = async function (tag) {
+function isSuperset(set, subset) {
+  for (let elem of subset) {
+    if (!set.includes(elem)) {
+      return false
+    }
+  }
+  return true
+}
+
+function hasCommon(list, other) {
+  for (let elem of list) {
+    for (let inner of other) {
+      if (elem === inner) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+const getTaggedProducts = async function (body) {
+  let tagList = body['tagList'];
+  let operator = body['operator'];
   let products = [];
-  //let tagList = [];
   let newURL =
     'https://ethic-marketplace.myshopify.com/admin/api/2020-01/products.json';
   while (newURL) {
@@ -107,11 +128,11 @@ const getTaggedProducts = async function (tag) {
           password: process.env.SHOPIFY_STORE_PASSWORD,
         },
       });
-      //console.log(`Status: ${res.status}`);
       let productsRaw = res.data['products'];
       for (index = 0; index < productsRaw.length; index++) {
         let productTags = productsRaw[index].tags.split(', ');
-        if (tag === 'ineedtags') {
+        // we are returning the list of valid tags
+        if (!operator) {
           let tagCounter;
           for (tagCounter = 0; tagCounter < productTags.length; ++tagCounter) {
             if (!products.includes(productTags[tagCounter])) {
@@ -119,8 +140,14 @@ const getTaggedProducts = async function (tag) {
             }
           }
         } else {
-          if (productTags.includes(tag)) {
-            products.push(productsRaw[index]);
+          if (operator === 'OR') {
+            if (!tagList.length || hasCommon(productTags, tagList)) {
+              products.push(productsRaw[index]);
+            }
+          } else if (operator === 'AND') {
+            if (!tagList.length || isSuperset(productTags, tagList)) {
+              products.push(productsRaw[index]);
+            }
           }
         }
       }
@@ -137,10 +164,6 @@ const getTaggedProducts = async function (tag) {
 
 const getNewProducts = async function () {
   let products = [];
-  // Write this function so that it returns a list of products
-  // that do not have metrics yet
-  // Read the metafield routes at the bottom of this file for
-  // more ideas
 
   console.log('Searching for new products ...');
 
@@ -198,9 +221,15 @@ const getNewProducts = async function () {
 // @desc    Return a Shopify product from local database
 // @access  Public
 
-router.get('/tagList/:tag', async (req, res) => {
+let data = {'operator': "OR",
+            'tagList': []}
+//let products = await getTaggedProducts(data);
+
+
+router.post('/chosenTags', async (req, res) => {
+  console.log(req.body);
   try {
-    let products = await getTaggedProducts(req.params.tag);
+    let products = await getTaggedProducts(req.body);
 
     if (products == null) {
       return res
