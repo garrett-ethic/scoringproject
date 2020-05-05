@@ -111,10 +111,9 @@ function hasCommon(list, other) {
   return false;
 }
 
-const getTaggedProducts = async function (body) {
-  let tagList = body['tagList'];
-  let operator = body['operator'];
-  let products = [];
+const getAllProducts = async function () {
+  let tags = [];
+  let allProducts = [];
   let newURL =
     'https://ethic-marketplace.myshopify.com/admin/api/2020-01/products.json';
   while (newURL) {
@@ -132,26 +131,14 @@ const getTaggedProducts = async function (body) {
       for (index = 0; index < productsRaw.length; index++) {
         let productTags = productsRaw[index].tags.split(', ');
         // we are returning the list of valid tags
-        if (!operator) {
-          let tagCounter;
-          for (tagCounter = 0; tagCounter < productTags.length; ++tagCounter) {
-            if (!products.includes(productTags[tagCounter])) {
-              products.push(productTags[tagCounter]);
-            }
-          }
-        } else {
-          if (operator === 'OR') {
-            if (!tagList.length || hasCommon(productTags, tagList)) {
-              products.push(productsRaw[index]);
-            }
-          } else if (operator === 'AND') {
-            if (!tagList.length || isSuperset(productTags, tagList)) {
-              products.push(productsRaw[index]);
-            }
+        let tagCounter;
+        for (tagCounter = 0; tagCounter < productTags.length; ++tagCounter) {
+          if (!tags.includes(productTags[tagCounter])) {
+            tags.push(productTags[tagCounter]);
           }
         }
+        allProducts.push(productsRaw[index]);
       }
-      console.log(products);
       newURL = new URL(res.headers.link.slice(1, -13));
       newURL = await newURL;
     } catch (err) {
@@ -159,7 +146,11 @@ const getTaggedProducts = async function (body) {
       newURL = false;
     }
   }
-  return await products;
+  let res = {
+    products: allProducts,
+    tags: tags
+  }
+  return await res;
 };
 
 const getNewProducts = async function () {
@@ -191,8 +182,7 @@ const getNewProducts = async function () {
         if (metafield.length == 0) {
             products.push(await getProduct(productsRaw[i].id, 'https://ethic-marketplace.myshopify.com/admin/api/2020-01/products'));
             await sleep(550);
-        }
-        else {
+        } else {
             let metricExists = false;
             let j;
             for (j = 0; j < metafield.length; ++j) {
@@ -221,28 +211,47 @@ const getNewProducts = async function () {
 // @desc    Return a Shopify product from local database
 // @access  Public
 
-let data = {'operator': "OR",
-            'tagList': []}
-//let products = await getTaggedProducts(data);
-
-
-router.post('/chosenTags', async (req, res) => {
-  console.log(req.body);
+router.post('/allProducts', async (req, res) => {
   try {
-    let products = await getTaggedProducts(req.body);
-
-    if (products == null) {
+    let results = await getAllProducts();
+    console.log(results);
+    if (results == null) {
       return res
         .status(400)
-        .json({ errors: [{ msg: 'Products does not exist' }] });
+        .json({ errors: [{ msg: 'Products do not exist' }] });
     }
 
-    res.json(products);
+    res.json(results);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
   }
 });
+
+router.post('/updateProducts', async (req, res) => {
+  try { 
+    const body = req.body;
+    const idList = body['idList'];
+    const certs = body['certs'];
+
+    for (let id of idList) {
+      //update metrics for the product w/ a certain id
+      //console.log(id);
+    }
+
+    /*if (results == null) {
+      return res
+        .status(400)
+        .json({ errors: [{ msg: 'Update products failed' }] });
+    }*/
+    
+    res.json('product update successful!');
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 
 router.get('/newProducts', async (req, res) => {
   try {
@@ -378,5 +387,4 @@ router.put('/:id', async (req, res) => {
 */
 module.exports = router;
 module.exports.getProduct = getProduct;
-module.exports.getAllProducts = getTaggedProducts;
 module.exports.updateDatabase = updateDatabase;

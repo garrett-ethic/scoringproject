@@ -23,6 +23,26 @@ import {
 } from '@shopify/polaris';
 
 
+function isSuperset(list, sublist) {
+  for (let elem of sublist) {
+    if (!list.includes(elem)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function hasCommon(list, other) {
+  for (let elem of list) {
+    for (let inner of other) {
+      if (elem === inner) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
 
 class ProductTag extends React.Component {
   constructor(props) {
@@ -34,21 +54,21 @@ class ProductTag extends React.Component {
       options: [],
       textField: null,
 
-      tagList: [],
+      allProducts: [],
       finishedTags: ['...'],
       productNumber: 0,
       productRows: [],
-      data: [],
       idList: [],
       selected: [],
       selectedAll: false,
-      operator: 'OR',
+      operator: ["OR"],
       //design decision not to make a metrics object and store metrics in it
       // https://stackoverflow.com/a/51136076
       metric1: -1,
       metric2: -1,
       metric3: -1,
       metric4: -1,
+      certs: [],
     };
 
     this.setSelectedOptions = this.setSelectedOptions.bind(this);
@@ -62,18 +82,6 @@ class ProductTag extends React.Component {
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handleProductChange = this.handleProductChange.bind(this);
     this.handleMetricSubmit = this.handleMetricSubmit.bind(this);
-
-    this.setState({
-      textField:
-        <div>
-          <Autocomplete.TextField
-            onChange={this.updateText}
-            label="Tags"
-            value={this.state.inputValue}
-            placeholder="B-Corp, Plastic Free"
-          />
-        </div>
-    });
   }
 
   setSelectedOptions(value) {
@@ -125,7 +133,7 @@ class ProductTag extends React.Component {
       });
     }
   }
-
+  
   handleProductChange(value) {
     this.setState({
       selected: value
@@ -140,82 +148,102 @@ class ProductTag extends React.Component {
 
   componentDidMount() {
     axios
-      .post('http://localhost:5000/api/shopifyProduct/chosenTags')
+      .post('http://localhost:5000/api/shopifyProduct/allProducts')
       .then((res) => {
         const results = res.data;
+        const tagResults = results.tags;
+        this.setState({
+          allProducts: results.products
+        });
         let i;
         let tagItem;
-        for (i = 0; i < results.length; ++i) {
-          //console.log(results[i]);
-          tagItem = {value: results[i], label: results[i]};
+        for (i = 0; i < tagResults.length; ++i) {
+          tagItem = {value: tagResults[i], label: tagResults[i]};
           this.setState({
-            tagList: [...this.state.tagList, results[i]],
             deselectedOptions: [...this.state.deselectedOptions, tagItem] 
           });
         }
-      });
-    //console.log(this.state.tagList);
+    });
+    this.setState({
+      textField:
+        <div>
+          <Autocomplete.TextField
+            onChange={this.updateText}
+            label="Tags"
+            value={this.state.inputValue}
+            placeholder="B-Corp, Plastic Free"
+          />
+        </div>
+    });
+
   }
 
   handleSubmit(event) {
-    let data = JSON.stringify({
-      operator: this.state.operator,
-      tagList: this.state.selectedOptions
-    })
-    axios
-      .post('http://localhost:5000/api/shopifyProduct/chosenTags', data, {
-          headers: {
-            'Content-Type': 'application/json'
+    this.setState({
+      idList: [],
+      productRows: [],
+      selected: [],
+      selectedAll: false,
+      finishedTags: this.state.selectedOptions
+    }, () => {
+    
+        const allProducts = this.state.allProducts;
+        const selected = this.state.selectedOptions;
+        console.log(selected);
+        let results = [];
+        let i;
+        for (i = 0; i < allProducts.length; ++i) {
+          let productTags = allProducts[i].tags.split(', ');
+          let newProductRow = [
+            allProducts[i].title,
+            allProducts[i].id,
+            allProducts[i].vendor,
+            allProducts[i].tags,
+          ];
+          if (this.state.operator[0] === "OR") {
+            if (hasCommon(productTags, selected)) {
+              this.state.productRows.push(newProductRow);
+              this.state.idList.push(allProducts[i].id);
+            }
+          } else if (this.state.operator[0] === "AND") {
+            if (isSuperset(productTags, selected)) {
+              this.state.productRows.push(newProductRow);
+              this.state.idList.push(allProducts[i].id);
+            }
           }
         }
-      )
-      .then((res) => {
         this.setState({
-          data: [],
-          idList: [],
-          productRows: [],
-          selected: []
+          productNumber: this.state.productRows.length,
+          selectedOptions: []
         });
-        const results = res.data;
-        //console.log(results);
-        let i;
-        for (i = 0; i < results.length; ++i) {
-          console.log(results[i]);
-          let newProductRow = [
-            results[i].title,
-            results[i].id,
-            results[i].vendor,
-            results[i].tags,
-          ];
-          this.setState({
-            data: [...this.state.data, results[i]],
-            productRows: [...this.state.productRows, newProductRow],
-            idList: [...this.state.idList, results[i].id]
-          });
-        }
-        this.setState({
-          productNumber: this.state.data.length,
-        });
-        console.log(this.state.data);
-      });
-    console.log(this.state.selectedOptions);
-    this.setState({ finishedTags: this.state.selectedOptions});
-    this.setState({ selectedAll: false});
+
+    });
   }
 
   handleMetricSubmit(event) {
-    console.log(this.state.metric1);
+    let data = JSON.stringify({
+      idList: this.state.idList,
+      certs: this.state.certs
+    })
+    axios
+      .post('http://localhost:5000/api/shopifyProduct/updateProducts', data, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    )
+      .then((res) => {
+        const results = res.data;
+        console.log(results);
+    });
     console.log(this.state.metric2);
     console.log(this.state.metric3);
     console.log(this.state.metric4);
-  }
-
-  handleTagSubmit(event) {
-    
+    console.log(this.state.idList);
   }
 
   render() {
-    console.log(this.state);
+    //console.log(this.state);
     return (
       <Page>
         <DisplayText size='large'>Search Products By Tag</DisplayText>
@@ -249,8 +277,8 @@ class ProductTag extends React.Component {
                   <ChoiceList
                     title='Logical Operator'
                     choices={[
-                      {label: 'OR', value: 'OR'},
-                      {label: 'AND', value: 'AND'},
+                      {label: "OR", value: "OR"},
+                      {label: "AND", value: "AND"},
                     ]}
                     selected={this.state.operator}
                     onChange={this.handleOperatorChange}
@@ -264,8 +292,8 @@ class ProductTag extends React.Component {
           <Layout.Section>
             <Heading>Product Results</Heading>
             <Subheading size='medium'>
-              We retrieved {this.state.productNumber} products with the{' '}
-              {this.state.finishedTag} tag
+              We retrieved {this.state.productNumber} products for
+              {this.state.finishedTags.map((tag) => <li>{tag}</li>)}
             </Subheading>
 
             <Card>
@@ -347,39 +375,5 @@ class ProductTag extends React.Component {
     );
   }
 }
-                /*
-                <DataTable
-                  columnContentTypes={['text', 'numeric', 'text', 'text']}
-                  headings={['Product Name', 'Product ID', 'Vendor', 'Tags']}
-                  rows={this.state.productRows}
-                />
-                */
 
-/*
-          <Layout.Section>
-            <Card title='List of Tags' sectioned>
-              <Scrollable shadow style={{ height: '200px' }}>
-                <p>
-                  {this.state.tagList.map((value, index) => {
-                    return <li key={index}>{value}</li>;
-                  })}
-                </p>
-              </Scrollable>
-            </Card>
-          </Layout.Section>
-
-                    </Autocomplete>
-                    <Autocomplete
-                      allowMultiple
-                      options={this.state.options}
-                      selected={this.state.selectedOptions}
-                      textField={this.state.textField}
-                      onSelect={this.setSelectedOptions}
-                      listTitle="Suggested Tags"
-                    >
-                    </Autocomplete>
-
-
-
-*/
 export default ProductTag;
