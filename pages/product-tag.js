@@ -52,16 +52,23 @@ class ProductTag extends React.Component {
       selectedOptions: [],
       inputValue: '',
       options: [],
-      textField: null,
+      operator: ["OR"],
+      finishedTags: ['...'],
+
+      vendorDeselectedOptions: [],
+      vendorSelectedOptions: [],
+      vendorInputValue: '',
+      vendorOptions: [],
+      vendorOperator: ["AND"],
+      finishedVendors: ['...'],
 
       allProducts: [],
-      finishedTags: ['...'],
       productNumber: 0,
       productRows: [],
       idList: [],
       selected: [],
       selectedAll: false,
-      operator: ["OR"],
+      
       //design decision not to make a metrics object and store metrics in it
       // https://stackoverflow.com/a/51136076
       metric1: -1,
@@ -75,8 +82,14 @@ class ProductTag extends React.Component {
     this.setInputValue = this.setInputValue.bind(this);
     this.setOptions = this.setOptions.bind(this);
     this.updateText = this.updateText.bind(this);
-    
     this.handleOperatorChange = this.handleOperatorChange.bind(this);
+
+    this.vendorSetSelectedOptions = this.vendorSetSelectedOptions.bind(this);
+    this.vendorSetInputValue = this.vendorSetInputValue.bind(this);
+    this.vendorSetOptions = this.vendorSetOptions.bind(this);
+    this.vendorUpdateText = this.vendorUpdateText.bind(this);
+    this.vendorHandleOperatorChange = this.vendorHandleOperatorChange.bind(this);
+    
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleUpdateChange = this.handleUpdateChange.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
@@ -88,17 +101,46 @@ class ProductTag extends React.Component {
     this.setState({
       selectedOptions: value
     });
+  }  
+  vendorSetSelectedOptions(value) {
+    this.setState({
+      vendorSelectedOptions: value
+    });
   }
+
   setInputValue(value) {
     this.setState({
       inputValue: value
     });
   }
+  vendorSetInputValue(value) {
+    this.setState({
+      vendorInputValue: value
+    });
+  }
+
   setOptions(value) {
     this.setState({ 
       options: value
     });
   }
+  vendorSetOptions(value) {
+    this.setState({
+      vendorOptions: value
+    });
+  }
+
+  handleOperatorChange(value) {
+    this.setState({
+      operator: value
+    });
+  }
+  vendorHandleOperatorChange(value) {
+    this.setState({
+      vendorOperator: value
+    });
+  }
+
   updateText(value) {
     this.setInputValue(value);
     if (value === '') {
@@ -111,6 +153,19 @@ class ProductTag extends React.Component {
       option.label.match(filterRegex),
     );
     this.setOptions(resultOptions);
+  }
+  vendorUpdateText(value) {
+    this.vendorSetInputValue(value);
+    if (value === '') {
+      this.vendorSetOptions(this.state.vendorDeselectedOptions);
+      return;
+    }
+
+    const filterRegex = new RegExp(value, 'i');
+    const resultOptions = this.state.vendorDeselectedOptions.filter((option) =>
+      option.label.match(filterRegex),
+    );
+    this.vendorSetOptions(resultOptions);
   }
 
   handleUpdateChange(value, id) {
@@ -140,42 +195,30 @@ class ProductTag extends React.Component {
     });
   }
 
-  handleOperatorChange(value) {
-    this.setState({
-      operator: value
-    });
-  }
-
   componentDidMount() {
     axios
       .post('http://localhost:5000/api/shopifyProduct/allProducts')
       .then((res) => {
         const results = res.data;
         const tagResults = results.tags;
+        const vendors = results.vendors;
         this.setState({
           allProducts: results.products
         });
         let i;
-        let tagItem;
         for (i = 0; i < tagResults.length; ++i) {
-          tagItem = {value: tagResults[i], label: tagResults[i]};
+          let tagItem = {value: tagResults[i], label: tagResults[i]};
           this.setState({
             deselectedOptions: [...this.state.deselectedOptions, tagItem] 
           });
         }
+        for (i = 0; i < vendors.length; ++i) {
+          let vendorItem = {value: vendors[i], label: vendors[i]};
+          this.setState({
+            vendorDeselectedOptions: [...this.state.vendorDeselectedOptions, vendorItem]
+          });
+        }
     });
-    this.setState({
-      textField:
-        <div>
-          <Autocomplete.TextField
-            onChange={this.updateText}
-            label="Tags"
-            value={this.state.inputValue}
-            placeholder="B-Corp, Plastic Free"
-          />
-        </div>
-    });
-
   }
 
   handleSubmit(event) {
@@ -184,12 +227,14 @@ class ProductTag extends React.Component {
       productRows: [],
       selected: [],
       selectedAll: false,
-      finishedTags: this.state.selectedOptions
+      finishedTags: this.state.selectedOptions,
+      finishedVendors: this.state.vendorSelectedOptions,
     }, () => {
     
         const allProducts = this.state.allProducts;
-        const selected = this.state.selectedOptions;
-        console.log(selected);
+        const selectedTags = this.state.selectedOptions;
+        const selectedVendors = this.state.vendorSelectedOptions;
+        //console.log(selected);
         let results = [];
         let i;
         for (i = 0; i < allProducts.length; ++i) {
@@ -200,21 +245,46 @@ class ProductTag extends React.Component {
             allProducts[i].vendor,
             allProducts[i].tags,
           ];
-          if (this.state.operator[0] === "OR") {
-            if (hasCommon(productTags, selected)) {
-              this.state.productRows.push(newProductRow);
-              this.state.idList.push(allProducts[i].id);
+        
+          // Looks complicated, but I'll break it down
+          // if vendor is OR, then either the tag matches
+          // OR the vendor matches
+          // if vendor is AND, then both the tags
+          // AND the vendor needs to match
+          // this logic sequence prioritizes vendors
+          if (this.state.vendorOperator[0] === "OR") {
+            if (selectedVendors.includes(allProducts[i].vendor)) {
+                this.state.productRows.push(newProductRow);
+                this.state.idList.push(allProducts[i].id);
+            } else if (this.state.operator[0] === "OR") {
+              if (hasCommon(productTags, selectedTags)) {
+                this.state.productRows.push(newProductRow);
+                this.state.idList.push(allProducts[i].id);
+              } 
+            } else if (this.state.operator[0] === "AND") {
+              if (isSuperset(productTags, selectedTags)) {
+                this.state.productRows.push(newProductRow);
+                this.state.idList.push(allProducts[i].id);
+              }
             }
-          } else if (this.state.operator[0] === "AND") {
-            if (isSuperset(productTags, selected)) {
-              this.state.productRows.push(newProductRow);
-              this.state.idList.push(allProducts[i].id);
+          } else if (selectedVendors.includes(allProducts[i].vendor)) {
+            if (this.state.operator[0] === "OR") {
+              if (hasCommon(productTags, selectedTags)) {
+                this.state.productRows.push(newProductRow);
+                this.state.idList.push(allProducts[i].id);
+              }
+            } else if (this.state.operator[0] === "AND") {
+              if (isSuperset(productTags, selectedTags)) {
+                this.state.productRows.push(newProductRow);
+                this.state.idList.push(allProducts[i].id);
+              }
             }
           }
         }
         this.setState({
           productNumber: this.state.productRows.length,
-          selectedOptions: []
+          selectedOptions: [],
+          vendorSelectedOptions: [],
         });
 
     });
@@ -236,6 +306,7 @@ class ProductTag extends React.Component {
         const results = res.data;
         console.log(results);
     });
+    console.log(this.state.metric1);
     console.log(this.state.metric2);
     console.log(this.state.metric3);
     console.log(this.state.metric4);
@@ -269,20 +340,52 @@ class ProductTag extends React.Component {
                       listTitle="Suggested Tags"
                     >
                     </Autocomplete>
+                      Chosen Tags
+                      {this.state.selectedOptions.map((tag) =>
+                         <li>{tag}</li>
+                      )}
+                      <ChoiceList
+                        title='Logical Operator'
+                        choices={[
+                          {label: "OR", value: "OR"},
+                          {label: "AND", value: "AND"},
+                        ]}
+                        selected={this.state.operator}
+                        onChange={this.handleOperatorChange}
+                      />
                   </div>
-                  Chosen Tags
-                  {this.state.selectedOptions.map((tag) =>
-                     <li>{tag}</li>
-                  )}
-                  <ChoiceList
-                    title='Logical Operator'
-                    choices={[
-                      {label: "OR", value: "OR"},
-                      {label: "AND", value: "AND"},
-                    ]}
-                    selected={this.state.operator}
-                    onChange={this.handleOperatorChange}
-                  />
+
+                  <div>
+                    <Autocomplete
+                      allowMultiple
+                      options={this.state.vendorOptions}
+                      selected={this.state.vendorSelectedOptions}
+                      textField={
+                        <Autocomplete.TextField
+                          onChange={this.vendorUpdateText}
+                          label="Vendors"
+                          value={this.state.vendorInputValue}
+                          placeholder="Jetty, XACTLY"
+                        />
+                      }
+                      onSelect={this.vendorSetSelectedOptions}
+                      listTitle="Suggested Vendors"
+                    >
+                    </Autocomplete>
+                    Chosen Vendors
+                    {this.state.vendorSelectedOptions.map((vendor) =>
+                       <li>{vendor}</li>
+                    )}
+                    <ChoiceList
+                      title='Logical Operator'
+                      choices={[
+                        {label: "OR", value: "OR"},
+                        {label: "AND", value: "AND"},
+                      ]}
+                      selected={this.state.vendorOperator}
+                      onChange={this.vendorHandleOperatorChange}
+                    />
+                  </div>
                   <Button submit>Search</Button>
                 </FormLayout>
               </Form>
@@ -294,6 +397,7 @@ class ProductTag extends React.Component {
             <Subheading size='medium'>
               We retrieved {this.state.productNumber} products for
               {this.state.finishedTags.map((tag) => <li>{tag}</li>)}
+              {this.state.finishedVendors.map((vendor) => <li>{vendor}</li>)}
             </Subheading>
 
             <Card>

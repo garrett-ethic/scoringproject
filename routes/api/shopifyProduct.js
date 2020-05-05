@@ -113,6 +113,7 @@ function hasCommon(list, other) {
 
 const getAllProducts = async function () {
   let tags = [];
+  let vendors = [];
   let allProducts = [];
   let newURL =
     'https://ethic-marketplace.myshopify.com/admin/api/2020-01/products.json';
@@ -137,6 +138,10 @@ const getAllProducts = async function () {
             tags.push(productTags[tagCounter]);
           }
         }
+        if (!vendors.includes(productsRaw[index].vendor)) {
+          vendors.push(productsRaw[index].vendor);
+        }
+
         allProducts.push(productsRaw[index]);
       }
       newURL = new URL(res.headers.link.slice(1, -13));
@@ -148,7 +153,8 @@ const getAllProducts = async function () {
   }
   let res = {
     products: allProducts,
-    tags: tags
+    tags: tags,
+    vendors: vendors,
   }
   return await res;
 };
