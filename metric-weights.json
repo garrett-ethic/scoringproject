@@ -1,0 +1,60 @@
+{
+  "co_im": {
+    "USA_made": 2,
+    "local_business": 2,
+    "community_activism": 2,
+    "business_size": 2,
+    "donates_locally": 2,
+    "1%_for_the_planet": 2,
+    "political_donations": 2,
+    "donate_to_oppressed": 2,
+    "bcorp": 2,
+    "local_zip": 2
+  },
+  "eco_f": {
+    "sustainable_packaging": 2,
+    "sustainable_materials": 2,
+    "zeroCarbon_shipping": 2,
+    "zeroCarbon_manufacturing": 2,
+    "manufacturing_impact": 2,
+    "fsc": 2,
+    "rainforest_alliance": 2,
+    "cradle_to_cradle": 2,
+    "donate_to_environment": 2,
+    "bcorp": 2
+  },
+  "all_n": {
+    "certified_organic": 2,
+    "organic_practices": 2,
+    "allNatural_ingredients": 2,
+    "reef_safe": 2,
+    "ewg": 2,
+    "madeSafe": 2,
+    "consumerLabs": 2,
+    "transparency": 2,
+    "bcorp": 2
+  },
+  "an_ri": {
+    "vegan": 2,
+    "donate_to_animalRights": 2,
+    "cruelty_free": 2
+  },
+  "labor": {
+    "employee_treatment": {
+      "childcare": 2,
+      "gym/recreation": 2,
+      "educational_ops": 2,
+      "healthcare": 2,
+      "mobility": 2,
+      "can_unionize": 2
+    },
+    "living_wage": 2,
+    "safe_work_conditions": 2,
+    "no_childLabor": 2,
+    "empower_oppressed": 2,
+    "co-op": 2,
+    "ethical_materials_sourcing": 2,
+    "bcorp": 2,
+    "fair_trade": 2
+  }
+}
