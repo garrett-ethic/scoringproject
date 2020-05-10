@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const dotenv = require('dotenv').config();
-const cors = require('cors')
+const cors = require('cors');
 
 const db =
   'mongodb+srv://ethicscore-lvey1.mongodb.net/test?retryWrites=true&w=majority';
@@ -22,7 +22,7 @@ const connectDB = async () => {
       useCreateIndex: true,
       useFindAndModify: false,
       user: process.env.MONGO_USERNAME,
-      pass: process.env.MONGO_PASSWORD
+      pass: process.env.MONGO_PASSWORD,
     });
     console.log('MongoDB Connected...');
   } catch (err) {
@@ -37,6 +37,7 @@ const PORT = process.env.PORT || '5000';
 
 // Define Routes
 app.use('/api/calculate', require('./routes/api/calculate'));
+app.use('/api/metricDetails', require('./routes/api/metricDetails'));
 app.use('/api/product', require('./routes/api/product'));
 app.use('/api/user', require('./routes/api/user'));
 app.use('/api/shopifyProduct', require('./routes/api/shopifyProduct'));
