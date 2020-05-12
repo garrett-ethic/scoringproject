@@ -235,27 +235,67 @@ router.post('/allProducts', async (req, res) => {
 });
 
 router.post('/updateProducts', async (req, res) => {
-  try { 
+  //try { 
     const body = req.body;
     const idList = body['idList'];
     const certs = body['certs'];
-
-    for (let id of idList) {
-      //update metrics for the product w/ a certain id
-      //console.log(id);
+    console.log(certs);
+    console.log(idList);
+    let response = null;
+    for (let pid of idList) {
+      // see if metafield already exists
+      try {
+        let productCerts = await shopifyAxios.get(
+          pid + '/metafields.json'
+        );
+        let certMap = {};
+        for (let field of productCerts.metafields) {
+          certMap[field.key] = field.id;
+        }     
+        for (let cert of certs) {
+        //updating the metafields
+          try {   
+            const metafield = await shopifyAxios.put(
+              pid + '/metafields/' + certMap[cert] + '.json',
+              {
+                metafields: {
+                  id: certMap[cert],
+                  value: 1,
+                  value_type: 'integer'
+                },
+              }
+            );
+          } catch (err) {}
+        }
+      } catch (err) {
+        //console.log(err.message);
+        // if metafields does not exxist, create it
+        for (let cert of certs) {
+          let metafield = {
+            metafield: {
+              key: cert,
+              value: 1,
+              value_type: "integer",
+              namespace: "certifications"
+            }
+          };
+          //creating the metafields
+          console.log(pid);
+          console.log(metafield);
+          try {
+            response = await shopifyAxios.post(pid + '/metafields.json', metafield);
+          } catch (err) { 
+            console.error(err.message);
+          }
+        }
+      }
     }
 
-    /*if (results == null) {
-      return res
-        .status(400)
-        .json({ errors: [{ msg: 'Update products failed' }] });
-    }*/
-    
     res.json('product update successful!');
-  } catch (err) {
+  /*} catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
-  }
+  }*/
 });
 
 
@@ -297,7 +337,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// @route   PUT api/metrics/:id
+// @route   GET api/metrics/:id
 // @desc    Creates a new metafield for the specified Shopify User. Don't use this route to update metafields.
 // @access  Private
 router.get('/metrics/:id', async (req, res) => {

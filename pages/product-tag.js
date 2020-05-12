@@ -69,13 +69,28 @@ class ProductTag extends React.Component {
       selected: [],
       selectedAll: false,
       
-      //design decision not to make a metrics object and store metrics in it
-      // https://stackoverflow.com/a/51136076
-      metric1: -1,
-      metric2: -1,
-      metric3: -1,
-      metric4: -1,
-      certs: [],
+      certs: [
+        "Vegan",
+        "Compostable Packaging",
+        "Recyclable Packaging",
+        "Non Toxic",
+        "EWG Rating",
+        "Consumer Labs Approved",
+        "Energy Efficient",
+        "Organic",
+        "Fair Labor/Trade",
+        "B-Corp",
+        "1% For The Planet",
+        "Reef Friendly",
+        "Cradle To Cradle",
+        "Plastic Free",
+        "Leaping Bunny",
+        "Rainforest Alliance",
+        "Forest Stewardship Council",
+        "Made Safe",
+        "Goods Unite Us",
+      ],
+      certSelected: [],
     };
 
     this.setSelectedOptions = this.setSelectedOptions.bind(this);
@@ -89,11 +104,12 @@ class ProductTag extends React.Component {
     this.vendorSetOptions = this.vendorSetOptions.bind(this);
     this.vendorUpdateText = this.vendorUpdateText.bind(this);
     this.vendorHandleOperatorChange = this.vendorHandleOperatorChange.bind(this);
-    
+
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleUpdateChange = this.handleUpdateChange.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handleProductChange = this.handleProductChange.bind(this);
+    this.handleCertChange = this.handleCertChange.bind(this);
     this.handleMetricSubmit = this.handleMetricSubmit.bind(this);
   }
 
@@ -174,6 +190,12 @@ class ProductTag extends React.Component {
     });
   }
   
+  handleCertChange(value) {
+    this.setState({
+      certSelected: value
+    });
+  }
+  
   handleSelectChange(value) {
     this.setState({
       selectedAll: value
@@ -234,7 +256,6 @@ class ProductTag extends React.Component {
         const allProducts = this.state.allProducts;
         const selectedTags = this.state.selectedOptions;
         const selectedVendors = this.state.vendorSelectedOptions;
-        //console.log(selected);
         let results = [];
         let i;
         for (i = 0; i < allProducts.length; ++i) {
@@ -292,8 +313,8 @@ class ProductTag extends React.Component {
 
   handleMetricSubmit(event) {
     let data = JSON.stringify({
-      idList: this.state.idList,
-      certs: this.state.certs
+      idList: this.state.selected,
+      certs: this.state.certSelected
     })
     axios
       .post('http://localhost:5000/api/shopifyProduct/updateProducts', data, {
@@ -306,15 +327,9 @@ class ProductTag extends React.Component {
         const results = res.data;
         console.log(results);
     });
-    console.log(this.state.metric1);
-    console.log(this.state.metric2);
-    console.log(this.state.metric3);
-    console.log(this.state.metric4);
-    console.log(this.state.idList);
   }
 
   render() {
-    //console.log(this.state);
     return (
       <Page>
         <DisplayText size='large'>Search Products By Tag</DisplayText>
@@ -420,44 +435,18 @@ class ProductTag extends React.Component {
                 />
               </Scrollable>
             </Card>
-            <Card sectioned title = "Move the slider to -1 to leave the metric alone">
+            <Card sectioned title = "Select the certifications for these products">
               <Form onSubmit={this.handleMetricSubmit}>
                 <FormLayout>
-                  <RangeSlider
-                    min={-1}
-                    max={10}
-                    label="Metric 1"
-                    value={this.state.metric1}
-                    onChange={this.handleUpdateChange}
-                    id='metric1'
-                    output
-                  />
-                  <RangeSlider
-                    min={-1}
-                    max={10}
-                    label="Metric 2"
-                    value={this.state.metric2}
-                    onChange={this.handleUpdateChange}
-                    id='metric2'
-                    output
-                  />
-                  <RangeSlider
-                    min={-1}
-                    max={10}
-                    label="Metric 3"
-                    value={this.state.metric3}
-                    onChange={this.handleUpdateChange}
-                    id='metric3'
-                    output
-                  />
-                  <RangeSlider
-                    min={-1}
-                    max={10}
-                    label="Metric 4"
-                    value={this.state.metric4}
-                    onChange={this.handleUpdateChange}
-                    id='metric4'
-                    output
+                  <ChoiceList
+                    allowMultiple
+                    title=""
+                    choices={this.state.certs.map((val) => {
+                        return {label: val,
+                                value: val}
+                     })}
+                    selected={this.state.certSelected}
+                    onChange={this.handleCertChange}
                   />
                 <Button submit>Submit</Button>
                 </FormLayout>
