@@ -1,11 +1,11 @@
 {
   "co_im": {
     "USA_made": "2",
-    "local_business": "2",
+    "employs_locally": "2",
     "community_activism": "2",
     "business_size": "2",
     "donates_locally": "2",
-    "1%_for_the_planet": "2",
+    "one_percent_for_the_planet": "2",
     "political_donations": "2",
     "donate_to_oppressed": "2",
     "bcorp": "2",
@@ -40,19 +40,17 @@
     "cruelty_free": "2"
   },
   "labor": {
-    "employee_treatment": {
-      "childcare": "2",
-      "gym/recreation": "2",
-      "educational_ops": "2",
-      "healthcare": "2",
-      "mobility": "2",
-      "can_unionize": "2"
-    },
+    "childcare": "2",
+    "gym_recreation": "2",
+    "educational_ops": "2",
+    "healthcare": "2",
+    "mobility": "2",
+    "can_unionize": "2",
     "living_wage": "2",
     "safe_work_conditions": "2",
-    "no_childLabor": "2",
+    "no_child_labor": "2",
     "empower_oppressed": "2",
-    "co-op": "2",
+    "co_op": "2",
     "ethical_materials_sourcing": "2",
     "bcorp": "2",
     "fair_trade": "2"

@@ -10,11 +10,16 @@ import {
   Stack,
   TextField,
   TextStyle,
+  TextContainer,
   FooterHelp,
+  ProgressBar,
   Link,
   RangeSlider,
-  Heading,
-  Subheading,
+  ChoiceList,
+  Select,
+  DisplayText,
+  Banner,
+  Badge,
 } from '@shopify/polaris';
 
 class UpdateProduct extends React.Component {
@@ -25,93 +30,203 @@ class UpdateProduct extends React.Component {
       productName: '',
       productVendor: '',
       productTags: '',
-      productMetrics: [],
-      metric1: {
-        metricID: '',
-        value: -1,
+      loadFailure: false,
+      metricProgress: 0,
+      co_im_metricId: '',
+      co_im_exists: false,
+      co_im: {
+        USA_made: 'n/a',
+        employs_locally: 'n/a',
+        community_activism: 'n/a',
+        business_size: 'n/a',
+        donates_locally: 'n/a',
+        one_percent_for_the_planet: 'n/a',
+        political_donations: 'n/a',
+        donate_to_oppressed: 'n/a',
+        zip_code: 'n/a',
       },
-      metric2: {
-        metricID: '',
-        value: -1,
+      eco_f_metricId: '',
+      eco_f_exists: false,
+      eco_f: {
+        sustainable_packaging: 'n/a',
+        sustainable_materials: 'n/a',
+        zeroCarbon_shipping: 'n/a',
+        zeroCarbon_manufacturing: 'n/a',
+        manufacturing_impact: 'n/a',
+        fsc: 'n/a',
+        rainforest_alliance: 'n/a',
+        cradle_to_cradle: 'n/a',
+        donate_to_environment: 'n/a',
+        bcorp: 'n/a',
       },
-      metric3: {
-        metricID: '',
-        value: -1,
+      all_n_metricId: '',
+      all_n_exists: false,
+      all_n: {
+        certified_organic: 'n/a',
+        organic_practices: 'n/a',
+        allNatural_ingredients: 'n/a',
+        reef_safe: 'n/a',
+        ewg: 'n/a',
+        madeSafe: 'n/a',
+        consumerLabs: 'n/a',
+        transparency: 'n/a',
+        bcorp: 'n/a',
       },
-      metric4: {
-        metricID: '',
-        value: -1,
+      an_ri_metricId: '',
+      an_ri_exists: false,
+      an_ri: {
+        vegan: 'n/a',
+        donate_to_animalRights: 'n/a',
+        cruelty_free: 'n/a',
       },
-      // metric1: -1,
-      // metric1ID: '',
-      // metric2: -1,
-      // metric2ID: '',
-      // metric3: -1,
-      // metric3ID: '',
-      // metric4: -1,
-      // metric4ID: '',
+      labor_metricId: '',
+      labor_exists: false,
+      labor: {
+        childcare: 'n/a',
+        gym_recreation: 'n/a',
+        educational_ops: 'n/a',
+        healthcare: 'n/a',
+        mobility: 'n/a',
+        can_unionize: 'n/a',
+        living_wage: 'n/a',
+        safe_work_conditions: 'n/a',
+        no_child_labor: 'n/a',
+        empower_oppressed: 'n/a',
+        co_op: 'n/a',
+        ethical_materials_sourcing: 'n/a',
+        bcorp: 'n/a',
+        fair_trade: 'n/a',
+      },
     };
     this.handleChange = this.handleChange.bind(this);
-    // this.handleUpdateChange = this.handleUpdateChange.bind(this);
-    this.handleMetric1Change = this.handleMetric1Change.bind(this);
-    this.handleMetric2Change = this.handleMetric2Change.bind(this);
-    this.handleMetric3Change = this.handleMetric3Change.bind(this);
-    this.handleMetric4Change = this.handleMetric4Change.bind(this);
+    this.handleChangeCoIm = this.handleChangeCoIm.bind(this);
+    this.handleChangeEcoF = this.handleChangeEcoF.bind(this);
+    this.handleChangeAllN = this.handleChangeAllN.bind(this);
+    this.handleChangeAnRi = this.handleChangeAnRi.bind(this);
+    this.handleChangeCoIm = this.handleChangeCoIm.bind(this);
     this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
-    this.handleMetricSubmit = this.handleMetricSubmit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  metricOptions = [
+    { label: 'Yes', value: 'y' },
+    { label: 'No', value: 'n' },
+    { label: 'N/A', value: 'n/a' },
+  ];
+
+  // The following label objects only includes labels for metrics that have yes, no, and n/a options
+
+  co_im_labels = {
+    USA_made: 'Made in the USA',
+    employs_locally: 'Employs to Local Residents/Businesses',
+    community_activism: 'Community Activism',
+    donates_locally: 'Donates to Surrounding Community',
+    one_percent_for_the_planet: '1% for the Planet',
+    political_donations: 'Politial Donations',
+    donate_to_oppressed: 'Donates to Oppressed Communities',
+  };
+
+  eco_f_labels = {
+    sustainable_packaging: 'Sustainable Packaging',
+    sustainable_materials: 'Sustainable Materials',
+    zeroCarbon_shipping: 'Zero Carbon Footprint - Shipping',
+    zeroCarbon_manufacturing: 'Zero Carbon Footprint - Manufacturing',
+    manufacturing_impact: 'Manufacturing Impact',
+    fsc: 'FSC',
+    rainforest_alliance: 'Rainforest Alliance',
+    cradle_to_cradle: 'Cradle to Cradle',
+    donate_to_environment: 'Donates to Environmental Causes',
+    bcorp: 'Bcorp',
+  };
+
+  all_n_labels = {
+    certified_organic: 'Certified Organic',
+    organic_practices: 'Organic Practices',
+    allNatural_ingredients: 'All Natural Ingredients',
+    reef_safe: 'Reef Safe',
+    madeSafe: 'MadeSafe',
+    transparency: 'Transparency',
+    bcorp: 'Bcorp',
+  };
+
+  an_ri_labels = {
+    vegan: 'Vegan',
+    donate_to_animalRights: 'Donates to Animal Rights Causes',
+    cruelty_free: 'Cruelty Free (Leaping Bunny/PETA)',
+  };
+
+  labor_labels = {
+    childcare: 'Childcare',
+    gym_recreation: 'Gym/Recreation',
+    educational_ops: 'Educational Opportunities',
+    healthcare: 'Healthcare',
+    mobility: 'Mobility in Company',
+    can_unionize: 'Allows Workers to Unionize',
+    living_wage: 'Living Wage',
+    safe_work_conditions: 'Safe Working Conditions',
+    no_child_labor: 'No Child Labor/Trafficking',
+    empower_oppressed: 'Empowers a Disenfranchised Community',
+    co_op: 'Co-op',
+    ethical_materials_sourcing: 'Ethical Materials Sourcing',
+    bcorp: 'Bcorp',
+    fair_trade: 'Fair Trade',
+  };
 
   handleChange = (field) => {
     return (value) => this.setState({ [field]: value });
   };
 
-  // handleUpdateChange(value, id) {
-  //   this.setState({
-  //     [id]: value
-  //   });
-  // }
-
-  handleMetric1Change(value) {
-    this.setState((prevState) => {
-      let metric1 = Object.assign({}, prevState.metric1);
-      metric1.value = value;
-      return { metric1 };
+  handleChangeCoIm = (value, id) => {
+    var co_im = { ...this.state.co_im };
+    co_im[id] = value;
+    this.setState({ co_im }, () => {
+      console.log(this.state.co_im);
     });
-  }
+  };
 
-  handleMetric2Change(value) {
-    this.setState((prevState) => {
-      let metric2 = Object.assign({}, prevState.metric2);
-      metric2.value = value;
-      return { metric2 };
+  handleChangeEcoF = (value, id) => {
+    var eco_f = { ...this.state.eco_f };
+    eco_f[id] = value;
+    this.setState({ eco_f }, () => {
+      console.log(this.state.eco_f);
     });
-  }
+  };
 
-  handleMetric3Change(value) {
-    this.setState((prevState) => {
-      let metric3 = Object.assign({}, prevState.metric3);
-      metric3.value = value;
-      return { metric3 };
+  handleChangeAllN = (value, id) => {
+    var all_n = { ...this.state.all_n };
+    all_n[id] = value;
+    this.setState({ all_n }, () => {
+      console.log(this.state.all_n);
     });
-  }
+  };
 
-  handleMetric4Change(value) {
-    this.setState((prevState) => {
-      let metric4 = Object.assign({}, prevState.metric4);
-      metric4.value = value;
-      return { metric4 };
+  handleChangeAnRi = (value, id) => {
+    var an_ri = { ...this.state.an_ri };
+    an_ri[id] = value;
+    this.setState({ an_ri }, () => {
+      console.log(this.state.an_ri);
     });
-  }
+  };
+
+  handleChangeLabor = (value, id) => {
+    var labor = { ...this.state.labor };
+    labor[id] = value;
+    this.setState({ labor }, () => {
+      console.log(this.state.labor);
+    });
+  };
 
   handleSearchSubmit = () => {
-    console.log(
-      'http://localhost:5000/api/shopifyProduct/' + this.state.productID
-    );
+    this.setState({
+      metricProgress: 0,
+    });
+
     axios
       .get('http://localhost:5000/api/shopifyProduct/' + this.state.productID)
       .then((res) => {
         const prodInfo = res.data;
-        console.log(prodInfo);
+
+        console.log(JSON.stringify(this.state.co_im));
         this.setState({
           productName: prodInfo.title,
           productVendor: prodInfo.vendor,
@@ -125,102 +240,146 @@ class UpdateProduct extends React.Component {
       )
       .then((res) => {
         const prodMetrics = res.data.metafields;
+        let metricProgress = 0;
         for (let i = 0; i < prodMetrics.length; i++) {
-          this.setState({
-            [prodMetrics[i].key]: {
-              metricID: prodMetrics[i].id,
-              value: prodMetrics[i].value,
-            },
-          });
-        }
+          let currentMetrics = prodMetrics[i];
+          if (currentMetrics.namespace == 'ethic-metric') {
+            metricProgress += 20;
+          }
 
-        console.log(prodMetrics);
+          if (currentMetrics.key == 'co_im') {
+            this.state.co_im_metricId = currentMetrics.id;
+            this.state.co_im_exists = true;
+
+            let co_im = JSON.parse(currentMetrics.value);
+            this.setState({ co_im });
+          }
+          if (currentMetrics.key == 'eco_f') {
+            this.state.eco_f_metricId = currentMetrics.id;
+            this.state.eco_f_exists = true;
+
+            let eco_f = JSON.parse(currentMetrics.value);
+            this.setState({ eco_f });
+          }
+          if (currentMetrics.key == 'all_n') {
+            this.state.all_n_metricId = currentMetrics.id;
+            this.state.all_n_exists = true;
+
+            let all_n = JSON.parse(currentMetrics.value);
+            this.setState({ all_n });
+          }
+          if (currentMetrics.key == 'an_ri') {
+            this.state.an_ri_metricId = currentMetrics.id;
+            this.state.an_ri_exists = true;
+
+            let an_ri = JSON.parse(currentMetrics.value);
+            this.setState({ an_ri });
+          }
+          if (currentMetrics.key == 'labor') {
+            this.state.labor_metricId = currentMetrics.id;
+            this.state.labor_exists = true;
+
+            let labor = JSON.parse(currentMetrics.value);
+            this.setState({ labor });
+          }
+        }
         this.setState({
-          productMetrics: prodMetrics,
+          metricProgress: metricProgress,
+          loadFailure: false,
         });
+      })
+      .catch((error) => {
+        // handle error
+        this.setState({
+          loadFailure: true,
+        });
+        console.log(error);
       });
   };
 
-  handleMetricSubmit() {
-    console.log(this.state.metric1);
-    console.log(this.state.metric2);
-    console.log(this.state.metric3);
-    console.log(this.state.metric4);
+  // Since it's a Form Submit Handler function, We have to wrap our code
+  // like so in order to pass in the category argument
+  // https://stackoverflow.com/questions/38648257/how-to-pass-in-a-second-argument-on-reactjs-onsubmit-function-call
+  handleSubmit = (category) => {
+    return (event) => {
+      event.preventDefault();
+      if (this.state[category + '_exists'] == true) {
+        axios.put(
+          'http://localhost:5000/api/shopifyProduct/metrics/' +
+            this.state.productID +
+            '/' +
+            this.state[category + '_metricId'],
+          {
+            metafield: {
+              id: this.state[category + '_metricId'],
+              value: JSON.stringify(this.state[category]),
+              value_type: 'string',
+            },
+          }
+        );
 
-    const newMetric1 = {
-      metafield: {
-        id: this.state.metric1.metricID,
-        value: this.state.metric1.value,
-        value_type: 'integer',
-      },
+        // Creating a metafield for the first time.
+      } else {
+        axios
+          .put(
+            'http://localhost:5000/api/shopifyProduct/metrics/' +
+              this.state.productID,
+            {
+              product: {
+                id: this.state.productID,
+                metafields: [
+                  {
+                    namespace: 'ethic-metric',
+                    key: category,
+                    value: JSON.stringify(this.state[category]),
+                    value_type: 'string',
+                  },
+                ],
+              },
+            }
+          )
+          // Finds the newly created metafield Id and assign it to state
+          .then((res) => {
+            axios
+              .get(
+                'http://localhost:5000/api/shopifyProduct/metrics/' +
+                  this.state.productID
+              )
+              .then((res) => {
+                const prodMetrics = res.data.metafields;
+                for (let i = 0; i < prodMetrics.length; i++) {
+                  let currentMetrics = prodMetrics[i];
+                  if (currentMetrics.key == category) {
+                    if (currentMetrics.key == 'co_im') {
+                      this.state.co_im_metricId = currentMetrics.id;
+                      this.state.co_im_exists = true;
+                    }
+                    if (currentMetrics.key == 'eco_f') {
+                      this.state.eco_f_metricId = currentMetrics.id;
+                      this.state.eco_f_exists = true;
+                    }
+                    if (currentMetrics.key == 'all_n') {
+                      this.state.all_n_metricId = currentMetrics.id;
+                      this.state.all_n_exists = true;
+                    }
+                    if (currentMetrics.key == 'an_ri') {
+                      this.state.an_ri_metricId = currentMetrics.id;
+                      this.state.an_ri_exists = true;
+                    }
+                    if (currentMetrics.key == 'labor') {
+                      this.state.labor_metricId = currentMetrics.id;
+                      this.state.labor_exists = true;
+                    }
+                  }
+                }
+                this.setState({
+                  metricProgress: this.state.metricProgress + 20,
+                });
+              });
+          });
+      }
     };
-
-    console.log(JSON.stringify(newMetric1));
-
-    if (this.state.metric1.id != '') {
-      axios.put(
-        'http://localhost:5000/api/shopifyProduct/metrics/' +
-          this.state.productID +
-          '/' +
-          this.state.metric1.metricID,
-        {
-          metafield: {
-            id: this.state.metric1.metricID,
-            value: this.state.metric1.value,
-            value_type: 'integer',
-          },
-        }
-      );
-    }
-
-    if (this.state.metric2.id != '') {
-      axios.put(
-        'http://localhost:5000/api/shopifyProduct/metrics/' +
-          this.state.productID +
-          '/' +
-          this.state.metric2.metricID,
-        {
-          metafield: {
-            id: this.state.metric2.metricID,
-            value: this.state.metric2.value,
-            value_type: 'integer',
-          },
-        }
-      );
-    }
-
-    if (this.state.metric3.id != '') {
-      axios.put(
-        'http://localhost:5000/api/shopifyProduct/metrics/' +
-          this.state.productID +
-          '/' +
-          this.state.metric3.metricID,
-        {
-          metafield: {
-            id: this.state.metric3.metricID,
-            value: this.state.metric3.value,
-            value_type: 'integer',
-          },
-        }
-      );
-    }
-
-    if (this.state.metric4.id != '') {
-      axios.put(
-        'http://localhost:5000/api/shopifyProduct/metrics/' +
-          this.state.productID +
-          '/' +
-          this.state.metric4.metricID,
-        {
-          metafield: {
-            id: this.state.metric4.metricID,
-            value: this.state.metric4.value,
-            value_type: 'integer',
-          },
-        }
-      );
-    }
-  }
+  };
 
   render() {
     const { productID } = this.state;
@@ -255,71 +414,206 @@ class UpdateProduct extends React.Component {
             title='Product Information'
             description='Information and Current Product Metrics'
           >
-            <Card>
-              <Heading>Product Name:</Heading>
-              <Subheading>{this.state.productName}</Subheading>
-              <Heading>Vendor:</Heading>
-              <Subheading>{this.state.productVendor}</Subheading>
-              <Heading>Tags:</Heading>
-              <Subheading>{this.state.productTags}</Subheading>
-              <Heading>Ethical Metrics:</Heading>
-              <p>
-                {this.state.productMetrics.map((metric) => {
-                  return (
-                    <li key={metric.key}>
-                      {metric.key}":" {metric.value}
-                    </li>
-                  );
-                })}
-              </p>
-            </Card>
+            <TextContainer spacing='tight'>
+              {this.state.loadFailure && (
+                <Banner title='Failed to Load Product' status='critical'>
+                  <p>Please enter a valid product id</p>
+                </Banner>
+              )}
+              <DisplayText element='h6' size='small'>
+                <TextStyle variation='strong'>Product Name: </TextStyle>
+                {this.state.productName}
+              </DisplayText>
+              <h3>
+                <TextStyle variation='strong'>Vendor: </TextStyle>
+                {this.state.productVendor}
+              </h3>
+              <h3>
+                <TextStyle variation='strong'>Tags: </TextStyle>
+                {this.state.productTags}
+              </h3>
+
+              <DisplayText
+                style={{ marginTop: '5px' }}
+                element='h6'
+                size='small'
+              >
+                <TextStyle variation='strong'>
+                  Current Metric Progress
+                </TextStyle>
+              </DisplayText>
+              <ProgressBar progress={this.state.metricProgress} size='small' />
+
+              <Stack style={{ marginTop: '10px' }}>
+                {this.state.co_im_exists && (
+                  <Badge status='info'>Community Impact</Badge>
+                )}
+                {this.state.eco_f_exists && (
+                  <Badge status='success'>Eco Friendly</Badge>
+                )}
+                {this.state.all_n_exists && (
+                  <Badge status='attention'>All Natural/Non-Toxic</Badge>
+                )}
+                {this.state.an_ri_exists && (
+                  <Badge status='warning'>Animal Rights</Badge>
+                )}
+                {this.state.labor_exists && <Badge>Labor</Badge>}
+              </Stack>
+            </TextContainer>
           </Layout.AnnotatedSection>
           <Layout.AnnotatedSection
-            title='Update Product Metrics'
-            description='Update values for each metric'
+            title='Community Impact'
+            description='We believe that businesses should be forces for good in the communities they operate in. 
+            Criteria in this category center around nurturing community, helping marginalized groups, 
+            and ensuring people are not left behind.'
           >
-            <Form onSubmit={this.handleMetricSubmit}>
+            <Form onSubmit={this.handleSubmit('co_im')}>
               <FormLayout>
-                <RangeSlider
-                  min={-1}
-                  max={10}
-                  label='Metric 1'
-                  value={this.state.metric1.value}
-                  onChange={this.handleMetric1Change}
-                  id='metric1'
-                  output
-                />
-                <RangeSlider
-                  min={-1}
-                  max={10}
-                  label='Metric 2'
-                  value={this.state.metric2.value}
-                  onChange={this.handleMetric2Change}
-                  id='metric2'
-                  output
-                />
-                <RangeSlider
-                  min={-1}
-                  max={10}
-                  label='Metric 3'
-                  value={this.state.metric3.value}
-                  onChange={this.handleMetric3Change}
-                  id='metric3'
-                  output
-                />
-                <RangeSlider
-                  min={-1}
-                  max={10}
-                  label='Metric 4'
-                  value={this.state.metric4.value}
-                  onChange={this.handleMetric4Change}
-                  id='metric4'
-                  output
-                />
+                <FormLayout.Group>
+                  {Object.keys(this.co_im_labels).map((metric) => (
+                    <Select
+                      label={this.co_im_labels[metric]}
+                      key={metric}
+                      id={metric}
+                      options={this.metricOptions}
+                      value={this.state.co_im[metric]}
+                      onChange={this.handleChangeCoIm}
+                    />
+                  ))}
+                  <Select
+                    label='Business Size'
+                    options={[
+                      { label: 'Small: Less Than 50 Employees', value: 's' },
+                      { label: 'Medium: Less Than 500 Employees', value: 'm' },
+                      { label: 'Large: More than 500 Employees', value: 'l' },
+                      { label: 'N/A', value: 'n/a' },
+                    ]}
+                    id='business_size'
+                    value={this.state.co_im.business_size}
+                    onChange={this.handleChangeCoIm}
+                  />
+                  <TextField
+                    label='Zip Code'
+                    id='zip_code'
+                    value={this.state.co_im.zip_code}
+                    onChange={this.handleChangeCoIm}
+                  />
+                </FormLayout.Group>
                 <Button submit>Submit</Button>
               </FormLayout>
             </Form>
           </Layout.AnnotatedSection>
+
+          <Layout.AnnotatedSection
+            title='Economically Friendly'
+            description='Our planet is suffering due to human impact. 
+            Criteria in this category centers on improving our ecosystems, low carbon emissions, and sustainable materials.'
+          >
+            <Form onSubmit={this.handleSubmit('eco_f')}>
+              <FormLayout>
+                <FormLayout.Group>
+                  {Object.keys(this.state.eco_f).map((metric) => (
+                    <Select
+                      label={this.eco_f_labels[metric]}
+                      key={metric}
+                      id={metric}
+                      options={this.metricOptions}
+                      value={this.state.eco_f[metric]}
+                      onChange={this.handleChangeEcoF}
+                    />
+                  ))}
+                </FormLayout.Group>
+                <Button submit>Submit</Button>
+              </FormLayout>
+            </Form>
+          </Layout.AnnotatedSection>
+          <Layout.AnnotatedSection
+            title='All Natural/Non-Toxic'
+            description='You wouldn’t want to put bad chemicals into your body or into the planet, would you? This category focuses on what goes into each product, and the criteria reflects a more natural, chemical-free approach to everyday products.'
+          >
+            <Form onSubmit={this.handleSubmit('all_n')}>
+              <FormLayout>
+                <FormLayout.Group>
+                  {Object.keys(this.all_n_labels).map((metric) => (
+                    <Select
+                      label={this.all_n_labels[metric]}
+                      key={metric}
+                      id={metric}
+                      options={this.metricOptions}
+                      value={this.state.all_n[metric]}
+                      onChange={this.handleChangeAllN}
+                    />
+                  ))}
+                </FormLayout.Group>
+                {/* <FormLayout.Group> */}
+                <RangeSlider
+                  label='EWG Rating'
+                  id='ewg'
+                  value={this.state.all_n.ewg}
+                  onChange={this.handleChangeAllN}
+                  max='10'
+                  min='0'
+                  output
+                />
+                <RangeSlider
+                  label='Consumer Labs'
+                  id='consumerLabs'
+                  value={this.state.all_n.consumerLabs}
+                  onChange={this.handleChangeAllN}
+                  max='10'
+                  min='0'
+                  output
+                />
+                {/* </FormLayout.Group> */}
+                <Button submit>Submit</Button>
+              </FormLayout>
+            </Form>
+          </Layout.AnnotatedSection>
+          <Layout.AnnotatedSection
+            title='Animal Rights'
+            description='Animals matter, too! Unfortunately, many of them are abused or exploited to make consumer goods. The criteria in this category focuses on companies that are cruelty free or are helping animals thrive'
+          >
+            <Form onSubmit={this.handleSubmit('an_ri')}>
+              <FormLayout>
+                <FormLayout.Group>
+                  {Object.keys(this.state.an_ri).map((metric) => (
+                    <Select
+                      label={this.an_ri_labels[metric]}
+                      key={metric}
+                      id={metric}
+                      options={this.metricOptions}
+                      value={this.state.an_ri[metric]}
+                      onChange={this.handleChangeAnRi}
+                    />
+                  ))}
+                </FormLayout.Group>
+                <Button submit>Submit</Button>
+              </FormLayout>
+            </Form>
+          </Layout.AnnotatedSection>
+          <Layout.AnnotatedSection
+            title='Labor'
+            description='Sweatshops and underpaid labor should be a thing of the past, and workers in the United States should be paid a living wage. Criteria under this category focuses on how laborers are treated, what working conditions they operate in, and what benefits their employers provide. '
+          >
+            <Form onSubmit={this.handleSubmit('labor')}>
+              <FormLayout>
+                <FormLayout.Group>
+                  {Object.keys(this.state.labor).map((metric) => (
+                    <Select
+                      label={this.labor_labels[metric]}
+                      key={metric}
+                      id={metric}
+                      options={this.metricOptions}
+                      value={this.state.labor[metric]}
+                      onChange={this.handleChangeLabor}
+                    />
+                  ))}
+                </FormLayout.Group>
+                <Button submit>Submit</Button>
+              </FormLayout>
+            </Form>
+          </Layout.AnnotatedSection>
+
           <Layout.Section>
             <FooterHelp>
               Ethic Score's{' '}

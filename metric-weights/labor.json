@@ -1,1 +1,16 @@
-{"childcare":"2","gym/recreation":"2","educational_ops":"2","healthcare":"2","mobility":"2","can_unionize":"2","living_wage":"2","safe_work_conditions":"2","no_childLabor":"2","empower_oppressed":"2","co-op":"2","ethical_materials_sourcing":"2","bcorp":"2","fair_trade":"2"}
+{
+  "childcare": "2",
+  "gym_recreation": "2",
+  "educational_ops": "2",
+  "healthcare": "2",
+  "mobility": "2",
+  "can_unionize": "2",
+  "living_wage": "2",
+  "safe_work_conditions": "2",
+  "no_child_labor": "2",
+  "empower_oppressed": "2",
+  "co_op": "2",
+  "ethical_materials_sourcing": "2",
+  "bcorp": "2",
+  "fair_trade": "2"
+}

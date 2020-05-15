@@ -5,7 +5,7 @@ const ShopifyProduct = require('../../models/ShopifyProduct');
 const dotenv = require('dotenv').config();
 
 const shopifyAxios = axios.create({
-  baseURL: 'https://ethic-marketplace.myshopify.com/admin/api/2020-01/products',
+  baseURL: 'https://ethic-marketplace.myshopify.com/admin/api/2020-04/products',
   auth: {
     username: process.env.SHOPIFY_STORE_USERNAME,
     password: process.env.SHOPIFY_STORE_PASSWORD,
@@ -19,7 +19,7 @@ const setAuth = function (myURL) {
 };
 
 function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 const getProduct = async function (id, baseURL) {
@@ -51,7 +51,7 @@ const getProductMetafields = async function (id, baseURL) {
     productURL = new URL(baseURL + '/' + id.toString() + '/metafields.json');
     productURL = setAuth(productURL);
     metafields = await axios.get(productURL.toString());
-    metafields = metafields['data']['metafields']
+    metafields = metafields['data']['metafields'];
   } catch (err) {
     console.error(err);
     return false;
@@ -94,10 +94,10 @@ const updateDatabase = async function (input_product) {
 function isSuperset(set, subset) {
   for (let elem of subset) {
     if (!set.includes(elem)) {
-      return false
+      return false;
     }
   }
-  return true
+  return true;
 }
 
 function hasCommon(list, other) {
@@ -155,7 +155,7 @@ const getAllProducts = async function () {
     products: allProducts,
     tags: tags,
     vendors: vendors,
-  }
+  };
   return await res;
 };
 
@@ -167,47 +167,64 @@ const getNewProducts = async function () {
   let newURL =
     'https://ethic-marketplace.myshopify.com/admin/api/2020-01/products.json';
   //while (newURL) {
-    try {
-      let res = await axios.get(newURL.toString() + '?limit=250', {
-        params: {
-          limit: 250,
-        },
-        auth: {
-          username: process.env.SHOPIFY_STORE_USERNAME,
-          password: process.env.SHOPIFY_STORE_PASSWORD,
-        },
-      });
+  try {
+    let res = await axios.get(newURL.toString() + '?limit=250', {
+      params: {
+        limit: 250,
+      },
+      auth: {
+        username: process.env.SHOPIFY_STORE_USERNAME,
+        password: process.env.SHOPIFY_STORE_PASSWORD,
+      },
+    });
 
-      let productsRaw = res.data['products'];
-      let i;
+    let productsRaw = res.data['products'];
+    let i;
 
-      for (i = 0; i < productsRaw.length; ++i) {
-        metafield = await getProductMetafields(productsRaw[i].id, 'https://ethic-marketplace.myshopify.com/admin/api/2020-01/products');
+    for (i = 0; i < productsRaw.length; ++i) {
+      metafield = await getProductMetafields(
+        productsRaw[i].id,
+        'https://ethic-marketplace.myshopify.com/admin/api/2020-01/products'
+      );
+      await sleep(550);
+
+      if (metafield.length == 0) {
+        products.push(
+          await getProduct(
+            productsRaw[i].id,
+            'https://ethic-marketplace.myshopify.com/admin/api/2020-01/products'
+          )
+        );
         await sleep(550);
-
-        if (metafield.length == 0) {
-            products.push(await getProduct(productsRaw[i].id, 'https://ethic-marketplace.myshopify.com/admin/api/2020-01/products'));
-            await sleep(550);
-        } else {
-            let metricExists = false;
-            let j;
-            for (j = 0; j < metafield.length; ++j) {
-                if ('metric1' in metafield[j] || 'metric2' in metafield[j] || 'metric3' in metafield[j]) {
-                    metricExists = true;
-                }
-            }
-            if (!metricExists) {
-                products.push(await getProduct(productsRaw[i].id, 'https://ethic-marketplace.myshopify.com/admin/api/2020-01/products'));
-                await sleep(550);
-            }
+      } else {
+        let metricExists = false;
+        let j;
+        for (j = 0; j < metafield.length; ++j) {
+          if (
+            'metric1' in metafield[j] ||
+            'metric2' in metafield[j] ||
+            'metric3' in metafield[j]
+          ) {
+            metricExists = true;
+          }
+        }
+        if (!metricExists) {
+          products.push(
+            await getProduct(
+              productsRaw[i].id,
+              'https://ethic-marketplace.myshopify.com/admin/api/2020-01/products'
+            )
+          );
+          await sleep(550);
         }
       }
-     } catch (err) {
-      console.error(err);
     }
+  } catch (err) {
+    console.error(err);
+  }
   //}
 
-  console.log(products)
+  console.log(products);
   return products;
 };
 
@@ -235,69 +252,69 @@ router.post('/allProducts', async (req, res) => {
 });
 
 router.post('/updateProducts', async (req, res) => {
-  //try { 
-    const body = req.body;
-    const idList = body['idList'];
-    const certs = body['certs'];
-    console.log(certs);
-    console.log(idList);
-    let response = null;
-    for (let pid of idList) {
-      // see if metafield already exists
-      try {
-        let productCerts = await shopifyAxios.get(
-          pid + '/metafields.json'
-        );
-        let certMap = {};
-        for (let field of productCerts.metafields) {
-          certMap[field.key] = field.id;
-        }     
-        for (let cert of certs) {
+  //try {
+  const body = req.body;
+  const idList = body['idList'];
+  const certs = body['certs'];
+  console.log(certs);
+  console.log(idList);
+  let response = null;
+  for (let pid of idList) {
+    // see if metafield already exists
+    try {
+      let productCerts = await shopifyAxios.get(pid + '/metafields.json');
+      let certMap = {};
+      for (let field of productCerts.metafields) {
+        certMap[field.key] = field.id;
+      }
+      for (let cert of certs) {
         //updating the metafields
-          try {   
-            const metafield = await shopifyAxios.put(
-              pid + '/metafields/' + certMap[cert] + '.json',
-              {
-                metafields: {
-                  id: certMap[cert],
-                  value: 1,
-                  value_type: 'integer'
-                },
-              }
-            );
-          } catch (err) {}
-        }
-      } catch (err) {
-        //console.log(err.message);
-        // if metafields does not exxist, create it
-        for (let cert of certs) {
-          let metafield = {
-            metafield: {
-              key: cert,
-              value: 1,
-              value_type: "integer",
-              namespace: "certifications"
+        try {
+          const metafield = await shopifyAxios.put(
+            pid + '/metafields/' + certMap[cert] + '.json',
+            {
+              metafields: {
+                id: certMap[cert],
+                value: 1,
+                value_type: 'integer',
+              },
             }
-          };
-          //creating the metafields
-          console.log(pid);
-          console.log(metafield);
-          try {
-            response = await shopifyAxios.post(pid + '/metafields.json', metafield);
-          } catch (err) { 
-            console.error(err.message);
-          }
+          );
+        } catch (err) {}
+      }
+    } catch (err) {
+      //console.log(err.message);
+      // if metafields does not exxist, create it
+      for (let cert of certs) {
+        let metafield = {
+          metafield: {
+            key: cert,
+            value: 1,
+            value_type: 'integer',
+            namespace: 'certifications',
+          },
+        };
+        //creating the metafields
+        console.log(pid);
+        console.log(metafield);
+        try {
+          response = await shopifyAxios.post(
+            pid + '/metafields.json',
+            metafield
+          );
+        } catch (err) {
+          console.error(err.message);
         }
       }
     }
+  }
 
-    res.json('product update successful!');
+  res.json('product update successful!');
   /*} catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
   }*/
 });
-
 
 router.get('/newProducts', async (req, res) => {
   try {
@@ -338,7 +355,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // @route   GET api/metrics/:id
-// @desc    Creates a new metafield for the specified Shopify User. Don't use this route to update metafields.
+// @desc    Retrieves all metafields for the specified Shopify Product.
 // @access  Private
 router.get('/metrics/:id', async (req, res) => {
   try {
@@ -353,7 +370,7 @@ router.get('/metrics/:id', async (req, res) => {
 });
 
 // @route   PUT api/metrics/:id
-// @desc    Creates a new metafield for the specified Shopify User. Don't use this route to update metafields.
+// @desc    Creates a new metafield for the specified Shopify Product. Don't use this route to update metafields.
 // @access  Private
 router.put('/metrics/:id', async (req, res) => {
   try {
