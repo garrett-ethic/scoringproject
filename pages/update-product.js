@@ -103,7 +103,7 @@ class UpdateProduct extends React.Component {
     this.handleChangeEcoF = this.handleChangeEcoF.bind(this);
     this.handleChangeAllN = this.handleChangeAllN.bind(this);
     this.handleChangeAnRi = this.handleChangeAnRi.bind(this);
-    this.handleChangeCoIm = this.handleChangeCoIm.bind(this);
+    this.handleChangeLabor = this.handleChangeLabor.bind(this);
     this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }

@@ -252,60 +252,78 @@ router.post('/allProducts', async (req, res) => {
 });
 
 router.post('/updateProducts', async (req, res) => {
-  //try {
   const body = req.body;
   const idList = body['idList'];
-  const certs = body['certs'];
-  console.log(certs);
+  let metafieldMap = {
+    an_ri: body['an_ri'],
+    co_im: body['co_im'],
+    eco_f: body['eco_f'],
+    labor: body['labor'],
+    all_n: body['all_n'],
+  }
+
   console.log(idList);
-  let response = null;
+  console.log(metafieldMap);
   for (let pid of idList) {
-    // see if metafield already exists
     try {
-      let productCerts = await shopifyAxios.get(pid + '/metafields.json');
-      let certMap = {};
-      for (let field of productCerts.metafields) {
-        certMap[field.key] = field.id;
-      }
-      for (let cert of certs) {
-        //updating the metafields
-        try {
-          const metafield = await shopifyAxios.put(
-            pid + '/metafields/' + certMap[cert] + '.json',
+      const data = await shopifyAxios.get(pid + '/metafields.json');
+      let existingMetrics = data.metafields;
+      if (existingMetrics === undefined) {
+        // no metafields exist yet
+        for (let newCategoryKey in metafieldMap) {
+          sleep(550);
+          let res = await shopifyAxios.post(
+            pid + '/metafields.json',
             {
-              metafields: {
-                id: certMap[cert],
-                value: 1,
-                value_type: 'integer',
-              },
+              metafield: {
+                key: newCategoryKey,
+                value: JSON.stringify(metafieldMap[newCategoryKey]),
+                value_type: 'string',
+                namespace: 'ethic-metric'
+              }
             }
           );
-        } catch (err) {}
-      }
-    } catch (err) {
-      //console.log(err.message);
-      // if metafields does not exxist, create it
-      for (let cert of certs) {
-        let metafield = {
-          metafield: {
-            key: cert,
-            value: 1,
-            value_type: 'integer',
-            namespace: 'certifications',
-          },
-        };
-        //creating the metafields
-        console.log(pid);
-        console.log(metafield);
-        try {
-          response = await shopifyAxios.post(
-            pid + '/metafields.json',
-            metafield
-          );
-        } catch (err) {
-          console.error(err.message);
+        }
+      } else {
+        for (let existingCategory of existingMetrics) {
+          sleep(550);
+          if (existingCategory.key in metafieldMap) {
+            // update existing metafield
+            let existingCategoryDict = JSON.parse(existingCategory.value);
+            let new_dict = metafieldMap[existingCategory.key];
+            for (let key of new_dict) {
+              existingCategoryDict[key] = new_dict[key];
+            }
+            let res = await shopifyAxios.put(
+              pid + '/metafields/' + category.id + '.json',
+              {
+                metafield: {
+                  id: existingCategory.id,
+                  value: JSON.stringify(existingCategoryDict),
+                  value_type: 'string',
+                },
+              }
+            );
+          }
+          else {
+            // one or more metafields is missing
+            let res = await shopifyAxios.post(
+              pid + '/metafields.json',
+              {
+                metafield: {
+                  key: existingCategory.key,
+                  value: JSON.stringify(metafieldMap[existingCategory.key]),
+                  value_type: 'string',
+                  namespace: 'ethic-metric'
+                }
+              }
+            );
+          }      
         }
       }
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
     }
   }
 

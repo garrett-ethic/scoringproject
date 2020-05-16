@@ -20,6 +20,7 @@ import {
   DisplayText,
   FooterHelp,
   Link,
+  Select,
 } from '@shopify/polaris';
 
 
@@ -68,29 +69,63 @@ class ProductTag extends React.Component {
       idList: [],
       selected: [],
       selectedAll: false,
-      
-      certs: [
-        "Vegan",
-        "Compostable Packaging",
-        "Recyclable Packaging",
-        "Non Toxic",
-        "EWG Rating",
-        "Consumer Labs Approved",
-        "Energy Efficient",
-        "Organic",
-        "Fair Labor/Trade",
-        "B-Corp",
-        "1% For The Planet",
-        "Reef Friendly",
-        "Cradle To Cradle",
-        "Plastic Free",
-        "Leaping Bunny",
-        "Rainforest Alliance",
-        "Forest Stewardship Council",
-        "Made Safe",
-        "Goods Unite Us",
-      ],
-      certSelected: [],
+
+      co_im: {
+        USA_made: 'n/a',
+        employs_locally: 'n/a',
+        community_activism: 'n/a',
+        business_size: 'n/a',
+        donates_locally: 'n/a',
+        one_percent_for_the_planet: 'n/a',
+        political_donations: 'n/a',
+        donate_to_oppressed: 'n/a',
+        zip_code: 'n/a',
+      },
+      eco_f: {
+        sustainable_packaging: 'n/a',
+        sustainable_materials: 'n/a',
+        zeroCarbon_shipping: 'n/a',
+        zeroCarbon_manufacturing: 'n/a',
+        manufacturing_impact: 'n/a',
+        fsc: 'n/a',
+        rainforest_alliance: 'n/a',
+        cradle_to_cradle: 'n/a',
+        donate_to_environment: 'n/a',
+        bcorp: 'n/a',
+      },
+      all_n: {
+        certified_organic: 'n/a',
+        organic_practices: 'n/a',
+        allNatural_ingredients: 'n/a',
+        reef_safe: 'n/a',
+        ewg: 'n/a',
+        madeSafe: 'n/a',
+        consumerLabs: 'n/a',
+        transparency: 'n/a',
+        bcorp: 'n/a',
+      },
+      an_ri: {
+        vegan: 'n/a',
+        donate_to_animalRights: 'n/a',
+        cruelty_free: 'n/a',
+      },
+      labor: {
+        childcare: 'n/a',
+        gym_recreation: 'n/a',
+        educational_ops: 'n/a',
+        healthcare: 'n/a',
+        mobility: 'n/a',
+        can_unionize: 'n/a',
+        living_wage: 'n/a',
+        safe_work_conditions: 'n/a',
+        no_child_labor: 'n/a',
+        empower_oppressed: 'n/a',
+        co_op: 'n/a',
+        ethical_materials_sourcing: 'n/a',
+        bcorp: 'n/a',
+        fair_trade: 'n/a',
+      },
+
     };
 
     this.setSelectedOptions = this.setSelectedOptions.bind(this);
@@ -109,9 +144,80 @@ class ProductTag extends React.Component {
     this.handleUpdateChange = this.handleUpdateChange.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handleProductChange = this.handleProductChange.bind(this);
-    this.handleCertChange = this.handleCertChange.bind(this);
     this.handleMetricSubmit = this.handleMetricSubmit.bind(this);
+
+    this.handleChangeCoIm = this.handleChangeCoIm.bind(this);
+    this.handleChangeEcoF = this.handleChangeEcoF.bind(this);
+    this.handleChangeAllN = this.handleChangeAllN.bind(this);
+    this.handleChangeAnRi = this.handleChangeAnRi.bind(this);
+    this.handleChangeLabor = this.handleChangeLabor.bind(this);
+
   }
+
+  metricOptions = [
+    { label: 'Yes', value: 'y' },
+    { label: 'No', value: 'n' },
+    { label: 'N/A', value: 'n/a' },
+  ];
+
+  // The following label objects only includes labels for metrics that have yes, no, and n/a options
+
+  co_im_labels = {
+    USA_made: 'Made in the USA',
+    employs_locally: 'Employs to Local Residents/Businesses',
+    community_activism: 'Community Activism',
+    donates_locally: 'Donates to Surrounding Community',
+    one_percent_for_the_planet: '1% for the Planet',
+    political_donations: 'Politial Donations',
+    donate_to_oppressed: 'Donates to Oppressed Communities',
+  };
+
+  eco_f_labels = {
+    sustainable_packaging: 'Sustainable Packaging',
+    sustainable_materials: 'Sustainable Materials',
+    zeroCarbon_shipping: 'Zero Carbon Footprint - Shipping',
+    zeroCarbon_manufacturing: 'Zero Carbon Footprint - Manufacturing',
+    manufacturing_impact: 'Manufacturing Impact',
+    fsc: 'FSC',
+    rainforest_alliance: 'Rainforest Alliance',
+    cradle_to_cradle: 'Cradle to Cradle',
+    donate_to_environment: 'Donates to Environmental Causes',
+    bcorp: 'Bcorp',
+  };
+
+  all_n_labels = {
+    certified_organic: 'Certified Organic',
+    organic_practices: 'Organic Practices',
+    allNatural_ingredients: 'All Natural Ingredients',
+    reef_safe: 'Reef Safe',
+    madeSafe: 'MadeSafe',
+    transparency: 'Transparency',
+    bcorp: 'Bcorp',
+  };
+
+  an_ri_labels = {
+    vegan: 'Vegan',
+    donate_to_animalRights: 'Donates to Animal Rights Causes',
+    cruelty_free: 'Cruelty Free (Leaping Bunny/PETA)',
+  };
+
+  labor_labels = {
+    childcare: 'Childcare',
+    gym_recreation: 'Gym/Recreation',
+    educational_ops: 'Educational Opportunities',
+    healthcare: 'Healthcare',
+    mobility: 'Mobility in Company',
+    can_unionize: 'Allows Workers to Unionize',
+    living_wage: 'Living Wage',
+    safe_work_conditions: 'Safe Working Conditions',
+    no_child_labor: 'No Child Labor/Trafficking',
+    empower_oppressed: 'Empowers a Disenfranchised Community',
+    co_op: 'Co-op',
+    ethical_materials_sourcing: 'Ethical Materials Sourcing',
+    bcorp: 'Bcorp',
+    fair_trade: 'Fair Trade',
+  };
+
 
   setSelectedOptions(value) {
     this.setState({
@@ -190,12 +296,6 @@ class ProductTag extends React.Component {
     });
   }
   
-  handleCertChange(value) {
-    this.setState({
-      certSelected: value
-    });
-  }
-  
   handleSelectChange(value) {
     this.setState({
       selectedAll: value
@@ -216,6 +316,47 @@ class ProductTag extends React.Component {
       selected: value
     });
   }
+
+  handleChangeCoIm = (value, id) => {
+    var co_im = { ...this.state.co_im };
+    co_im[id] = value;
+    this.setState({ co_im }, () => {
+      console.log(this.state.co_im);
+    });
+  };
+
+  handleChangeEcoF = (value, id) => {
+    var eco_f = { ...this.state.eco_f };
+    eco_f[id] = value;
+    this.setState({ eco_f }, () => {
+      console.log(this.state.eco_f);
+    });
+  };
+
+  handleChangeAllN = (value, id) => {
+    var all_n = { ...this.state.all_n };
+    all_n[id] = value;
+    this.setState({ all_n }, () => {
+      console.log(this.state.all_n);
+    });
+  };
+
+  handleChangeAnRi = (value, id) => {
+    var an_ri = { ...this.state.an_ri };
+    an_ri[id] = value;
+    this.setState({ an_ri }, () => {
+      console.log(this.state.an_ri);
+    });
+  };
+
+  handleChangeLabor = (value, id) => {
+    var labor = { ...this.state.labor };
+    labor[id] = value;
+    this.setState({ labor }, () => {
+      console.log(this.state.labor);
+    });
+  };
+
 
   componentDidMount() {
     axios
@@ -314,8 +455,13 @@ class ProductTag extends React.Component {
   handleMetricSubmit(event) {
     let data = JSON.stringify({
       idList: this.state.selected,
-      certs: this.state.certSelected
+      an_ri: this.state.an_ri,
+      all_n: this.state.all_n,
+      co_im: this.state.co_im,
+      eco_f: this.state.eco_f,
+      labor: this.state.labor,      
     })
+    console.log(data);
     axios
       .post('http://localhost:5000/api/shopifyProduct/updateProducts', data, {
         headers: {
@@ -435,23 +581,145 @@ class ProductTag extends React.Component {
                 />
               </Scrollable>
             </Card>
-            <Card sectioned title = "Select the certifications for these products">
-              <Form onSubmit={this.handleMetricSubmit}>
-                <FormLayout>
-                  <ChoiceList
-                    allowMultiple
-                    title=""
-                    choices={this.state.certs.map((val) => {
-                        return {label: val,
-                                value: val}
-                     })}
-                    selected={this.state.certSelected}
-                    onChange={this.handleCertChange}
+
+          <Form onSubmit={this.handleMetricSubmit}>
+            <Layout.AnnotatedSection
+              title='Community Impact'
+              description='We believe that businesses should be forces for good in the communities they operate in. 
+              Criteria in this category center around nurturing community, helping marginalized groups, 
+              and ensuring people are not left behind.'
+            >
+              <FormLayout>
+                <FormLayout.Group>
+                  {Object.keys(this.co_im_labels).map((metric) => (
+                    <Select
+                      label={this.co_im_labels[metric]}
+                      key={metric}
+                      id={metric}
+                      options={this.metricOptions}
+                      value={this.state.co_im[metric]}
+                      onChange={this.handleChangeCoIm}
+                    />
+                  ))}
+                  <Select
+                    label='Business Size'
+                    options={[
+                      { label: 'Small: Less Than 50 Employees', value: 's' },
+                      { label: 'Medium: Less Than 500 Employees', value: 'm' },
+                      { label: 'Large: More than 500 Employees', value: 'l' },
+                      { label: 'N/A', value: 'n/a' },
+                    ]}
+                    id='business_size'
+                    value={this.state.co_im.business_size}
+                    onChange={this.handleChangeCoIm}
                   />
-                <Button submit>Submit</Button>
-                </FormLayout>
-              </Form>
-            </Card>
+                  <TextField
+                    label='Zip Code'
+                    id='zip_code'
+                    value={this.state.co_im.zip_code}
+                    onChange={this.handleChangeCoIm}
+                  />
+                </FormLayout.Group>
+              </FormLayout>
+            </Layout.AnnotatedSection>
+
+            <Layout.AnnotatedSection
+              title='Economically Friendly'
+              description='Our planet is suffering due to human impact. 
+              Criteria in this category centers on improving our ecosystems, low carbon emissions, and sustainable materials.'
+            >
+              <FormLayout>
+                <FormLayout.Group>
+                  {Object.keys(this.state.eco_f).map((metric) => (
+                    <Select
+                      label={this.eco_f_labels[metric]}
+                      key={metric}
+                      id={metric}
+                      options={this.metricOptions}
+                      value={this.state.eco_f[metric]}
+                      onChange={this.handleChangeEcoF}
+                    />
+                  ))}
+                </FormLayout.Group>
+              </FormLayout>
+            </Layout.AnnotatedSection>
+            <Layout.AnnotatedSection
+              title='All Natural/Non-Toxic'
+              description='You wouldn’t want to put bad chemicals into your body or into the planet, would you? This category focuses on what goes into each product, and the criteria reflects a more natural, chemical-free approach to everyday products.'
+            >
+              <FormLayout>
+                <FormLayout.Group>
+                  {Object.keys(this.all_n_labels).map((metric) => (
+                      <Select
+                        label={this.all_n_labels[metric]}
+                        key={metric}
+                        id={metric}
+                        options={this.metricOptions}
+                        value={this.state.all_n[metric]}
+                        onChange={this.handleChangeAllN}
+                      />
+                    ))}
+                  <RangeSlider
+                    label='EWG Rating'
+                    id='ewg'
+                    value={this.state.all_n.ewg}
+                    onChange={this.handleChangeAllN}
+                    max='10'
+                    min='0'
+                    output
+                  />
+                  <RangeSlider
+                    label='Consumer Labs'
+                    id='consumerLabs'
+                    value={this.state.all_n.consumerLabs}
+                    onChange={this.handleChangeAllN}
+                    max='10'
+                    min='0'
+                    output
+                  />
+                </FormLayout.Group>
+              </FormLayout>
+            </Layout.AnnotatedSection>
+            <Layout.AnnotatedSection
+              title='Animal Rights'
+              description='Animals matter, too! Unfortunately, many of them are abused or exploited to make consumer goods. The criteria in this category focuses on companies that are cruelty free or are helping animals thrive'
+            >
+              <FormLayout>
+                <FormLayout.Group>
+                  {Object.keys(this.state.an_ri).map((metric) => (
+                    <Select
+                      label={this.an_ri_labels[metric]}
+                      key={metric}
+                      id={metric}
+                      options={this.metricOptions}
+                      value={this.state.an_ri[metric]}
+                      onChange={this.handleChangeAnRi}
+                    />
+                  ))}
+                </FormLayout.Group>
+              </FormLayout>
+            </Layout.AnnotatedSection>
+            <Layout.AnnotatedSection
+              title='Labor'
+              description='Sweatshops and underpaid labor should be a thing of the past, and workers in the United States should be paid a living wage. Criteria under this category focuses on how laborers are treated, what working conditions they operate in, and what benefits their employers provide. '
+            >
+              <FormLayout>
+                <FormLayout.Group>
+                  {Object.keys(this.state.labor).map((metric) => (
+                    <Select
+                      label={this.labor_labels[metric]}
+                      key={metric}
+                      id={metric}
+                      options={this.metricOptions}
+                      value={this.state.labor[metric]}
+                      onChange={this.handleChangeLabor}
+                    />
+                  ))}
+                </FormLayout.Group>
+              </FormLayout>  
+            </Layout.AnnotatedSection>
+            <Button submit>Submit</Button>
+          </Form>
 
             <FooterHelp>
               Ethic Score's{' '}
