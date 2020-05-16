@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
-const ShopifyProduct = require('../../models/ShopifyProduct');
 const dotenv = require('dotenv').config();
 
 const shopifyAxios = axios.create({
@@ -57,38 +56,6 @@ const getProductMetafields = async function (id, baseURL) {
     return false;
   }
   return metafields;
-};
-
-const updateDatabase = async function (input_product) {
-  const { id, title, vendor, product_type, tags } = input_product;
-
-  const productFields = {
-    id,
-    title,
-    vendor,
-    product_type,
-    tags,
-  };
-
-  try {
-    let product = await ShopifyProduct.findOne({ id: id.toString() });
-
-    // Update if exists
-    if (product) {
-      product = await ShopifyProduct.findOneAndUpdate(
-        { id: id },
-        { $set: productFields },
-        { new: true }
-      );
-      return product;
-    }
-    // Upload to database if it doesn't exist.
-    product = new ShopifyProduct(productFields);
-    await product.save();
-  } catch (err) {
-    console.error(err.message);
-  }
-  return product;
 };
 
 function isSuperset(set, subset) {
@@ -230,10 +197,6 @@ const getNewProducts = async function () {
 
 // -------------- Start of HTTP request methods -----------------
 
-// @route   GET api/shopifyProduct/
-// @desc    Return a Shopify product from local database
-// @access  Public
-
 router.post('/allProducts', async (req, res) => {
   try {
     let results = await getAllProducts();
@@ -251,6 +214,9 @@ router.post('/allProducts', async (req, res) => {
   }
 });
 
+// @route   GET api/shopifyProduct/updateProducts
+// @desc    Bulk editing product metrics of multiple products
+// @access  Public
 router.post('/updateProducts', async (req, res) => {
   const body = req.body;
   const idList = body['idList'];
@@ -260,7 +226,7 @@ router.post('/updateProducts', async (req, res) => {
     eco_f: body['eco_f'],
     labor: body['labor'],
     all_n: body['all_n'],
-  }
+  };
 
   console.log(idList);
   console.log(metafieldMap);
@@ -272,17 +238,14 @@ router.post('/updateProducts', async (req, res) => {
         // no metafields exist yet
         for (let newCategoryKey in metafieldMap) {
           sleep(550);
-          let res = await shopifyAxios.post(
-            pid + '/metafields.json',
-            {
-              metafield: {
-                key: newCategoryKey,
-                value: JSON.stringify(metafieldMap[newCategoryKey]),
-                value_type: 'string',
-                namespace: 'ethic-metric'
-              }
-            }
-          );
+          let res = await shopifyAxios.post(pid + '/metafields.json', {
+            metafield: {
+              key: newCategoryKey,
+              value: JSON.stringify(metafieldMap[newCategoryKey]),
+              value_type: 'string',
+              namespace: 'ethic-metric',
+            },
+          });
         }
       } else {
         for (let existingCategory of existingMetrics) {
@@ -304,26 +267,22 @@ router.post('/updateProducts', async (req, res) => {
                 },
               }
             );
-          }
-          else {
+          } else {
             // one or more metafields is missing
-            let res = await shopifyAxios.post(
-              pid + '/metafields.json',
-              {
-                metafield: {
-                  key: existingCategory.key,
-                  value: JSON.stringify(metafieldMap[existingCategory.key]),
-                  value_type: 'string',
-                  namespace: 'ethic-metric'
-                }
-              }
-            );
-          }      
+            let res = await shopifyAxios.post(pid + '/metafields.json', {
+              metafield: {
+                key: existingCategory.key,
+                value: JSON.stringify(metafieldMap[existingCategory.key]),
+                value_type: 'string',
+                namespace: 'ethic-metric',
+              },
+            });
+          }
         }
       }
     } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server Error');
+      console.error(err.message);
+      res.status(500).send('Server Error');
     }
   }
 
@@ -372,7 +331,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// @route   GET api/metrics/:id
+// @route   GET api/shopifyProduct/metrics/:id
 // @desc    Retrieves all metafields for the specified Shopify Product.
 // @access  Private
 router.get('/metrics/:id', async (req, res) => {
@@ -387,7 +346,7 @@ router.get('/metrics/:id', async (req, res) => {
   }
 });
 
-// @route   PUT api/metrics/:id
+// @route   PUT api/shopifyProduct/metrics/:id
 // @desc    Creates a new metafield for the specified Shopify Product. Don't use this route to update metafields.
 // @access  Private
 router.put('/metrics/:id', async (req, res) => {
@@ -400,7 +359,7 @@ router.put('/metrics/:id', async (req, res) => {
   }
 });
 
-// @route   PUT api/metrics/:id
+// @route   PUT api/shopifyProduct/metrics/:id
 // @desc    Updates a single metafield for a specified product
 // @access  Private
 router.put('/metrics/:prodID/:metaID', async (req, res) => {
@@ -416,56 +375,5 @@ router.put('/metrics/:prodID/:metaID', async (req, res) => {
   }
 });
 
-/*
-router.get('/:id', async (req, res) => {
-  try {
-    let product = await ShopifyProduct.findById(req.params.id);
-
-    if (product == null) {
-      return res
-        .status(400)
-        .json({ errors: [{ msg: 'Product does not exist' }] });
-    }
-
-    res.json(product);
-    console.log(product);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
-  }
-});
-
-// @route   PUT api/shopifyProduct/
-// @desc    Updates a Shopify product from local database
-// @access  Public
-router.put('/:id', async (req, res) => {
-  console.log(req.body);
-
-  // const { metrics } = req.body;
-
-  // const metricFields = {};
-  // if (req.)
-
-  try {
-    product = await ShopifyProduct.findOneAndUpdate(
-      { _id: req.params.id },
-      { metrics: req.body.metrics },
-      { new: true }
-    );
-
-    if (product == null) {
-      return res
-        .status(400)
-        .json({ errors: [{ msg: 'Product does not exist' }] });
-    }
-
-    return res.json(product);
-  } catch (err) {
-    console.log(err.message);
-    res.status(500).send('Server error');
-  }
-});
-*/
 module.exports = router;
 module.exports.getProduct = getProduct;
-module.exports.updateDatabase = updateDatabase;

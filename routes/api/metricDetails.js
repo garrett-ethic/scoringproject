@@ -3,6 +3,9 @@ const router = express.Router();
 
 const fs = require('fs');
 
+// @route   PUT api/metricDetails/:category
+// @desc    gets metric weights for specified category
+// @access  public
 router.get('/:category', async (req, res) => {
   try {
     fs.readFile(
@@ -23,6 +26,9 @@ router.get('/:category', async (req, res) => {
   }
 });
 
+// @route   PUT api/metricDetails/:category
+// @desc    Updates metric weights json file for specified category
+// @access  public
 router.put('/:category', async (req, res) => {
   try {
     fs.writeFile(
