@@ -77,24 +77,35 @@ const shopifyAxios = axios.create({
 // @access  Public
 router.get('/:productID', async (req, res) => {
   try {
-    const productMetrics = await shopifyAxios.get(
+    const response = await shopifyAxios.get(
       'products/' + req.params.productID + '/metafields.json'
     );
+
+    const productMetrics = response.data.metafields;
+
+    console.log(productMetrics);
+
+    // Return an empty grade if product doesn't have metrics yet.
+    if (productMetrics === undefined || productMetrics.length == 0) {
+      return res.json({
+        defaultScore: 0,
+        possibleScore: 0,
+        ethicScore: 0,
+        grade: '?',
+      });
+    }
+
     let defaultScore = 0;
     let possibleScore = 0;
 
-    let i;
-    let j;
-
     //for (const category in productMetrics.data.metafields) {
-    for (i = 0; i < productMetrics.data.metafields.length; ++i) {
-      const category = productMetrics.data.metafields[i];
+    for (let i = 0; i < productMetrics.length; ++i) {
+      const category = productMetrics[i];
       if (category['key'] == 'co_im') {
         console.log(category);
         const co_im_values = JSON.parse(category['value']);
 
         for (const metric in co_im_values) {
-          //for (j = 0; j < co_im_values.length; ++j) {
           if (metric == 'business_size') {
             if (co_im_values[metric] == 's') {
               defaultScore += 2;
@@ -146,10 +157,14 @@ router.get('/:productID', async (req, res) => {
       }
     }
 
+    let ethicScore = Math.round((defaultScore / possibleScore) * 100);
+    let grade = getGrade(ethicScore);
+
     let results = {
       defaultScore: defaultScore,
       possibleScore: possibleScore,
-      ethicScore: (defaultScore / possibleScore) * 100,
+      ethicScore: ethicScore,
+      grade: grade,
     };
 
     res.json(results);
@@ -262,5 +277,17 @@ router.get('/:productID/:userID', async (req, res) => {
   }
 });
 */
+
+function getGrade(score) {
+  if (score < 70) {
+    return 'D';
+  } else if (score < 80) {
+    return 'C';
+  } else if (score < 90) {
+    return 'B';
+  } else {
+    return 'A';
+  }
+}
 
 module.exports = router;
