@@ -55,6 +55,7 @@ class ProductTag extends React.Component {
       options: [],
       operator: ["OR"],
       finishedTags: ['...'],
+      backendSent: '',
 
       vendorDeselectedOptions: [],
       vendorSelectedOptions: [],
@@ -71,59 +72,59 @@ class ProductTag extends React.Component {
       selectedAll: false,
 
       co_im: {
-        USA_made: 'n/a',
-        employs_locally: 'n/a',
-        community_activism: 'n/a',
-        business_size: 'n/a',
-        donates_locally: 'n/a',
-        one_percent_for_the_planet: 'n/a',
-        political_donations: 'n/a',
-        donate_to_oppressed: 'n/a',
-        zip_code: 'n/a',
+        USA_made: '',
+        employs_locally: '',
+        community_activism: '',
+        business_size: '',
+        donates_locally: '',
+        one_percent_for_the_planet: '',
+        political_donations: '',
+        donate_to_oppressed: '',
+        zip_code: '',
       },
       eco_f: {
-        sustainable_packaging: 'n/a',
-        sustainable_materials: 'n/a',
-        zeroCarbon_shipping: 'n/a',
-        zeroCarbon_manufacturing: 'n/a',
-        manufacturing_impact: 'n/a',
-        fsc: 'n/a',
-        rainforest_alliance: 'n/a',
-        cradle_to_cradle: 'n/a',
-        donate_to_environment: 'n/a',
-        bcorp: 'n/a',
+        sustainable_packaging: '',
+        sustainable_materials: '',
+        zeroCarbon_shipping: '',
+        zeroCarbon_manufacturing: '',
+        manufacturing_impact: '',
+        fsc: '',
+        rainforest_alliance: '',
+        cradle_to_cradle: '',
+        donate_to_environment: '',
+        bcorp: '',
       },
       all_n: {
-        certified_organic: 'n/a',
-        organic_practices: 'n/a',
-        allNatural_ingredients: 'n/a',
-        reef_safe: 'n/a',
-        ewg: 'n/a',
-        madeSafe: 'n/a',
-        consumerLabs: 'n/a',
-        transparency: 'n/a',
-        bcorp: 'n/a',
+        certified_organic: '',
+        organic_practices: '',
+        allNatural_ingredients: '',
+        reef_safe: '',
+        ewg: '',
+        madeSafe: '',
+        consumerLabs: '',
+        transparency: '',
+        bcorp: '',
       },
       an_ri: {
-        vegan: 'n/a',
-        donate_to_animalRights: 'n/a',
-        cruelty_free: 'n/a',
+        vegan: '',
+        donate_to_animalRights: '',
+        cruelty_free: '',
       },
       labor: {
-        childcare: 'n/a',
-        gym_recreation: 'n/a',
-        educational_ops: 'n/a',
-        healthcare: 'n/a',
-        mobility: 'n/a',
-        can_unionize: 'n/a',
-        living_wage: 'n/a',
-        safe_work_conditions: 'n/a',
-        no_child_labor: 'n/a',
-        empower_oppressed: 'n/a',
-        co_op: 'n/a',
-        ethical_materials_sourcing: 'n/a',
-        bcorp: 'n/a',
-        fair_trade: 'n/a',
+        childcare: '',
+        gym_recreation: '',
+        educational_ops: '',
+        healthcare: '',
+        mobility: '',
+        can_unionize: '',
+        living_wage: '',
+        safe_work_conditions: '',
+        no_child_labor: '',
+        empower_oppressed: '',
+        co_op: '',
+        ethical_materials_sourcing: '',
+        bcorp: '',
+        fair_trade: '',
       },
 
     };
@@ -158,6 +159,7 @@ class ProductTag extends React.Component {
     { label: 'Yes', value: 'y' },
     { label: 'No', value: 'n' },
     { label: 'N/A', value: 'n/a' },
+    { label: '', value: '' },
   ];
 
   // The following label objects only includes labels for metrics that have yes, no, and n/a options
@@ -472,6 +474,9 @@ class ProductTag extends React.Component {
       .then((res) => {
         const results = res.data;
         console.log(results);
+        this.setState({
+          backendSent: 'Bulk updated ' + this.state.idList.length + ' products'
+        });
     });
   }
 
@@ -608,6 +613,7 @@ class ProductTag extends React.Component {
                       { label: 'Medium: Less Than 500 Employees', value: 'm' },
                       { label: 'Large: More than 500 Employees', value: 'l' },
                       { label: 'N/A', value: 'n/a' },
+                      { label: '', value: '' },
                     ]}
                     id='business_size'
                     value={this.state.co_im.business_size}
@@ -718,9 +724,11 @@ class ProductTag extends React.Component {
                 </FormLayout.Group>
               </FormLayout>  
             </Layout.AnnotatedSection>
+            <br/>
+            <DisplayText element="p" size="medium">   {this.state.backendSent}</DisplayText>
+            <br/>
             <Button submit>Submit</Button>
           </Form>
-
             <FooterHelp>
               Ethic Score's{' '}
               <Link

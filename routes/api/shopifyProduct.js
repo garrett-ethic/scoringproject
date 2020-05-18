@@ -229,6 +229,19 @@ router.post('/updateProducts', async (req, res) => {
   };
 
   console.log(idList);
+  // if the value is the default, which is leave alone
+  // then do not update the metric.
+  for (let categoryKey in metafieldMap) {
+    let category = metafieldMap[categoryKey];
+    for (let metricKey in category) {
+      if (category[metricKey] === '') {
+        delete category[metricKey];
+      }
+    }
+    if (Object.keys(category).length === 0) {
+      delete metafieldMap[categoryKey];
+    }
+  }
   console.log(metafieldMap);
   for (let pid of idList) {
     try {
