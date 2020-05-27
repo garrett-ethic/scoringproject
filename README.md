@@ -78,26 +78,22 @@ gcloud init
 ```
 
 3. Change start script in package.json
-  a. First deploy API server
-  
-  ```
-  "start": "node index.js"
-  ```
-  
-  b. Then run:
-  ```
-  gcloud app deploy
-  ```
-  
-  c. Second deploy Embedded App
-  ```
-  "start": "next build && npm run client"
-  ```
-  
-  d. Then run:
-  ```
-  gcloud app deploy
-  ```
+4. First deploy API server
+```
+"start": "node index.js"
+``` 
+5. Then run:
+```
+gcloud app deploy
+```
+6. Second deploy Embedded App
+```
+"start": "next build && npm run client"
+```
+7. Then run:
+```
+gcloud app deploy
+```
 
 ## Built With
 
