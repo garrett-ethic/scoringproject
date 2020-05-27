@@ -68,7 +68,36 @@ Give an example
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+Example using Google Cloud App Engine
+
+1. Create one App Engine for Embedded App and one for API
+2. Set up Google Cloud to run in this directory
+
+```
+gcloud init
+```
+
+3. Change start script in package.json
+  a. First deploy API server
+  
+  ```
+  "start": "node index.js"
+  ```
+  
+  b. Then run:
+  ```
+  gcloud app deploy
+  ```
+  
+  c. Second deploy Embedded App
+  ```
+  "start": "next build && npm run client"
+  ```
+  
+  d. Then run:
+  ```
+  gcloud app deploy
+  ```
 
 ## Built With
 
