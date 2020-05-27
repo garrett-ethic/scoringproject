@@ -8,7 +8,6 @@
     "client": "node server.js",
     "build": "next build",
     "orig_start": "NODE_ENV=production node server.js",
-    "dfkjlgkjl_start": "next build && concurrently \"node index.js\" \"npm run client\"",
     "start": "node index.js",
     "dev": "node index.js"
   },
