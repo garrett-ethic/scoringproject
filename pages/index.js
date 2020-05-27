@@ -22,7 +22,7 @@ export default class Info extends React.Component {
   componentDidMount() {
     console.log("test1");
     axios
-      .get("http://localhost:5000/api/shopifyProduct/newProducts")
+      .get("https://axial-paratext-278418.uc.r.appspot.com/api/shopifyProduct/newProducts")
       .then((res) => {
         const results = res.data;
         console.log("test2");

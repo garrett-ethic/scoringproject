@@ -45,7 +45,7 @@ class MetricWeights extends React.Component {
 
   // ---- This doesn't work :/ ---
   // componentDidMount() {
-  //   axios.get('http://localhost:5000/api/metricDetails/co_im').then((res) => {
+  //   axios.get('https://axial-paratext-278418.uc.r.appspot.com/api/metricDetails/co_im').then((res) => {
   //     this.setState({
   //       co_im: res.data,
   //     });
@@ -56,7 +56,7 @@ class MetricWeights extends React.Component {
   // efficiently write to the json file
   handleSubmit = (cat) => {
     axios
-      .put('http://localhost:5000/api/metricDetails/' + cat, this.state[cat])
+      .put('https://axial-paratext-278418.uc.r.appspot.com/api/metricDetails/' + cat, this.state[cat])
       .then((res) => {
         console.log('success');
       })

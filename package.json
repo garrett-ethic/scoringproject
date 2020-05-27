@@ -5,9 +5,12 @@
   "main": "index.js",
   "scripts": {
     "express": "nodemon ./index.js",
-    "dev": "node server.js",
+    "client": "node server.js",
     "build": "next build",
-    "start": "NODE_ENV=production node server.js"
+    "orig_start": "NODE_ENV=production node server.js",
+    "dfkjlgkjl_start": "next build && concurrently \"node index.js\" \"npm run client\"",
+    "start": "node index.js",
+    "dev": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -30,6 +33,7 @@
     "@shopify/polaris": "^4.18.0",
     "@zeit/next-css": "^1.0.1",
     "axios": "^0.19.2",
+    "concurrently": "^5.2.0",
     "cors": "^2.8.5",
     "dompurify": "^2.0.8",
     "dotenv": "^8.2.0",

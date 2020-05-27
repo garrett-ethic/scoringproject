@@ -30,7 +30,7 @@
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/update-product": [
+    "/product-tag": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ]

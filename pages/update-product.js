@@ -222,7 +222,7 @@ class UpdateProduct extends React.Component {
     });
 
     axios
-      .get('http://localhost:5000/api/shopifyProduct/' + this.state.productID)
+      .get('https://axial-paratext-278418.uc.r.appspot.com/api/shopifyProduct/' + this.state.productID)
       .then((res) => {
         const prodInfo = res.data;
 
@@ -235,7 +235,7 @@ class UpdateProduct extends React.Component {
       });
     axios
       .get(
-        'http://localhost:5000/api/shopifyProduct/metrics/' +
+        'https://axial-paratext-278418.uc.r.appspot.com/api/shopifyProduct/metrics/' +
           this.state.productID
       )
       .then((res) => {
@@ -305,7 +305,7 @@ class UpdateProduct extends React.Component {
       event.preventDefault();
       if (this.state[category + '_exists'] == true) {
         axios.put(
-          'http://localhost:5000/api/shopifyProduct/metrics/' +
+          'https://axial-paratext-278418.uc.r.appspot.com/api/shopifyProduct/metrics/' +
             this.state.productID +
             '/' +
             this.state[category + '_metricId'],
@@ -322,7 +322,7 @@ class UpdateProduct extends React.Component {
       } else {
         axios
           .put(
-            'http://localhost:5000/api/shopifyProduct/metrics/' +
+            'https://axial-paratext-278418.uc.r.appspot.com/api/shopifyProduct/metrics/' +
               this.state.productID,
             {
               product: {
@@ -342,7 +342,7 @@ class UpdateProduct extends React.Component {
           .then((res) => {
             axios
               .get(
-                'http://localhost:5000/api/shopifyProduct/metrics/' +
+                'https://axial-paratext-278418.uc.r.appspot.com/api/shopifyProduct/metrics/' +
                   this.state.productID
               )
               .then((res) => {
