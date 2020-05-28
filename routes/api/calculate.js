@@ -65,6 +65,7 @@ const metricweights = {
 };
 
 const shopifyAxios = axios.create({
+  // have to update 20XX-XX to latest after a year
   baseURL: "https://ethic-marketplace.myshopify.com/admin/api/2020-01/",
   auth: {
     username: process.env.SHOPIFY_STORE_USERNAME,
@@ -77,14 +78,6 @@ const shopifyAxios = axios.create({
 // @access  Public
 router.get("/:productID/:userID?", async (req, res) => {
   try {
-    const response = await shopifyAxios.get(
-      "products/" + req.params.productID + "/metafields.json"
-    );
-
-    const productMetrics = response.data.metafields;
-    console.log("userID:" + req.params.userID);
-    console.log("productMetrics:" + productMetrics);
-
     // Return an empty grade if product doesn't have metrics yet.
     if (productMetrics === undefined || productMetrics.length == 0) {
       return res.json({
@@ -95,61 +88,107 @@ router.get("/:productID/:userID?", async (req, res) => {
       });
     }
 
-    let defaultScore = 0;
-    let possibleScore = 0;
-    let userScore = 0;
+    // productMetrics and userMetrics are lists of metrics
+    const product_res = await shopifyAxios.get(
+      "products/" + req.params.productID + "/metafields.json"
+    );
+    const productMetrics = product_res.data.metafields;
+
+    let user_res, userMetrics;
+    if (typeof req.params.userID !== "undefined") {
+      user_res = await shopifyAxios.get(
+        "customers/" + req.params.userID + "/metafields.json"
+      );
+      userMetrics = user_res.data.metafields;
+    }
+
+    let defaultScore = 0, possibleScore = 0;
+    let userDScore = 0, userPScore = 0;
 
     //for (const category in productMetrics.data.metafields) {
     for (let i = 0; i < productMetrics.length; ++i) {
+      let cat_score = 0; // represents defaultScore of each category
+      let cat_pscore = 0; // represents possibleScore of each category
       const category = productMetrics[i];
       const cat_values = JSON.parse(category["value"]);
 
       for (const metric in cat_values) {
-        if (category["key"] == "co_im" && metric == "business_size") {
+        if (category["key"] === "co_im" && metric === "business_size") {
           // Business size affects the default score
           // small = +2, medium = +1, large = +0
           if (cat_values[metric] == "s") {
-            defaultScore += 2;
-            possibleScore += 2;
+            cat_score += 2;
+            cat_pscore += 2;
           } else if (cat_values[metric] == "m") {
-            defaultScore += 1;
-            possibleScore += 2;
+            cat_score += 1;
+            cat_pscore += 2;
           } else if (cat_values[metric] == "l") {
-            possibleScore += 2;
+            cat_pscore += 2;
           }
         } else if (
-          category["key"] == "all_n" &&
-          (metric == "ewg" || metric == "consumerLabs")
+          category["key"] === "all_n" &&
+          (metric === "ewg" || metric === "consumerLabs")
         ) {
           // EWG and Consumer Labs metrics are scaled from 1 to 10
-          defaultScore +=
+          cat_score +=
             (metricweights["all_n"][metric] * cat_values[metric]) / 10;
-          possibleScore += metricweights["all_n"][metric];
+          cat_pscore += metricweights["all_n"][metric];
         } else {
           if (cat_values[metric] == "y") {
-            defaultScore += metricweights[category["key"]][metric];
-            possibleScore += metricweights[category["key"]][metric];
+            cat_score += metricweights[category["key"]][metric];
+            cat_pscore += metricweights[category["key"]][metric];
           } else if (cat_values[metric] == "n") {
-            possibleScore += metricweights[category["key"]][metric];
+            cat_pscore += metricweights[category["key"]][metric];
           }
         }
       }
 
-      if (req.params.userID !== "undefined") {
-        // calculate avg score of user's prefs for current category
-        // multiplier = avg_score / 5
-        // multiply with the defaultscore and add it to userScore
+      if (typeof req.params.userID !== "undefined") {
+        // get user's prefs for current category
+        // (make the userMetrics key line up with the category["key"])
+        //    we can delete a lot of this if statement that way
+        let mult;
+        if (category["key"] === "co_im") {
+          mult = userMetrics[0].value;
+        } else if (category["key"] === "eco_f") {
+          mult = userMetrics[1].value;
+        } else if (category["key"] === "all_n") {
+          mult = userMetrics[2].value;
+        } else if (category["key"] === "an_ri") {
+          mult = userMetrics[3].value;
+        } else if (category["key"] === "labor") {
+          mult = userMetrics[4].value;
+        }
+
+        const scale = (num, in_min, in_max, out_min, out_max) => {
+          return (
+            ((num - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min
+          );
+        };
+
+        // // map user pref to (0.5 to 1 from 1 to 5; 1 to 2 from 5 to 10)
+        // if (mult <= 5) {
+        //   mult = scale(mult, 1, 5, 0.5, 1);
+        // } else {
+        //   mult = scale(mult, 5, 10, 1, 2);
+        // }
+
+        // OR map user pref to (0.1 to 1.0)
+        mult = scale(mult, 1, 10, 0.1, 1.0);
+
+        // multiply with the cat_score and add it to userDScore
+        userDScore += cat_score * mult;
+        userPScore += cat_pscore * mult;
       }
+      defaultScore += cat_score;
+      possibleScore += cat_pscore;
     }
 
-    let ethicScore = Math.round((defaultScore / possibleScore) * 100);
-    let grade = getGrade(ethicScore);
-
     let results = {
-      defaultScore: defaultScore,
-      possibleScore: possibleScore,
-      ethicScore: ethicScore,
-      grade: grade,
+      userScore: Math.round((userDScore / userPScore) * 100),
+      userGrade: getGrade(userScore),
+      ethicScore: Math.round((defaultScore / possibleScore) * 100),
+      ethicGrade: getGrade(ethicScore),
     };
 
     res.json(results);
@@ -158,109 +197,6 @@ router.get("/:productID/:userID?", async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
-
-/*
-// @route   GET api/calulate
-// @desc    Return calculate ethic score given shopify product and user id
-// @access  Public
-router.get('/:productID/:userID', async (req, res) => {
-  try {
-    const user = await shopifyAxios.get('customers/' + req.params.userID + "/metafields.json");
-    const productMetrics = await shopifyAxios.get('products/' + req.params.productID + '/metafields.json');
-    let defaultScore = 0;
-    let possibleScore = 0;
-
-    let i;
-    let j;
-
-    //for (const category in productMetrics.data.metafields) {
-    for (i = 0; i < productMetrics.data.metafields.length; ++i)  {
-        const category = productMetrics.data.metafields[i];
-        console.log(category['key']);
-        console.log(possibleScore + ' ' + defaultScore);
-        if (category['key'] == 'co_im') {
-            console.log(category);
-            const co_im_values = JSON.parse(category['value']);
-
-            for (const metric in co_im_values) {
-            //for (j = 0; j < co_im_values.length; ++j) {
-                if (metric == 'business_size') {
-                    if (co_im_values[metric] == 's') {
-                        defaultScore += 2;
-                        possibleScore += 2;
-                    }
-                    else if (co_im_values[metric] == 'm') {
-                        defaultScore += 1;
-                        possibleScore += 2;
-                    }
-                    else if (co_im_values[metric] == 'l') {
-                        possibleScore += 2;
-                    }
-
-                }
-                else {
-                    if (co_im_values[metric] == 'y') {
-                        defaultScore += metricweights['co_im'][metric];
-                        possibleScore += metricweights['co_im'][metric];
-                    }
-                    else if(co_im_values[metric] == 'n') {
-                        possibleScore += metricweights['co_im'][metric];
-                    }
-                }
-            }
-
-        }
-        else if (category['key'] == 'all_n') {
-            const all_n_values = JSON.parse(category['value']);
-
-            for (const metric in all_n_values) {
-                if (metric == 'ewg' || metric == 'consumerLabs') {
-                    defaultScore += metricweights['all_n'][metric] * all_n_values[metric] / 10;
-                    possibleScore += metricweights['all_n'][metric];
-                }
-                else {
-                    if (all_n_values[metric] == 'y') {
-                        defaultScore += metricweights['all_n'][metric];
-                        possibleScore += metricweights['all_n'][metric];
-                    }
-                    else if(all_n_values[metric] == 'n') {
-                        possibleScore += metricweights['all_n'][metric];
-                    }
-                }
-            }
-        }
-        else {
-            const cat = category['key'];
-            const cat_values = JSON.parse(category['value']);
-
-            for (const metric in cat_values) {
-                console.log('thing ' + metricweights[cat][metric]);
-                if (cat_values[metric] == 'y') {
-                    defaultScore += metricweights[cat][metric];
-                    possibleScore += metricweights[cat][metric];
-
-                }
-                else if(cat_values[metric] == 'n') {
-                     possibleScore += metricweights[cat][metric];
-                }
-            }
-        }
-    }
-
-    let results = {
-        'defaultScore': defaultScore,
-        'possibleScore': possibleScore,
-        'ethicScore': defaultScore / possibleScore * 100
-    };
-
-    res.json(results);
-
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
-  }
-});
-*/
 
 function getGrade(score) {
   if (score < 70) {
