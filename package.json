@@ -6,10 +6,10 @@
   "scripts": {
     "express": "nodemon ./index.js",
     "client": "node server.js",
+    "dev": "concurrently \"npm run express\" \"npm run client\"",
     "build": "next build",
     "orig_start": "NODE_ENV=production node server.js",
-    "start": "node index.js",
-    "dev": "node index.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
