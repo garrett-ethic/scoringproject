@@ -15,7 +15,6 @@ const metricweights = {
     one_percent_for_the_planet: 2,
     political_donations: 2,
     donate_to_oppressed: 2,
-    bcorp: 2,
     local_zip: 2,
   },
   eco_f: {
@@ -28,7 +27,6 @@ const metricweights = {
     rainforest_alliance: 2,
     cradle_to_cradle: 2,
     donate_to_environment: 2,
-    bcorp: 2,
   },
   all_n: {
     certified_organic: 2.2222,
@@ -39,7 +37,6 @@ const metricweights = {
     madeSafe: 2.2222,
     consumerLabs: 2.2222,
     transparency: 2.2222,
-    bcorp: 2.2222,
   },
   an_ri: {
     vegan: 6.6666,
@@ -109,10 +106,12 @@ router.get("/:productID/:userID?", async (req, res) => {
     for (let i = 0; i < productMetrics.length; ++i) {
       let cat_score = 0; // represents defaultScore of each category
       let cat_pscore = 0; // represents possibleScore of each category
+      let cruelty_free = false;
       const category = productMetrics[i];
       const cat_values = JSON.parse(category["value"]);
 
       for (const metric in cat_values) {
+        console.log(metric, ':', metricweights[category["key"]][metric], cat_values[metric]);
         if (category["key"] === "co_im" && metric === "business_size") {
           // Business size affects the default score
           // small = +2, medium = +1, large = +0
@@ -130,9 +129,31 @@ router.get("/:productID/:userID?", async (req, res) => {
           (metric === "ewg" || metric === "consumerLabs")
         ) {
           // EWG and Consumer Labs metrics are scaled from 1 to 10
+          console.log((metricweights["all_n"][metric] * cat_values[metric]) / 10);
           cat_score +=
             (metricweights["all_n"][metric] * cat_values[metric]) / 10;
           cat_pscore += metricweights["all_n"][metric];
+        } else if (metric == "bcorp") {
+          // this accounts for bcorp within co_im, eco_f, all_n, and labor respectively
+          if (cat_values[metric] == "y") {
+            cat_score += 2 + 2 + 2.2222 + 1.4285;
+            cat_pscore += 2 + 2 + 2.2222 + 1.4285;
+          } else if (cat_values[metric] == "n") {
+            cat_pscore += 2 + 2 + 2.2222 + 1.4285;
+          }
+        } else if (metric == "plastic_free" || metric == "compostable") {
+          continue;
+        } else if (metric == "leaping_bunny" || metric == "peta") {
+          if (cruelty_free) {
+            continue;
+          } else if (cat_values["leaping_bunny"] == "y" || cat_values["peta"] == "y") {
+            cat_score += metricweights[category["key"]]["cruelty_free"];
+            cat_pscore += metricweights[category["key"]]["cruelty_free"];
+            cruelty_free = true;
+          } else {
+            cat_pscore += metricweights[category["key"]]["cruelty_free"];
+            cruelty_free = true;
+          }
         } else {
           if (cat_values[metric] == "y") {
             cat_score += metricweights[category["key"]][metric];
@@ -143,22 +164,14 @@ router.get("/:productID/:userID?", async (req, res) => {
         }
       }
 
-      if (typeof req.params.userID !== "undefined") {
+      if (typeof req.params.userID !== "undefined" && userMetrics.length == 5) {
         // get user's prefs for current category
         // (make the userMetrics key line up with the category["key"])
         //    we can delete a lot of this if statement that way
-        let mult;
-        if (category["key"] === "co_im") {
-          mult = userMetrics[0].value;
-        } else if (category["key"] === "eco_f") {
-          mult = userMetrics[1].value;
-        } else if (category["key"] === "all_n") {
-          mult = userMetrics[2].value;
-        } else if (category["key"] === "an_ri") {
-          mult = userMetrics[3].value;
-        } else if (category["key"] === "labor") {
-          mult = userMetrics[4].value;
-        }
+        let mult = userMetrics.filter((cat) => {
+          return cat.key === category["key"];
+        });
+        mult = mult[0].value;
 
         const scale = (num, in_min, in_max, out_min, out_max) => {
           return (
@@ -180,6 +193,7 @@ router.get("/:productID/:userID?", async (req, res) => {
         userDScore += cat_score * mult;
         userPScore += cat_pscore * mult;
       }
+      console.log('  d/p-score:', cat_score, cat_pscore);
       defaultScore += cat_score;
       possibleScore += cat_pscore;
     }
