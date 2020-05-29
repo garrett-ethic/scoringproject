@@ -50,6 +50,8 @@ class UpdateProduct extends React.Component {
       eco_f: {
         sustainable_packaging: 'n/a',
         sustainable_materials: 'n/a',
+        plastic_free: 'n/a',
+        compostable: 'n/a',
         zeroCarbon_shipping: 'n/a',
         zeroCarbon_manufacturing: 'n/a',
         manufacturing_impact: 'n/a',
@@ -57,7 +59,6 @@ class UpdateProduct extends React.Component {
         rainforest_alliance: 'n/a',
         cradle_to_cradle: 'n/a',
         donate_to_environment: 'n/a',
-        bcorp: 'n/a',
       },
       all_n_metricId: '',
       all_n_exists: false,
@@ -70,14 +71,14 @@ class UpdateProduct extends React.Component {
         madeSafe: 'n/a',
         consumerLabs: 'n/a',
         transparency: 'n/a',
-        bcorp: 'n/a',
       },
       an_ri_metricId: '',
       an_ri_exists: false,
       an_ri: {
         vegan: 'n/a',
         donate_to_animalRights: 'n/a',
-        cruelty_free: 'n/a',
+        leaping_bunny: 'n/a',
+        peta: 'n/a',
       },
       labor_metricId: '',
       labor_exists: false,
@@ -129,6 +130,8 @@ class UpdateProduct extends React.Component {
   eco_f_labels = {
     sustainable_packaging: 'Sustainable Packaging',
     sustainable_materials: 'Sustainable Materials',
+    plastic_free: 'Plastic Free',
+    compostable: 'Compostable',
     zeroCarbon_shipping: 'Zero Carbon Footprint - Shipping',
     zeroCarbon_manufacturing: 'Zero Carbon Footprint - Manufacturing',
     manufacturing_impact: 'Manufacturing Impact',
@@ -136,7 +139,6 @@ class UpdateProduct extends React.Component {
     rainforest_alliance: 'Rainforest Alliance',
     cradle_to_cradle: 'Cradle to Cradle',
     donate_to_environment: 'Donates to Environmental Causes',
-    bcorp: 'Bcorp',
   };
 
   all_n_labels = {
@@ -146,13 +148,13 @@ class UpdateProduct extends React.Component {
     reef_safe: 'Reef Safe',
     madeSafe: 'MadeSafe',
     transparency: 'Transparency',
-    bcorp: 'Bcorp',
   };
 
   an_ri_labels = {
     vegan: 'Vegan',
     donate_to_animalRights: 'Donates to Animal Rights Causes',
-    cruelty_free: 'Cruelty Free (Leaping Bunny/PETA)',
+    leaping_bunny: 'Leaping Bunny',
+    peta: 'PETA',
   };
 
   labor_labels = {
@@ -222,7 +224,10 @@ class UpdateProduct extends React.Component {
     });
 
     axios
-      .get('https://axial-paratext-278418.uc.r.appspot.com/api/shopifyProduct/' + this.state.productID)
+      .get(
+        'https://axial-paratext-278418.uc.r.appspot.com/api/shopifyProduct/' +
+          this.state.productID
+      )
       .then((res) => {
         const prodInfo = res.data;
 

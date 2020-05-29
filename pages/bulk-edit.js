@@ -23,7 +23,6 @@ import {
   Select,
 } from '@shopify/polaris';
 
-
 function isSuperset(list, sublist) {
   for (let elem of sublist) {
     if (!list.includes(elem)) {
@@ -44,8 +43,7 @@ function hasCommon(list, other) {
   return false;
 }
 
-
-class ProductTag extends React.Component {
+class BulkEdit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -53,7 +51,7 @@ class ProductTag extends React.Component {
       selectedOptions: [],
       inputValue: '',
       options: [],
-      operator: ["OR"],
+      operator: ['OR'],
       finishedTags: ['...'],
       backendSent: '',
 
@@ -61,7 +59,7 @@ class ProductTag extends React.Component {
       vendorSelectedOptions: [],
       vendorInputValue: '',
       vendorOptions: [],
-      vendorOperator: ["AND"],
+      vendorOperator: ['AND'],
       finishedVendors: ['...'],
 
       allProducts: [],
@@ -85,6 +83,8 @@ class ProductTag extends React.Component {
       eco_f: {
         sustainable_packaging: '',
         sustainable_materials: '',
+        plastic_free: '',
+        compostable: '',
         zeroCarbon_shipping: '',
         zeroCarbon_manufacturing: '',
         manufacturing_impact: '',
@@ -92,7 +92,6 @@ class ProductTag extends React.Component {
         rainforest_alliance: '',
         cradle_to_cradle: '',
         donate_to_environment: '',
-        bcorp: '',
       },
       all_n: {
         certified_organic: '',
@@ -103,12 +102,12 @@ class ProductTag extends React.Component {
         madeSafe: '',
         consumerLabs: '',
         transparency: '',
-        bcorp: '',
       },
       an_ri: {
         vegan: '',
         donate_to_animalRights: '',
-        cruelty_free: '',
+        leaping_bunny: '',
+        peta: '',
       },
       labor: {
         childcare: '',
@@ -126,7 +125,6 @@ class ProductTag extends React.Component {
         bcorp: '',
         fair_trade: '',
       },
-
     };
 
     this.setSelectedOptions = this.setSelectedOptions.bind(this);
@@ -139,7 +137,9 @@ class ProductTag extends React.Component {
     this.vendorSetInputValue = this.vendorSetInputValue.bind(this);
     this.vendorSetOptions = this.vendorSetOptions.bind(this);
     this.vendorUpdateText = this.vendorUpdateText.bind(this);
-    this.vendorHandleOperatorChange = this.vendorHandleOperatorChange.bind(this);
+    this.vendorHandleOperatorChange = this.vendorHandleOperatorChange.bind(
+      this
+    );
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleUpdateChange = this.handleUpdateChange.bind(this);
@@ -152,7 +152,6 @@ class ProductTag extends React.Component {
     this.handleChangeAllN = this.handleChangeAllN.bind(this);
     this.handleChangeAnRi = this.handleChangeAnRi.bind(this);
     this.handleChangeLabor = this.handleChangeLabor.bind(this);
-
   }
 
   metricOptions = [
@@ -177,6 +176,8 @@ class ProductTag extends React.Component {
   eco_f_labels = {
     sustainable_packaging: 'Sustainable Packaging',
     sustainable_materials: 'Sustainable Materials',
+    plastic_free: 'Plastic Free',
+    compostable: 'Compostable',
     zeroCarbon_shipping: 'Zero Carbon Footprint - Shipping',
     zeroCarbon_manufacturing: 'Zero Carbon Footprint - Manufacturing',
     manufacturing_impact: 'Manufacturing Impact',
@@ -184,7 +185,6 @@ class ProductTag extends React.Component {
     rainforest_alliance: 'Rainforest Alliance',
     cradle_to_cradle: 'Cradle to Cradle',
     donate_to_environment: 'Donates to Environmental Causes',
-    bcorp: 'Bcorp',
   };
 
   all_n_labels = {
@@ -194,13 +194,13 @@ class ProductTag extends React.Component {
     reef_safe: 'Reef Safe',
     madeSafe: 'MadeSafe',
     transparency: 'Transparency',
-    bcorp: 'Bcorp',
   };
 
   an_ri_labels = {
     vegan: 'Vegan',
     donate_to_animalRights: 'Donates to Animal Rights Causes',
-    cruelty_free: 'Cruelty Free (Leaping Bunny/PETA)',
+    leaping_bunny: 'Leaping Bunny',
+    peta: 'PETA',
   };
 
   labor_labels = {
@@ -220,48 +220,47 @@ class ProductTag extends React.Component {
     fair_trade: 'Fair Trade',
   };
 
-
   setSelectedOptions(value) {
     this.setState({
-      selectedOptions: value
+      selectedOptions: value,
     });
-  }  
+  }
   vendorSetSelectedOptions(value) {
     this.setState({
-      vendorSelectedOptions: value
+      vendorSelectedOptions: value,
     });
   }
 
   setInputValue(value) {
     this.setState({
-      inputValue: value
+      inputValue: value,
     });
   }
   vendorSetInputValue(value) {
     this.setState({
-      vendorInputValue: value
+      vendorInputValue: value,
     });
   }
 
   setOptions(value) {
-    this.setState({ 
-      options: value
+    this.setState({
+      options: value,
     });
   }
   vendorSetOptions(value) {
     this.setState({
-      vendorOptions: value
+      vendorOptions: value,
     });
   }
 
   handleOperatorChange(value) {
     this.setState({
-      operator: value
+      operator: value,
     });
   }
   vendorHandleOperatorChange(value) {
     this.setState({
-      vendorOperator: value
+      vendorOperator: value,
     });
   }
 
@@ -274,7 +273,7 @@ class ProductTag extends React.Component {
 
     const filterRegex = new RegExp(value, 'i');
     const resultOptions = this.state.deselectedOptions.filter((option) =>
-      option.label.match(filterRegex),
+      option.label.match(filterRegex)
     );
     this.setOptions(resultOptions);
   }
@@ -287,35 +286,35 @@ class ProductTag extends React.Component {
 
     const filterRegex = new RegExp(value, 'i');
     const resultOptions = this.state.vendorDeselectedOptions.filter((option) =>
-      option.label.match(filterRegex),
+      option.label.match(filterRegex)
     );
     this.vendorSetOptions(resultOptions);
   }
 
   handleUpdateChange(value, id) {
     this.setState({
-      [id]: value
+      [id]: value,
     });
   }
-  
+
   handleSelectChange(value) {
     this.setState({
-      selectedAll: value
+      selectedAll: value,
     });
     if (value) {
       this.setState({
-        selected: this.state.idList
+        selected: this.state.idList,
       });
     } else {
       this.setState({
-        selected: []
+        selected: [],
       });
     }
   }
-  
+
   handleProductChange(value) {
     this.setState({
-      selected: value
+      selected: value,
     });
   }
 
@@ -359,43 +358,48 @@ class ProductTag extends React.Component {
     });
   };
 
-
   componentDidMount() {
     axios
-      .post('https://axial-paratext-278418.uc.r.appspot.com/api/shopifyProduct/allProducts')
+      .post(
+        'https://axial-paratext-278418.uc.r.appspot.com/api/shopifyProduct/allProducts'
+      )
       .then((res) => {
         const results = res.data;
         const tagResults = results.tags;
         const vendors = results.vendors;
         this.setState({
-          allProducts: results.products
+          allProducts: results.products,
         });
         let i;
         for (i = 0; i < tagResults.length; ++i) {
-          let tagItem = {value: tagResults[i], label: tagResults[i]};
+          let tagItem = { value: tagResults[i], label: tagResults[i] };
           this.setState({
-            deselectedOptions: [...this.state.deselectedOptions, tagItem] 
+            deselectedOptions: [...this.state.deselectedOptions, tagItem],
           });
         }
         for (i = 0; i < vendors.length; ++i) {
-          let vendorItem = {value: vendors[i], label: vendors[i]};
+          let vendorItem = { value: vendors[i], label: vendors[i] };
           this.setState({
-            vendorDeselectedOptions: [...this.state.vendorDeselectedOptions, vendorItem]
+            vendorDeselectedOptions: [
+              ...this.state.vendorDeselectedOptions,
+              vendorItem,
+            ],
           });
         }
-    });
+      });
   }
 
   handleSubmit(event) {
-    this.setState({
-      idList: [],
-      productRows: [],
-      selected: [],
-      selectedAll: false,
-      finishedTags: this.state.selectedOptions,
-      finishedVendors: this.state.vendorSelectedOptions,
-    }, () => {
-    
+    this.setState(
+      {
+        idList: [],
+        productRows: [],
+        selected: [],
+        selectedAll: false,
+        finishedTags: this.state.selectedOptions,
+        finishedVendors: this.state.vendorSelectedOptions,
+      },
+      () => {
         const allProducts = this.state.allProducts;
         const selectedTags = this.state.selectedOptions;
         const selectedVendors = this.state.vendorSelectedOptions;
@@ -409,35 +413,35 @@ class ProductTag extends React.Component {
             allProducts[i].vendor,
             allProducts[i].tags,
           ];
-        
+
           // Looks complicated, but I'll break it down
           // if vendor is OR, then either the tag matches
           // OR the vendor matches
           // if vendor is AND, then both the tags
           // AND the vendor needs to match
           // this logic sequence prioritizes vendors
-          if (this.state.vendorOperator[0] === "OR") {
+          if (this.state.vendorOperator[0] === 'OR') {
             if (selectedVendors.includes(allProducts[i].vendor)) {
-                this.state.productRows.push(newProductRow);
-                this.state.idList.push(allProducts[i].id);
-            } else if (this.state.operator[0] === "OR") {
+              this.state.productRows.push(newProductRow);
+              this.state.idList.push(allProducts[i].id);
+            } else if (this.state.operator[0] === 'OR') {
               if (hasCommon(productTags, selectedTags)) {
                 this.state.productRows.push(newProductRow);
                 this.state.idList.push(allProducts[i].id);
-              } 
-            } else if (this.state.operator[0] === "AND") {
+              }
+            } else if (this.state.operator[0] === 'AND') {
               if (isSuperset(productTags, selectedTags)) {
                 this.state.productRows.push(newProductRow);
                 this.state.idList.push(allProducts[i].id);
               }
             }
           } else if (selectedVendors.includes(allProducts[i].vendor)) {
-            if (this.state.operator[0] === "OR") {
+            if (this.state.operator[0] === 'OR') {
               if (hasCommon(productTags, selectedTags)) {
                 this.state.productRows.push(newProductRow);
                 this.state.idList.push(allProducts[i].id);
               }
-            } else if (this.state.operator[0] === "AND") {
+            } else if (this.state.operator[0] === 'AND') {
               if (isSuperset(productTags, selectedTags)) {
                 this.state.productRows.push(newProductRow);
                 this.state.idList.push(allProducts[i].id);
@@ -450,8 +454,8 @@ class ProductTag extends React.Component {
           selectedOptions: [],
           vendorSelectedOptions: [],
         });
-
-    });
+      }
+    );
   }
 
   handleMetricSubmit(event) {
@@ -461,23 +465,26 @@ class ProductTag extends React.Component {
       all_n: this.state.all_n,
       co_im: this.state.co_im,
       eco_f: this.state.eco_f,
-      labor: this.state.labor,      
-    })
+      labor: this.state.labor,
+    });
     console.log(data);
     axios
-      .post('https://axial-paratext-278418.uc.r.appspot.com/api/shopifyProduct/updateProducts', data, {
-        headers: {
-          'Content-Type': 'application/json'
+      .post(
+        'https://axial-paratext-278418.uc.r.appspot.com/api/shopifyProduct/updateProducts',
+        data,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
         }
-      }
-    )
+      )
       .then((res) => {
         const results = res.data;
         console.log(results);
         this.setState({
-          backendSent: 'Bulk updated ' + this.state.idList.length + ' products'
+          backendSent: 'Bulk updated ' + this.state.idList.length + ' products',
         });
-    });
+      });
   }
 
   render() {
@@ -497,28 +504,27 @@ class ProductTag extends React.Component {
                       textField={
                         <Autocomplete.TextField
                           onChange={this.updateText}
-                          label="Tags"
+                          label='Tags'
                           value={this.state.inputValue}
-                          placeholder="B-Corp, Plastic Free"
+                          placeholder='B-Corp, Plastic Free'
                         />
                       }
                       onSelect={this.setSelectedOptions}
-                      listTitle="Suggested Tags"
-                    >
-                    </Autocomplete>
-                      Chosen Tags
-                      {this.state.selectedOptions.map((tag) =>
-                         <li>{tag}</li>
-                      )}
-                      <ChoiceList
-                        title='Logical Operator'
-                        choices={[
-                          {label: "OR", value: "OR"},
-                          {label: "AND", value: "AND"},
-                        ]}
-                        selected={this.state.operator}
-                        onChange={this.handleOperatorChange}
-                      />
+                      listTitle='Suggested Tags'
+                    ></Autocomplete>
+                    Chosen Tags
+                    {this.state.selectedOptions.map((tag) => (
+                      <li>{tag}</li>
+                    ))}
+                    <ChoiceList
+                      title='Logical Operator'
+                      choices={[
+                        { label: 'OR', value: 'OR' },
+                        { label: 'AND', value: 'AND' },
+                      ]}
+                      selected={this.state.operator}
+                      onChange={this.handleOperatorChange}
+                    />
                   </div>
 
                   <div>
@@ -529,24 +535,23 @@ class ProductTag extends React.Component {
                       textField={
                         <Autocomplete.TextField
                           onChange={this.vendorUpdateText}
-                          label="Vendors"
+                          label='Vendors'
                           value={this.state.vendorInputValue}
-                          placeholder="Jetty, XACTLY"
+                          placeholder='Jetty, XACTLY'
                         />
                       }
                       onSelect={this.vendorSetSelectedOptions}
-                      listTitle="Suggested Vendors"
-                    >
-                    </Autocomplete>
+                      listTitle='Suggested Vendors'
+                    ></Autocomplete>
                     Chosen Vendors
-                    {this.state.vendorSelectedOptions.map((vendor) =>
-                       <li>{vendor}</li>
-                    )}
+                    {this.state.vendorSelectedOptions.map((vendor) => (
+                      <li>{vendor}</li>
+                    ))}
                     <ChoiceList
                       title='Logical Operator'
                       choices={[
-                        {label: "OR", value: "OR"},
-                        {label: "AND", value: "AND"},
+                        { label: 'OR', value: 'OR' },
+                        { label: 'AND', value: 'AND' },
                       ]}
                       selected={this.state.vendorOperator}
                       onChange={this.vendorHandleOperatorChange}
@@ -562,100 +567,109 @@ class ProductTag extends React.Component {
             <Heading>Product Results</Heading>
             <Subheading size='medium'>
               We retrieved {this.state.productNumber} products for
-              {this.state.finishedTags.map((tag) => <li>{tag}</li>)}
-              {this.state.finishedVendors.map((vendor) => <li>{vendor}</li>)}
+              {this.state.finishedTags.map((tag) => (
+                <li>{tag}</li>
+              ))}
+              {this.state.finishedVendors.map((vendor) => (
+                <li>{vendor}</li>
+              ))}
             </Subheading>
 
             <Card>
               <Checkbox
-                label="Select all products"
+                label='Select all products'
                 checked={this.state.selectedAll}
                 onChange={this.handleSelectChange}
               />
               <Scrollable shadow style={{ height: '400px' }}>
                 <ChoiceList
                   allowMultiple
-                  title=""
+                  title=''
                   choices={this.state.productRows.map((value, index) => {
-                      return {label: value[0],
-                              value: value[1],
-                              helpText: value[1] + '\t' + value[2] + '\t' + value[3]}
-                    })}
+                    return {
+                      label: value[0],
+                      value: value[1],
+                      helpText: value[1] + '\t' + value[2] + '\t' + value[3],
+                    };
+                  })}
                   selected={this.state.selected}
                   onChange={this.handleProductChange}
                 />
               </Scrollable>
             </Card>
 
-          <Form onSubmit={this.handleMetricSubmit}>
-            <Layout.AnnotatedSection
-              title='Community Impact'
-              description='We believe that businesses should be forces for good in the communities they operate in. 
+            <Form onSubmit={this.handleMetricSubmit}>
+              <Layout.AnnotatedSection
+                title='Community Impact'
+                description='We believe that businesses should be forces for good in the communities they operate in. 
               Criteria in this category center around nurturing community, helping marginalized groups, 
               and ensuring people are not left behind.'
-            >
-              <FormLayout>
-                <FormLayout.Group>
-                  {Object.keys(this.co_im_labels).map((metric) => (
+              >
+                <FormLayout>
+                  <FormLayout.Group>
+                    {Object.keys(this.co_im_labels).map((metric) => (
+                      <Select
+                        label={this.co_im_labels[metric]}
+                        key={metric}
+                        id={metric}
+                        options={this.metricOptions}
+                        value={this.state.co_im[metric]}
+                        onChange={this.handleChangeCoIm}
+                      />
+                    ))}
                     <Select
-                      label={this.co_im_labels[metric]}
-                      key={metric}
-                      id={metric}
-                      options={this.metricOptions}
-                      value={this.state.co_im[metric]}
+                      label='Business Size'
+                      options={[
+                        { label: 'Small: Less Than 50 Employees', value: 's' },
+                        {
+                          label: 'Medium: Less Than 500 Employees',
+                          value: 'm',
+                        },
+                        { label: 'Large: More than 500 Employees', value: 'l' },
+                        { label: 'N/A', value: 'n/a' },
+                        { label: '', value: '' },
+                      ]}
+                      id='business_size'
+                      value={this.state.co_im.business_size}
                       onChange={this.handleChangeCoIm}
                     />
-                  ))}
-                  <Select
-                    label='Business Size'
-                    options={[
-                      { label: 'Small: Less Than 50 Employees', value: 's' },
-                      { label: 'Medium: Less Than 500 Employees', value: 'm' },
-                      { label: 'Large: More than 500 Employees', value: 'l' },
-                      { label: 'N/A', value: 'n/a' },
-                      { label: '', value: '' },
-                    ]}
-                    id='business_size'
-                    value={this.state.co_im.business_size}
-                    onChange={this.handleChangeCoIm}
-                  />
-                  <TextField
-                    label='Zip Code'
-                    id='zip_code'
-                    value={this.state.co_im.zip_code}
-                    onChange={this.handleChangeCoIm}
-                  />
-                </FormLayout.Group>
-              </FormLayout>
-            </Layout.AnnotatedSection>
-
-            <Layout.AnnotatedSection
-              title='Economically Friendly'
-              description='Our planet is suffering due to human impact. 
-              Criteria in this category centers on improving our ecosystems, low carbon emissions, and sustainable materials.'
-            >
-              <FormLayout>
-                <FormLayout.Group>
-                  {Object.keys(this.state.eco_f).map((metric) => (
-                    <Select
-                      label={this.eco_f_labels[metric]}
-                      key={metric}
-                      id={metric}
-                      options={this.metricOptions}
-                      value={this.state.eco_f[metric]}
-                      onChange={this.handleChangeEcoF}
+                    <TextField
+                      label='Zip Code'
+                      id='zip_code'
+                      value={this.state.co_im.zip_code}
+                      onChange={this.handleChangeCoIm}
                     />
-                  ))}
-                </FormLayout.Group>
-              </FormLayout>
-            </Layout.AnnotatedSection>
-            <Layout.AnnotatedSection
-              title='All Natural/Non-Toxic'
-              description='You wouldn’t want to put bad chemicals into your body or into the planet, would you? This category focuses on what goes into each product, and the criteria reflects a more natural, chemical-free approach to everyday products.'
-            >
-              <FormLayout>
-                <FormLayout.Group>
-                  {Object.keys(this.all_n_labels).map((metric) => (
+                  </FormLayout.Group>
+                </FormLayout>
+              </Layout.AnnotatedSection>
+
+              <Layout.AnnotatedSection
+                title='Economically Friendly'
+                description='Our planet is suffering due to human impact. 
+              Criteria in this category centers on improving our ecosystems, low carbon emissions, and sustainable materials.'
+              >
+                <FormLayout>
+                  <FormLayout.Group>
+                    {Object.keys(this.state.eco_f).map((metric) => (
+                      <Select
+                        label={this.eco_f_labels[metric]}
+                        key={metric}
+                        id={metric}
+                        options={this.metricOptions}
+                        value={this.state.eco_f[metric]}
+                        onChange={this.handleChangeEcoF}
+                      />
+                    ))}
+                  </FormLayout.Group>
+                </FormLayout>
+              </Layout.AnnotatedSection>
+              <Layout.AnnotatedSection
+                title='All Natural/Non-Toxic'
+                description='You wouldn’t want to put bad chemicals into your body or into the planet, would you? This category focuses on what goes into each product, and the criteria reflects a more natural, chemical-free approach to everyday products.'
+              >
+                <FormLayout>
+                  <FormLayout.Group>
+                    {Object.keys(this.all_n_labels).map((metric) => (
                       <Select
                         label={this.all_n_labels[metric]}
                         key={metric}
@@ -665,70 +679,73 @@ class ProductTag extends React.Component {
                         onChange={this.handleChangeAllN}
                       />
                     ))}
-                  <RangeSlider
-                    label='EWG Rating'
-                    id='ewg'
-                    value={this.state.all_n.ewg}
-                    onChange={this.handleChangeAllN}
-                    max='10'
-                    min='0'
-                    output
-                  />
-                  <RangeSlider
-                    label='Consumer Labs'
-                    id='consumerLabs'
-                    value={this.state.all_n.consumerLabs}
-                    onChange={this.handleChangeAllN}
-                    max='10'
-                    min='0'
-                    output
-                  />
-                </FormLayout.Group>
-              </FormLayout>
-            </Layout.AnnotatedSection>
-            <Layout.AnnotatedSection
-              title='Animal Rights'
-              description='Animals matter, too! Unfortunately, many of them are abused or exploited to make consumer goods. The criteria in this category focuses on companies that are cruelty free or are helping animals thrive'
-            >
-              <FormLayout>
-                <FormLayout.Group>
-                  {Object.keys(this.state.an_ri).map((metric) => (
-                    <Select
-                      label={this.an_ri_labels[metric]}
-                      key={metric}
-                      id={metric}
-                      options={this.metricOptions}
-                      value={this.state.an_ri[metric]}
-                      onChange={this.handleChangeAnRi}
+                    <RangeSlider
+                      label='EWG Rating'
+                      id='ewg'
+                      value={this.state.all_n.ewg}
+                      onChange={this.handleChangeAllN}
+                      max='10'
+                      min='0'
+                      output
                     />
-                  ))}
-                </FormLayout.Group>
-              </FormLayout>
-            </Layout.AnnotatedSection>
-            <Layout.AnnotatedSection
-              title='Labor'
-              description='Sweatshops and underpaid labor should be a thing of the past, and workers in the United States should be paid a living wage. Criteria under this category focuses on how laborers are treated, what working conditions they operate in, and what benefits their employers provide. '
-            >
-              <FormLayout>
-                <FormLayout.Group>
-                  {Object.keys(this.state.labor).map((metric) => (
-                    <Select
-                      label={this.labor_labels[metric]}
-                      key={metric}
-                      id={metric}
-                      options={this.metricOptions}
-                      value={this.state.labor[metric]}
-                      onChange={this.handleChangeLabor}
+                    <RangeSlider
+                      label='Consumer Labs'
+                      id='consumerLabs'
+                      value={this.state.all_n.consumerLabs}
+                      onChange={this.handleChangeAllN}
+                      max='10'
+                      min='0'
+                      output
                     />
-                  ))}
-                </FormLayout.Group>
-              </FormLayout>  
-            </Layout.AnnotatedSection>
-            <br/>
-            <DisplayText element="p" size="medium">   {this.state.backendSent}</DisplayText>
-            <br/>
-            <Button submit>Submit</Button>
-          </Form>
+                  </FormLayout.Group>
+                </FormLayout>
+              </Layout.AnnotatedSection>
+              <Layout.AnnotatedSection
+                title='Animal Rights'
+                description='Animals matter, too! Unfortunately, many of them are abused or exploited to make consumer goods. The criteria in this category focuses on companies that are cruelty free or are helping animals thrive'
+              >
+                <FormLayout>
+                  <FormLayout.Group>
+                    {Object.keys(this.state.an_ri).map((metric) => (
+                      <Select
+                        label={this.an_ri_labels[metric]}
+                        key={metric}
+                        id={metric}
+                        options={this.metricOptions}
+                        value={this.state.an_ri[metric]}
+                        onChange={this.handleChangeAnRi}
+                      />
+                    ))}
+                  </FormLayout.Group>
+                </FormLayout>
+              </Layout.AnnotatedSection>
+              <Layout.AnnotatedSection
+                title='Labor'
+                description='Sweatshops and underpaid labor should be a thing of the past, and workers in the United States should be paid a living wage. Criteria under this category focuses on how laborers are treated, what working conditions they operate in, and what benefits their employers provide. '
+              >
+                <FormLayout>
+                  <FormLayout.Group>
+                    {Object.keys(this.state.labor).map((metric) => (
+                      <Select
+                        label={this.labor_labels[metric]}
+                        key={metric}
+                        id={metric}
+                        options={this.metricOptions}
+                        value={this.state.labor[metric]}
+                        onChange={this.handleChangeLabor}
+                      />
+                    ))}
+                  </FormLayout.Group>
+                </FormLayout>
+              </Layout.AnnotatedSection>
+              <br />
+              <DisplayText element='p' size='medium'>
+                {' '}
+                {this.state.backendSent}
+              </DisplayText>
+              <br />
+              <Button submit>Submit</Button>
+            </Form>
             <FooterHelp>
               Ethic Score's{' '}
               <Link
@@ -745,4 +762,4 @@ class ProductTag extends React.Component {
   }
 }
 
-export default ProductTag;
+export default BulkEdit;
