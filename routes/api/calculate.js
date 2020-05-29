@@ -61,6 +61,8 @@ const metricweights = {
   },
 };
 
+ethic_ctgry = ["co_im", "eco_f", "all_n", "an_ri", "labor"];
+
 const shopifyAxios = axios.create({
   // have to update 20XX-XX to latest after a year
   baseURL: "https://ethic-marketplace.myshopify.com/admin/api/2020-01/",
@@ -91,50 +93,71 @@ router.get("/:productID/:userID?", async (req, res) => {
       });
     }
 
-    let user_res, userMetrics;
+    let multindex = {}, user_exists = false;
     if (typeof req.params.userID !== "undefined") {
-      user_res = await shopifyAxios.get(
+      let user_res = await shopifyAxios.get(
         "customers/" + req.params.userID + "/metafields.json"
       );
-      userMetrics = user_res.data.metafields;
+      let userMetrics = user_res.data.metafields;
+
+      if (userMetricsExist(userMetrics)) {
+        user_exists = true;
+        for (let i = 0; i < ethic_ctgry.length; ++i) {
+          metric = userMetrics.filter((cat) => {
+            return cat.key === ethic_ctgry[i];
+          });
+
+          // // map user pref to (0.5 to 1 from 1 to 5; 1 to 2 from 5 to 10)
+          // if (metric[0].value <= 5) {
+          //   multindex[i] = scale(metric[0].value, 1, 5, 0.5, 1);
+          // } else {
+          //   multindex[i] = scale(metric[0].value, 5, 10, 1, 2);
+          // }
+
+          // OR map user pref to (0.1 to 1.0)
+          multindex[ethic_ctgry[i]] = scale(metric[0].value, 1, 10, 0.1, 1.0);
+        }
+      }
     }
 
-    let defaultScore = 0, possibleScore = 0;
-    let userDScore = 0, userPScore = 0;
+    let defaultScore = {}, possibleScore = {};
+    let userDScore = {}, userPScore = {};
 
-    //for (const category in productMetrics.data.metafields) {
     for (let i = 0; i < productMetrics.length; ++i) {
       let cat_score = 0; // represents defaultScore of each category
       let cat_pscore = 0; // represents possibleScore of each category
       let cruelty_free = false;
-      const category = productMetrics[i];
-      const cat_values = JSON.parse(category["value"]);
+      const category = productMetrics[i]; // metafield object of the ethic category (co_im, an_ri, etc.)
+      const cat_values = JSON.parse(category["value"]); // values from the metafield object above
 
       for (const metric in cat_values) {
-        console.log(metric, ':', metricweights[category["key"]][metric], cat_values[metric]);
+        // console.log(metric, ':', metricweights[category["key"]][metric], cat_values[metric]);
         if (category["key"] === "co_im" && metric === "business_size") {
           // Business size affects the default score
           // small = +2, medium = +1, large = +0
           if (cat_values[metric] == "s") {
             cat_score += 2;
-            cat_pscore += 2;
+            cat_pscore += metricweights["co_im"]["business_size"];
           } else if (cat_values[metric] == "m") {
             cat_score += 1;
-            cat_pscore += 2;
+            cat_pscore += metricweights["co_im"]["business_size"];
           } else if (cat_values[metric] == "l") {
-            cat_pscore += 2;
+            cat_pscore += metricweights["co_im"]["business_size"];
           }
-        } else if (
-          category["key"] === "all_n" &&
-          (metric === "ewg" || metric === "consumerLabs")
-        ) {
-          // EWG and Consumer Labs metrics are scaled from 1 to 10
-          console.log((metricweights["all_n"][metric] * cat_values[metric]) / 10);
-          cat_score +=
-            (metricweights["all_n"][metric] * cat_values[metric]) / 10;
+        } else if (category["key"] === "all_n" && (metric == "ewg" || metric == "consumerLabs")) {
+          // EWG and Consumer Labs metrics are scaled from 1 to 10 (EWG is inversed, lower is better)
+          if (metric == "ewg") {
+            cat_score +=
+              (metricweights["all_n"][metric] * (10 - cat_values[metric])) / 10;
+          } else if (metric == "consumerLabs") {
+            cat_score +=
+              (metricweights["all_n"][metric] * cat_values[metric]) / 10;
+          }
           cat_pscore += metricweights["all_n"][metric];
         } else if (metric == "bcorp") {
           // this accounts for bcorp within co_im, eco_f, all_n, and labor respectively
+          // CHANGE THIS TO REFERENCE THE METRIC WEIGHTS INSTEAD OF RAW VALUES
+          // also, need to make sure they actually go to the right category instead of all labor.
           if (cat_values[metric] == "y") {
             cat_score += 2 + 2 + 2.2222 + 1.4285;
             cat_pscore += 2 + 2 + 2.2222 + 1.4285;
@@ -152,7 +175,6 @@ router.get("/:productID/:userID?", async (req, res) => {
             cruelty_free = true;
           } else {
             cat_pscore += metricweights[category["key"]]["cruelty_free"];
-            cruelty_free = true;
           }
         } else {
           if (cat_values[metric] == "y") {
@@ -163,48 +185,25 @@ router.get("/:productID/:userID?", async (req, res) => {
           }
         }
       }
-
-      if (typeof req.params.userID !== "undefined" && userMetrics.length == 5) {
-        // get user's prefs for current category
-        // (make the userMetrics key line up with the category["key"])
-        //    we can delete a lot of this if statement that way
-        let mult = userMetrics.filter((cat) => {
-          return cat.key === category["key"];
-        });
-        mult = mult[0].value;
-
-        const scale = (num, in_min, in_max, out_min, out_max) => {
-          return (
-            ((num - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min
-          );
-        };
-
-        // // map user pref to (0.5 to 1 from 1 to 5; 1 to 2 from 5 to 10)
-        // if (mult <= 5) {
-        //   mult = scale(mult, 1, 5, 0.5, 1);
-        // } else {
-        //   mult = scale(mult, 5, 10, 1, 2);
-        // }
-
-        // OR map user pref to (0.1 to 1.0)
-        mult = scale(mult, 1, 10, 0.1, 1.0);
-
-        // multiply with the cat_score and add it to userDScore
-        userDScore += cat_score * mult;
-        userPScore += cat_pscore * mult;
+      // console.log('  d/p-score:', cat_score, cat_pscore);
+      defaultScore[category["key"]] = cat_score;
+      possibleScore[category["key"]] = cat_pscore;
+      if (user_exists) {
+        userDScore[category["key"]] = cat_score * multindex[category["key"]];
+        userPScore[category["key"]] = cat_pscore * multindex[category["key"]];
       }
-      console.log('  d/p-score:', cat_score, cat_pscore);
-      defaultScore += cat_score;
-      possibleScore += cat_pscore;
     }
+    sum_defaultScore = sumScore(defaultScore)
+    sum_possibleScore = sumScore(possibleScore);
+    sum_userDScore = sumScore(userDScore);
+    sum_userPScore = sumScore(userPScore);
 
     let results = {
-      userScore: Math.round((userDScore / userPScore) * 100),
-      userGrade: getGrade(Math.round((userDScore / userPScore) * 100)),
-      ethicScore: Math.round((defaultScore / possibleScore) * 100),
-      ethicGrade: getGrade(Math.round((defaultScore / possibleScore) * 100)),
+      userScore: Math.round((sum_userDScore / sum_userPScore) * 100),
+      userGrade: getGrade(Math.round((sum_userDScore / sum_userPScore) * 100)),
+      ethicScore: Math.round((sum_defaultScore / sum_possibleScore) * 100),
+      ethicGrade: getGrade(Math.round((sum_defaultScore / sum_possibleScore) * 100)),
     };
-
     res.json(results);
   } catch (err) {
     console.error(err.message);
@@ -223,5 +222,82 @@ function getGrade(score) {
     return "A";
   }
 }
+
+function userMetricsExist(userMetrics) {
+  return userMetrics.some(cat => cat.key === "co_im") &&
+    userMetrics.some(cat => cat.key === "eco_f") &&
+    userMetrics.some(cat => cat.key === "all_n") &&
+    userMetrics.some(cat => cat.key === "an_ri") &&
+    userMetrics.some(cat => cat.key === "labor");
+};
+
+function scale(num, in_min, in_max, out_min, out_max) {
+  return (
+    ((num - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min
+  );
+};
+
+function sumScore(score) {
+  let sum = 0;
+  for (const category in score) {
+    sum += score[category];
+  }
+  return sum;
+}
+
+// try making the inner for loop into a function (makes the request look nicer)
+
+// function handleScoreCalculation(metric, metricWeight, product_value, category){
+//   console.log(metric, ':', metricWeight, productMetricValue);
+//   if (category["key"] === "co_im" && metric === "business_size") {
+//     // Business size affects the default score
+//     // small = +2, medium = +1, large = +0
+//     if (cat_values[metric] == "s") {
+//       cat_score += 2;
+//       cat_pscore += metricweights["co_im"]["business_size"];
+//     } else if (cat_values[metric] == "m") {
+//       cat_score += 1;
+//       cat_pscore += metricweights["co_im"]["business_size"];
+//     } else if (cat_values[metric] == "l") {
+//       cat_pscore += metricweights["co_im"]["business_size"];
+//     }
+//   } else if (
+//     category["key"] === "all_n" &&
+//     (metric === "ewg" || metric === "consumerLabs")
+//   ) {
+//     // EWG and Consumer Labs metrics are scaled from 1 to 10
+//     // console.log((metricweights["all_n"][metric] * cat_values[metric]) / 10);
+//     cat_score +=
+//       (metricweights["all_n"][metric] * cat_values[metric]) / 10;
+//     cat_pscore += metricweights["all_n"][metric];
+//   } else if (metric == "bcorp") {
+//     // this accounts for bcorp within co_im, eco_f, all_n, and labor respectively
+//     if (cat_values[metric] == "y") {
+//       cat_score += 2 + 2 + 2.2222 + 1.4285;
+//       cat_pscore += 2 + 2 + 2.2222 + 1.4285;
+//     } else if (cat_values[metric] == "n") {
+//       cat_pscore += 2 + 2 + 2.2222 + 1.4285;
+//     }
+//   } else if (metric == "plastic_free" || metric == "compostable") {
+//     continue;
+//   } else if (metric == "leaping_bunny" || metric == "peta") {
+//     if (cruelty_free) {
+//       continue;
+//     } else if (cat_values["leaping_bunny"] == "y" || cat_values["peta"] == "y") {
+//       cat_score += metricweights[category["key"]]["cruelty_free"];
+//       cat_pscore += metricweights[category["key"]]["cruelty_free"];
+//       cruelty_free = true;
+//     } else {
+//       cat_pscore += metricweights[category["key"]]["cruelty_free"];
+//     }
+//   } else {
+//     if (cat_values[metric] == "y") {
+//       cat_score += metricweights[category["key"]][metric];
+//       cat_pscore += metricweights[category["key"]][metric];
+//     } else if (cat_values[metric] == "n") {
+//       cat_pscore += metricweights[category["key"]][metric];
+//     }
+//   }
+// }
 
 module.exports = router;
