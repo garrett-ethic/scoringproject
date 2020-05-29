@@ -15,7 +15,6 @@ const PORT = process.env.PORT || '5000';
 
 // Define Routes
 app.use('/api/calculate', require('./routes/api/calculate'));
-app.use('/api/metricDetails', require('./routes/api/metricDetails'));
 app.use('/api/shopifyProduct', require('./routes/api/shopifyProduct'));
 app.use('/api/shopifyUser', require('./routes/api/shopifyUser'));
 
