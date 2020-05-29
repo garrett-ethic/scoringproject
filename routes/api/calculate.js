@@ -78,6 +78,12 @@ const shopifyAxios = axios.create({
 // @access  Public
 router.get("/:productID/:userID?", async (req, res) => {
   try {
+    // productMetrics and userMetrics are lists of metrics
+    const product_res = await shopifyAxios.get(
+      "products/" + req.params.productID + "/metafields.json"
+    );
+    const productMetrics = product_res.data.metafields;
+
     // Return an empty grade if product doesn't have metrics yet.
     if (productMetrics === undefined || productMetrics.length == 0) {
       return res.json({
@@ -87,12 +93,6 @@ router.get("/:productID/:userID?", async (req, res) => {
         grade: "?",
       });
     }
-
-    // productMetrics and userMetrics are lists of metrics
-    const product_res = await shopifyAxios.get(
-      "products/" + req.params.productID + "/metafields.json"
-    );
-    const productMetrics = product_res.data.metafields;
 
     let user_res, userMetrics;
     if (typeof req.params.userID !== "undefined") {
@@ -186,9 +186,9 @@ router.get("/:productID/:userID?", async (req, res) => {
 
     let results = {
       userScore: Math.round((userDScore / userPScore) * 100),
-      userGrade: getGrade(userScore),
+      userGrade: getGrade(Math.round((userDScore / userPScore) * 100)),
       ethicScore: Math.round((defaultScore / possibleScore) * 100),
-      ethicGrade: getGrade(ethicScore),
+      ethicGrade: getGrade(Math.round((defaultScore / possibleScore) * 100)),
     };
 
     res.json(results);
