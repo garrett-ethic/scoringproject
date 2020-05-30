@@ -28,6 +28,8 @@ class UpdateProduct extends React.Component {
     this.state = {
       productID: '',
       productName: '',
+      ethicScore: '',
+      ethicGrade: '',
       productVendor: '',
       productTags: '',
       loadFailure: false,
@@ -181,136 +183,142 @@ class UpdateProduct extends React.Component {
   handleChangeCoIm = (value, id) => {
     var co_im = { ...this.state.co_im };
     co_im[id] = value;
-    this.setState({ co_im }, () => {
-      console.log(this.state.co_im);
-    });
+    this.setState({ co_im });
   };
 
   handleChangeEcoF = (value, id) => {
     var eco_f = { ...this.state.eco_f };
     eco_f[id] = value;
-    this.setState({ eco_f }, () => {
-      console.log(this.state.eco_f);
-    });
+    this.setState({ eco_f });
   };
 
   handleChangeAllN = (value, id) => {
     var all_n = { ...this.state.all_n };
     all_n[id] = value;
-    this.setState({ all_n }, () => {
-      console.log(this.state.all_n);
-    });
+    this.setState({ all_n });
   };
 
   handleChangeAnRi = (value, id) => {
     var an_ri = { ...this.state.an_ri };
     an_ri[id] = value;
-    this.setState({ an_ri }, () => {
-      console.log(this.state.an_ri);
-    });
+    this.setState({ an_ri });
   };
 
   handleChangeLabor = (value, id) => {
     var labor = { ...this.state.labor };
     labor[id] = value;
-    this.setState({ labor }, () => {
-      console.log(this.state.labor);
-    });
+    this.setState({ labor });
   };
 
-  handleSearchSubmit = () => {
+  handleSearchSubmit = async () => {
     this.setState({
       metricProgress: 0,
+      loadFailure: false,
     });
 
-    axios
-      .get(
-        'https://axial-paratext-278418.uc.r.appspot.com/api/shopifyProduct/' +
-          this.state.productID
-      )
-      .then((res) => {
-        const prodInfo = res.data;
-
-        console.log(JSON.stringify(this.state.co_im));
-        this.setState({
-          productName: prodInfo.title,
-          productVendor: prodInfo.vendor,
-          productTags: prodInfo.tags,
-        });
+    try {
+      const prodInfoRes = await axios.get(
+        'http://localhost:5000/api/shopifyProduct/' + this.state.productID
+      );
+      const prodInfo = prodInfoRes.data;
+      this.setState({
+        productName: prodInfo.title,
+        productVendor: prodInfo.vendor,
+        productTags: prodInfo.tags,
       });
-    axios
-      .get(
-        'https://axial-paratext-278418.uc.r.appspot.com/api/shopifyProduct/metrics/' +
+
+      const prodScoreRes = await axios.get(
+        'http://localhost:5000/api/calculate/' + this.state.productID
+      );
+      const prodScore = prodScoreRes.data;
+      this.setState({
+        ethicScore: prodScore.ethicScore,
+        ethicGrade: prodScore.ethicGrade,
+      });
+
+      const metricsRes = await axios.get(
+        'http://localhost:5000/api/shopifyProduct/metrics/' +
           this.state.productID
-      )
-      .then((res) => {
-        const prodMetrics = res.data.metafields;
-        let metricProgress = 0;
-        for (let i = 0; i < prodMetrics.length; i++) {
-          let currentMetrics = prodMetrics[i];
-          if (currentMetrics.namespace == 'ethic-metric') {
-            metricProgress += 20;
-          }
-
-          if (currentMetrics.key == 'co_im') {
-            this.state.co_im_metricId = currentMetrics.id;
-            this.state.co_im_exists = true;
-
-            let co_im = JSON.parse(currentMetrics.value);
-            this.setState({ co_im });
-          }
-          if (currentMetrics.key == 'eco_f') {
-            this.state.eco_f_metricId = currentMetrics.id;
-            this.state.eco_f_exists = true;
-
-            let eco_f = JSON.parse(currentMetrics.value);
-            this.setState({ eco_f });
-          }
-          if (currentMetrics.key == 'all_n') {
-            this.state.all_n_metricId = currentMetrics.id;
-            this.state.all_n_exists = true;
-
-            let all_n = JSON.parse(currentMetrics.value);
-            this.setState({ all_n });
-          }
-          if (currentMetrics.key == 'an_ri') {
-            this.state.an_ri_metricId = currentMetrics.id;
-            this.state.an_ri_exists = true;
-
-            let an_ri = JSON.parse(currentMetrics.value);
-            this.setState({ an_ri });
-          }
-          if (currentMetrics.key == 'labor') {
-            this.state.labor_metricId = currentMetrics.id;
-            this.state.labor_exists = true;
-
-            let labor = JSON.parse(currentMetrics.value);
-            this.setState({ labor });
-          }
+      );
+      const prodMetrics = metricsRes.data.metafields;
+      let metricProgress = 0;
+      for (let i = 0; i < prodMetrics.length; i++) {
+        let currentMetrics = prodMetrics[i];
+        if (currentMetrics.namespace == 'ethic-metric') {
+          metricProgress += 20;
         }
-        this.setState({
-          metricProgress: metricProgress,
-          loadFailure: false,
-        });
-      })
-      .catch((error) => {
-        // handle error
-        this.setState({
-          loadFailure: true,
-        });
-        console.log(error);
+
+        if (currentMetrics.key == 'co_im') {
+          this.state.co_im_metricId = currentMetrics.id;
+          this.state.co_im_exists = true;
+
+          let co_im = JSON.parse(currentMetrics.value);
+          this.setState({ co_im });
+        }
+        if (currentMetrics.key == 'eco_f') {
+          this.state.eco_f_metricId = currentMetrics.id;
+          this.state.eco_f_exists = true;
+
+          let eco_f = JSON.parse(currentMetrics.value);
+          this.setState({ eco_f });
+        }
+        if (currentMetrics.key == 'all_n') {
+          this.state.all_n_metricId = currentMetrics.id;
+          this.state.all_n_exists = true;
+
+          let all_n = JSON.parse(currentMetrics.value);
+          this.setState({ all_n });
+        }
+        if (currentMetrics.key == 'an_ri') {
+          this.state.an_ri_metricId = currentMetrics.id;
+          this.state.an_ri_exists = true;
+
+          let an_ri = JSON.parse(currentMetrics.value);
+          this.setState({ an_ri });
+        }
+        if (currentMetrics.key == 'labor') {
+          this.state.labor_metricId = currentMetrics.id;
+          this.state.labor_exists = true;
+
+          let labor = JSON.parse(currentMetrics.value);
+          this.setState({ labor });
+        }
+      }
+      this.setState({
+        metricProgress: metricProgress,
+        loadFailure: false,
       });
+    } catch (error) {
+      // handle error
+      this.setState({
+        loadFailure: true,
+        productID: '',
+        productName: '',
+        ethicScore: '',
+        ethicGrade: '',
+        productVendor: '',
+        productTags: '',
+        metricProgress: 0,
+        co_im_exists: false,
+        eco_f_exists: false,
+        all_n_exists: false,
+        an_ri_exists: false,
+        labor_exists: false,
+      });
+      console.log(error);
+    }
   };
 
   // Since it's a Form Submit Handler function, We have to wrap our code
   // like so in order to pass in the category argument
   // https://stackoverflow.com/questions/38648257/how-to-pass-in-a-second-argument-on-reactjs-onsubmit-function-call
   handleSubmit = (category) => {
-    return (event) => {
+    return async (event) => {
       event.preventDefault();
+      // If metafield already exists, then update
       if (this.state[category + '_exists'] == true) {
-        axios.put(
-          'https://axial-paratext-278418.uc.r.appspot.com/api/shopifyProduct/metrics/' +
+        await axios.put(
+          'http://localhost:5000/api/shopifyProduct/metrics/' +
             this.state.productID +
             '/' +
             this.state[category + '_metricId'],
@@ -322,67 +330,69 @@ class UpdateProduct extends React.Component {
             },
           }
         );
-
-        // Creating a metafield for the first time.
       } else {
-        axios
-          .put(
-            'https://axial-paratext-278418.uc.r.appspot.com/api/shopifyProduct/metrics/' +
-              this.state.productID,
-            {
-              product: {
-                id: this.state.productID,
-                metafields: [
-                  {
-                    namespace: 'ethic-metric',
-                    key: category,
-                    value: JSON.stringify(this.state[category]),
-                    value_type: 'string',
-                  },
-                ],
-              },
+        // Else create the metafield for the first time.
+        await axios.put(
+          'http://localhost:5000/api/shopifyProduct/metrics/' +
+            this.state.productID,
+          {
+            product: {
+              id: this.state.productID,
+              metafields: [
+                {
+                  namespace: 'ethic-metric',
+                  key: category,
+                  value: JSON.stringify(this.state[category]),
+                  value_type: 'string',
+                },
+              ],
+            },
+          }
+        );
+        const res = await axios.get(
+          'http://localhost:5000/api/shopifyProduct/metrics/' +
+            this.state.productID
+        );
+        const prodMetrics = res.data.metafields;
+        // Finds the newly created metafield Id and assign it to state
+        for (let i = 0; i < prodMetrics.length; i++) {
+          let currentMetrics = prodMetrics[i];
+          if (currentMetrics.key == category) {
+            if (currentMetrics.key == 'co_im') {
+              this.state.co_im_metricId = currentMetrics.id;
+              this.state.co_im_exists = true;
             }
-          )
-          // Finds the newly created metafield Id and assign it to state
-          .then((res) => {
-            axios
-              .get(
-                'https://axial-paratext-278418.uc.r.appspot.com/api/shopifyProduct/metrics/' +
-                  this.state.productID
-              )
-              .then((res) => {
-                const prodMetrics = res.data.metafields;
-                for (let i = 0; i < prodMetrics.length; i++) {
-                  let currentMetrics = prodMetrics[i];
-                  if (currentMetrics.key == category) {
-                    if (currentMetrics.key == 'co_im') {
-                      this.state.co_im_metricId = currentMetrics.id;
-                      this.state.co_im_exists = true;
-                    }
-                    if (currentMetrics.key == 'eco_f') {
-                      this.state.eco_f_metricId = currentMetrics.id;
-                      this.state.eco_f_exists = true;
-                    }
-                    if (currentMetrics.key == 'all_n') {
-                      this.state.all_n_metricId = currentMetrics.id;
-                      this.state.all_n_exists = true;
-                    }
-                    if (currentMetrics.key == 'an_ri') {
-                      this.state.an_ri_metricId = currentMetrics.id;
-                      this.state.an_ri_exists = true;
-                    }
-                    if (currentMetrics.key == 'labor') {
-                      this.state.labor_metricId = currentMetrics.id;
-                      this.state.labor_exists = true;
-                    }
-                  }
-                }
-                this.setState({
-                  metricProgress: this.state.metricProgress + 20,
-                });
-              });
-          });
+            if (currentMetrics.key == 'eco_f') {
+              this.state.eco_f_metricId = currentMetrics.id;
+              this.state.eco_f_exists = true;
+            }
+            if (currentMetrics.key == 'all_n') {
+              this.state.all_n_metricId = currentMetrics.id;
+              this.state.all_n_exists = true;
+            }
+            if (currentMetrics.key == 'an_ri') {
+              this.state.an_ri_metricId = currentMetrics.id;
+              this.state.an_ri_exists = true;
+            }
+            if (currentMetrics.key == 'labor') {
+              this.state.labor_metricId = currentMetrics.id;
+              this.state.labor_exists = true;
+            }
+          }
+        }
+        this.setState({
+          metricProgress: this.state.metricProgress + 20,
+        });
       }
+      // Recalculate Score upon Changes
+      const res = await axios.get(
+        'http://localhost:5000/api/calculate/' + this.state.productID
+      );
+      const prodScore = res.data;
+      this.setState({
+        ethicScore: prodScore.ethicScore,
+        ethicGrade: prodScore.ethicGrade,
+      });
     };
   };
 
@@ -429,6 +439,19 @@ class UpdateProduct extends React.Component {
                 <TextStyle variation='strong'>Product Name: </TextStyle>
                 {this.state.productName}
               </DisplayText>
+              <h3>
+                <TextStyle variation='strong'>
+                  Current Default Ethic Score:{' '}
+                </TextStyle>
+                {this.state.ethicScore}
+              </h3>
+              <h3>
+                <TextStyle variation='strong'>
+                  Current Default Ethic Grade:{' '}
+                </TextStyle>
+                {this.state.ethicGrade}
+              </h3>
+
               <h3>
                 <TextStyle variation='strong'>Vendor: </TextStyle>
                 {this.state.productVendor}
