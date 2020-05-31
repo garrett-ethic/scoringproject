@@ -9,33 +9,29 @@
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
 ### Prerequisites/Installation
 
-What things you need to install the software and how to install them
+1. Clone the repo to get started. 
+2. Run `npm install` to install all the package dependencies
+3. Next, install Ngrok on your machine by running `npm install ngrok -g`
 
 Ngrok is a cloud service that accepts traffic on a public address and relays that traffic through to the ngrok process running on your machine and then on to the local address specified. 
 
 This is required to allow Shopify to embedd our app
 
-```
-npm install ngrok -g
-```
-
 ### Development Setup
 
-A step by step series of examples that tell you how to get a development env running
-
-To start up the backend, run the express server
+#### Backend 
+To start up the backend alone, simply run the express server
 
 ```
 npm run express
 ```
-
 If you're only planning to make changes to the backend, then that's it! Happy developing.
-Continue with the following steps if you're planning to work on the Embedded App
 
-On a new terminal, run the react server with the following command
+#### Embedded App 
+However, if you're planning to work on the Embedded App, Issue the following command to start up both the Backend and React Server
 
 ```
-npm run server
+npm run dev
 ```
 
 On another new terminal, create a tunnel on port 3000 with ngrok
@@ -43,7 +39,7 @@ On another new terminal, create a tunnel on port 3000 with ngrok
 ngrok http 3000
 ```
 
-Next, log on to the Shopify Partners.
+Next, log on to the [Shopify Partners](https://www.shopify.com/partners) with Ethic Marketplace's Collaborator account.
 
 1. From your partner Dashboard, click Apps
 2. Choose Ethic Score
@@ -94,6 +90,32 @@ gcloud app deploy
 ```
 gcloud app deploy
 ```
+## Ethic Metrics/Calculation
+
+Metafields consists of a namespace, key, value and an optional description. Namespaces helps us group different metafields together. Can be helpful later in the future if we need to store different types of metafields. 
+
+#### Current convention for a product's metafields: 
+- *key*: choose 1 of the following: ["co_im", "eco_f," "all_n", "an_ri", "labor"]
+- *valueType*: "string" 
+- *value*: A JSON stringified string of all the metrics 
+- *namespace*: "ethic-metrics"
+
+#### Current convention for User Metafields:
+- **key**: choose 1 of the following: ["co_im", "eco_f," "all_n", "an_ri", "labor"]
+- **valueType**: "integer" 
+- **value**: an integer ranging from 1-10
+- **namespace**: "userprefs"
+
+#### Naming Conventions
+- **co_im**: Community Impact
+- **eco_f**: Eco-Friendly
+- **all_n**: All Natural/Non-toxic
+- **an_ri**: Animal Rights
+- **labor**: Labor Rights
+
+A description of all metrics and their range of values can be found [here](https://docs.google.com/document/d/1LXzjx3NL_nHgKynO35K9APYgpg5n20hfFfduNcqY5vA/edit?usp=sharing)
+
+The current weight of each metric used for calculation can be found [here](https://docs.google.com/spreadsheets/d/1HNSkAHpQ-CtQsIbivSHS9whIdpQuowLyj6rjsAWmoGk/edit#gid=0)
 
 ## Built With
 
