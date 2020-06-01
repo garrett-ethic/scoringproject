@@ -149,7 +149,6 @@ class UpdateProduct extends React.Component {
     allNatural_ingredients: 'All Natural Ingredients',
     reef_safe: 'Reef Safe',
     madeSafe: 'MadeSafe',
-    transparency: 'Transparency',
   };
 
   an_ri_labels = {
@@ -572,27 +571,37 @@ class UpdateProduct extends React.Component {
                       onChange={this.handleChangeAllN}
                     />
                   ))}
+                  <Select
+                    label='Transparency'
+                    options={[
+                      { label: 'High', value: 'h' },
+                      { label: 'Medium', value: 'm' },
+                      { label: 'Low', value: 'l' },
+                      { label: 'N/A', value: 'n/a' },
+                    ]}
+                    id='transparency'
+                    value={this.state.all_n.transparency}
+                    onChange={this.handleChangeAllN}
+                  />
+                  <RangeSlider
+                    label='EWG Rating'
+                    id='ewg'
+                    value={this.state.all_n.ewg}
+                    onChange={this.handleChangeAllN}
+                    max='10'
+                    min='0'
+                    output
+                  />
+                  <RangeSlider
+                    label='Consumer Labs'
+                    id='consumerLabs'
+                    value={this.state.all_n.consumerLabs}
+                    onChange={this.handleChangeAllN}
+                    max='10'
+                    min='0'
+                    output
+                  />
                 </FormLayout.Group>
-                {/* <FormLayout.Group> */}
-                <RangeSlider
-                  label='EWG Rating'
-                  id='ewg'
-                  value={this.state.all_n.ewg}
-                  onChange={this.handleChangeAllN}
-                  max='10'
-                  min='0'
-                  output
-                />
-                <RangeSlider
-                  label='Consumer Labs'
-                  id='consumerLabs'
-                  value={this.state.all_n.consumerLabs}
-                  onChange={this.handleChangeAllN}
-                  max='10'
-                  min='0'
-                  output
-                />
-                {/* </FormLayout.Group> */}
                 <Button submit>Submit</Button>
               </FormLayout>
             </Form>
