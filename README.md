@@ -129,6 +129,10 @@ The current weight of each metric used for calculation can be found [here](https
 * [Node.js](https://nodejs.org/en/) - Javascript Runtime Environment
 * [Express](https://expressjs.com/) - Web Application Framework
 
+## Project Update Notes
+* 3/10/2020 - [Project Requirement Document](https://docs.google.com/document/d/1JFjLBBLm9yKrprHkP-3ic495K3CZOJm6MAN8k8H1Z68/edit?usp=sharing)
+* 6/1/2020 - [End of UCI collaboration](https://docs.google.com/document/d/1xnWTuZslykBLVktodUSABQz9F9WFUNYVrISUsip4DKc/edit?usp=sharing)
+
 ## Authors
 
 * **Ivan Huang** - [younghuangbao](https://github.com/younghuangbao)
