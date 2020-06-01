@@ -107,15 +107,15 @@ router.get("/:productID/:userID?", async (req, res) => {
             return cat.key === ethic_ctgry[i];
           });
 
-          // // map user pref to (0.5 to 1 from 1 to 5; 1 to 2 from 5 to 10)
-          // if (metric[0].value <= 5) {
-          //   multindex[i] = scale(metric[0].value, 1, 5, 0.5, 1);
-          // } else {
-          //   multindex[i] = scale(metric[0].value, 5, 10, 1, 2);
-          // }
+          // map user pref to (0.5 to 1 from 1 to 5; 1 to 2 from 5 to 10)
+          if (metric[0].value <= 5) {
+            multindex[i] = scale(metric[0].value, 1, 5, 0.5, 1);
+          } else {
+            multindex[i] = scale(metric[0].value, 5, 10, 1, 2);
+          }
 
-          // OR map user pref to (0.1 to 1.0)
-          multindex[ethic_ctgry[i]] = scale(metric[0].value, 1, 10, 0.1, 1.0);
+          // // OR map user pref to (0.1 to 1.0)
+          // multindex[ethic_ctgry[i]] = scale(metric[0].value, 1, 10, 0.1, 1.0);
         }
       }
     }
@@ -133,19 +133,19 @@ router.get("/:productID/:userID?", async (req, res) => {
 
       for (const metric in cat_values) {
         // console.log(metric, ':', metricweights[category["key"]][metric], cat_values[metric]);
-        if (category["key"] === "co_im" && metric === "business_size") {
+        if (metric === "business_size") {
           // Business size affects the default score
           // small = +2, medium = +1, large = +0
           if (cat_values[metric] == "s") {
-            cat_score += 2;
+            cat_score += metricweights["co_im"]["business_size"];
             cat_pscore += metricweights["co_im"]["business_size"];
           } else if (cat_values[metric] == "m") {
-            cat_score += 1;
+            cat_score += metricweights["co_im"]["business_size"] / 2;
             cat_pscore += metricweights["co_im"]["business_size"];
           } else if (cat_values[metric] == "l") {
             cat_pscore += metricweights["co_im"]["business_size"];
           }
-        } else if (category["key"] === "all_n" && (metric == "ewg" || metric == "consumerLabs")) {
+        } else if (metric == "ewg" || metric == "consumerLabs") {
           // EWG and Consumer Labs metrics are scaled from 1 to 10 (EWG is inversed, lower is better)
           if (metric == "ewg") {
             cat_score +=
@@ -155,6 +155,16 @@ router.get("/:productID/:userID?", async (req, res) => {
               (metricweights["all_n"][metric] * cat_values[metric]) / 10;
           }
           cat_pscore += metricweights["all_n"][metric];
+        } else if (metric === "transparency") {
+          if (cat_values[metric] == "h") {
+            cat_score += metricweights["all_n"]["transparency"];
+            cat_pscore += metricweights["all_n"]["transparency"];
+          } else if (cat_values[metric] == "m") {
+            cat_score += metricweights["all_n"]["transparency"] / 2;
+            cat_pscore += metricweights["co_im"]["transparency"];
+          } else if (cat_values[metric] == "l") {
+            cat_pscore += metricweights["co_im"]["transparency"];
+          }
         } else if (metric == "bcorp") {
           // this accounts for bcorp within co_im, eco_f, all_n, and labor respectively
           // CHANGE THIS TO REFERENCE THE METRIC WEIGHTS INSTEAD OF RAW VALUES
