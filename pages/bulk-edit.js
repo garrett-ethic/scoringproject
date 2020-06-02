@@ -193,7 +193,6 @@ class BulkEdit extends React.Component {
     allNatural_ingredients: 'All Natural Ingredients',
     reef_safe: 'Reef Safe',
     madeSafe: 'MadeSafe',
-    transparency: 'Transparency',
   };
 
   an_ri_labels = {
@@ -476,7 +475,8 @@ class BulkEdit extends React.Component {
         const results = res.data;
         console.log(results);
         this.setState({
-          backendSent: 'Bulk updated ' + this.state.idList.length + ' products',
+          backendSent:
+            'Bulk updated ' + this.state.selected.length + ' products',
         });
       });
   }
@@ -673,6 +673,19 @@ class BulkEdit extends React.Component {
                         onChange={this.handleChangeAllN}
                       />
                     ))}
+                    <Select
+                      label='Transparency'
+                      options={[
+                        { label: 'High', value: 'h' },
+                        { label: 'Medium', value: 'm' },
+                        { label: 'Low', value: 'l' },
+                        { label: 'N/A', value: 'n/a' },
+                        { label: '', value: '' },
+                      ]}
+                      id='transparency'
+                      value={this.state.all_n.transparency}
+                      onChange={this.handleChangeAllN}
+                    />
                     <RangeSlider
                       label='EWG Rating'
                       id='ewg'
