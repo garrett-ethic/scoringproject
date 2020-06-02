@@ -359,7 +359,9 @@ class BulkEdit extends React.Component {
 
   componentDidMount() {
     axios
-      .post('http://localhost:5000/api/shopifyProduct/allProducts')
+      .post(
+        'https://scoring-system-278723.uc.r.appspot.com/api/shopifyProduct/allProducts'
+      )
       .then((res) => {
         const results = res.data;
         const tagResults = results.tags;
@@ -466,11 +468,15 @@ class BulkEdit extends React.Component {
     });
     console.log(data);
     axios
-      .post('http://localhost:5000/api/shopifyProduct/updateProducts', data, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
+      .post(
+        'https://scoring-system-278723.uc.r.appspot.com/api/shopifyProduct/updateProducts',
+        data,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      )
       .then((res) => {
         const results = res.data;
         console.log(results);
