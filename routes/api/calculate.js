@@ -29,39 +29,39 @@ const metricweights = {
     donate_to_environment: 2,
   },
   all_n: {
-    certified_organic: 2.2222,
-    organic_practices: 2.2222,
-    allNatural_ingredients: 2.2222,
-    reef_safe: 2.2222,
-    ewg: 2.2222,
-    madeSafe: 2.2222,
-    consumerLabs: 2.2222,
-    transparency: 2.2222,
+    certified_organic: 2.22,
+    organic_practices: 2.22,
+    allNatural_ingredients: 2.22,
+    reef_safe: 2.22,
+    ewg: 2.22,
+    madeSafe: 2.22,
+    consumerLabs: 2.22,
+    transparency: 2.22,
   },
   an_ri: {
-    vegan: 6.6666,
-    donate_to_animalRights: 6.6666,
-    cruelty_free: 6.6666,
+    vegan: 6.67,
+    donate_to_animalRights: 6.67,
+    cruelty_free: 6.67,
   },
   labor: {
-    childcare: 1.4285,
-    gym_recreation: 1.4285,
-    educational_ops: 1.4285,
-    healthcare: 1.4285,
-    mobility: 1.4285,
-    can_unionize: 1.4285,
-    living_wage: 1.4285,
-    safe_work_conditions: 1.4285,
-    no_child_labor: 1.4285,
-    empower_oppressed: 1.4285,
-    co_op: 1.4285,
-    ethical_materials_sourcing: 1.4285,
-    bcorp: 1.4285,
-    fair_trade: 1.4285,
+    childcare: 1.43,
+    gym_recreation: 1.43,
+    educational_ops: 1.43,
+    healthcare: 1.43,
+    mobility: 1.43,
+    can_unionize: 1.43,
+    living_wage: 1.43,
+    safe_work_conditions: 1.43,
+    no_child_labor: 1.43,
+    empower_oppressed: 1.43,
+    co_op: 1.43,
+    ethical_materials_sourcing: 1.43,
+    bcorp: 1.43,
+    fair_trade: 1.43,
   },
 };
 
-ethic_ctgry = ['co_im', 'eco_f', 'all_n', 'an_ri', 'labor'];
+const ethic_ctgry = ['co_im', 'eco_f', 'all_n', 'an_ri', 'labor'];
 
 const shopifyAxios = axios.create({
   // have to update 20XX-XX to latest after a year
@@ -114,6 +114,7 @@ router.get('/:productID/:userID?', async (req, res) => {
           } else {
             multindex[i] = scale(metric[0].value, 5, 10, 1, 2);
           }
+          console.log(typeof multindex[i]);
         }
       }
     }
@@ -145,22 +146,27 @@ router.get('/:productID/:userID?', async (req, res) => {
           }
         } else if (metric == 'ewg' || metric == 'consumerLabs') {
           // EWG and Consumer Labs metrics are scaled from 1 to 10 (EWG is inversed, lower is better)
-          if (metric == "ewg" && cat_values["ewg"] !== "n/a") {
-            cat_score += (metricweights["all_n"][metric] * (10 - cat_values[metric])) / 10;
-            cat_pscore += metricweights["all_n"][metric];
-          } else if (metric == "consumerLabs" && cat_values["consumerLabs"] !== "n/a") {
-            cat_score += (metricweights["all_n"][metric] * cat_values[metric]) / 10;
-            cat_pscore += metricweights["all_n"][metric];
+          if (metric == 'ewg' && cat_values['ewg'] !== 'n/a') {
+            cat_score +=
+              (metricweights['all_n'][metric] * (10 - cat_values[metric])) / 10;
+            cat_pscore += metricweights['all_n'][metric];
+          } else if (
+            metric == 'consumerLabs' &&
+            cat_values['consumerLabs'] !== 'n/a'
+          ) {
+            cat_score +=
+              (metricweights['all_n'][metric] * cat_values[metric]) / 10;
+            cat_pscore += metricweights['all_n'][metric];
           }
-        } else if (metric === "transparency") {
-          if (cat_values[metric] == "h") {
-            cat_score += metricweights["all_n"]["transparency"];
-            cat_pscore += metricweights["all_n"]["transparency"];
-          } else if (cat_values[metric] == "m") {
-            cat_score += metricweights["all_n"]["transparency"] / 2;
-            cat_pscore += metricweights["co_im"]["transparency"];
-          } else if (cat_values[metric] == "l") {
-            cat_pscore += metricweights["co_im"]["transparency"];
+        } else if (metric === 'transparency') {
+          if (cat_values[metric] == 'h') {
+            cat_score += metricweights['all_n']['transparency'];
+            cat_pscore += metricweights['all_n']['transparency'];
+          } else if (cat_values[metric] == 'm') {
+            cat_score += metricweights['all_n']['transparency'] / 2;
+            cat_pscore += metricweights['co_im']['transparency'];
+          } else if (cat_values[metric] == 'l') {
+            cat_pscore += metricweights['co_im']['transparency'];
           }
         } else if (metric == 'bcorp') {
           // this accounts for bcorp within co_im, eco_f, all_n, and labor respectively
@@ -169,17 +175,17 @@ router.get('/:productID/:userID?', async (req, res) => {
           if (cat_values[metric] == 'y') {
             defaultScore['co_im'] += 2;
             defaultScore['eco_f'] += 2;
-            defaultScore['all_n'] += 2.2222;
-            cat_score += 1.4285;
+            defaultScore['all_n'] += 2.22;
+            cat_score += 1.43;
             possibleScore['co_im'] += 2;
             possibleScore['eco_f'] += 2;
-            possibleScore['all_n'] += 2.2222;
-            cat_pscore += 1.4285;
+            possibleScore['all_n'] += 2.22;
+            cat_pscore += 1.43;
           } else if (cat_values[metric] == 'n') {
             possibleScore['co_im'] += 2;
             possibleScore['eco_f'] += 2;
-            possibleScore['all_n'] += 2.2222;
-            cat_pscore += 1.4285;
+            possibleScore['all_n'] += 2.22;
+            cat_pscore += 1.43;
           }
         } else if (metric == 'plastic_free' || metric == 'compostable') {
           // these just hold certification that dont impact calculations
@@ -195,14 +201,23 @@ router.get('/:productID/:userID?', async (req, res) => {
             cat_score += metricweights[category['key']]['cruelty_free'];
             cat_pscore += metricweights[category['key']]['cruelty_free'];
             cruelty_free = true;
-          } else if (cat_values["leaping_bunny"] == "n" && cat_values["peta"] == "n") {
-            cat_pscore += metricweights[category["key"]]["cruelty_free"];
+          } else if (
+            cat_values['leaping_bunny'] == 'n' &&
+            cat_values['peta'] == 'n'
+          ) {
+            cat_pscore += metricweights[category['key']]['cruelty_free'];
             cruelty_free = true;
-          } else if (cat_values["leaping_bunny"] == "n" && cat_values["peta"] == "n/a") {
-            cat_pscore += metricweights[category["key"]]["cruelty_free"];
+          } else if (
+            cat_values['leaping_bunny'] == 'n' &&
+            cat_values['peta'] == 'n/a'
+          ) {
+            cat_pscore += metricweights[category['key']]['cruelty_free'];
             cruelty_free = true;
-          } else if (cat_values["leaping_bunny"] == "n/a" && cat_values["peta"] == "n") {
-            cat_pscore += metricweights[category["key"]]["cruelty_free"];
+          } else if (
+            cat_values['leaping_bunny'] == 'n/a' &&
+            cat_values['peta'] == 'n'
+          ) {
+            cat_pscore += metricweights[category['key']]['cruelty_free'];
             cruelty_free = true;
           }
         } else {
@@ -215,17 +230,21 @@ router.get('/:productID/:userID?', async (req, res) => {
         }
       }
       // console.log('  ', category["key"], 'd/p-score:', cat_score, cat_pscore);
-      defaultScore[category['key']] += cat_score;
-      possibleScore[category['key']] += cat_pscore;
+      defaultScore[category['key']] += parseFloat(cat_score.toFixed(2));
+      possibleScore[category['key']] += parseFloat(cat_pscore.toFixed(2));
     }
+
+    console.log(multindex);
+
     let userDScore = {},
       userPScore = {};
+
     if (user_exists) {
       for (let i = 0; i < ethic_ctgry.length; ++i) {
         userDScore[ethic_ctgry[i]] =
-          defaultScore[ethic_ctgry[i]] * multindex[ethic_ctgry[i]];
+          defaultScore[ethic_ctgry[i]] * multindex[i];
         userPScore[ethic_ctgry[i]] =
-          possibleScore[ethic_ctgry[i]] * multindex[ethic_ctgry[i]];
+          possibleScore[ethic_ctgry[i]] * multindex[i];
       }
     }
 
