@@ -113,9 +113,6 @@ router.get("/:productID/:userID?", async (req, res) => {
           } else {
             multindex[i] = scale(metric[0].value, 5, 10, 1, 2);
           }
-
-          // // OR map user pref to (0.1 to 1.0)
-          // multindex[ethic_ctgry[i]] = scale(metric[0].value, 1, 10, 0.1, 1.0);
         }
       }
     }
@@ -147,14 +144,13 @@ router.get("/:productID/:userID?", async (req, res) => {
           }
         } else if (metric == "ewg" || metric == "consumerLabs") {
           // EWG and Consumer Labs metrics are scaled from 1 to 10 (EWG is inversed, lower is better)
-          if (metric == "ewg") {
-            cat_score +=
-              (metricweights["all_n"][metric] * (10 - cat_values[metric])) / 10;
-          } else if (metric == "consumerLabs") {
-            cat_score +=
-              (metricweights["all_n"][metric] * cat_values[metric]) / 10;
+          if (metric == "ewg" && cat_values["ewg"] !== "n/a") {
+            cat_score += (metricweights["all_n"][metric] * (10 - cat_values[metric])) / 10;
+            cat_pscore += metricweights["all_n"][metric];
+          } else if (metric == "consumerLabs" && cat_values["consumerLabs"] !== "n/a") {
+            cat_score += (metricweights["all_n"][metric] * cat_values[metric]) / 10;
+            cat_pscore += metricweights["all_n"][metric];
           }
-          cat_pscore += metricweights["all_n"][metric];
         } else if (metric === "transparency") {
           if (cat_values[metric] == "h") {
             cat_score += metricweights["all_n"]["transparency"];
@@ -195,8 +191,15 @@ router.get("/:productID/:userID?", async (req, res) => {
             cat_score += metricweights[category["key"]]["cruelty_free"];
             cat_pscore += metricweights[category["key"]]["cruelty_free"];
             cruelty_free = true;
-          } else {
+          } else if (cat_values["leaping_bunny"] == "n" && cat_values["peta"] == "n") {
             cat_pscore += metricweights[category["key"]]["cruelty_free"];
+            cruelty_free = true;
+          } else if (cat_values["leaping_bunny"] == "n" && cat_values["peta"] == "n/a") {
+            cat_pscore += metricweights[category["key"]]["cruelty_free"];
+            cruelty_free = true;
+          } else if (cat_values["leaping_bunny"] == "n/a" && cat_values["peta"] == "n") {
+            cat_pscore += metricweights[category["key"]]["cruelty_free"];
+            cruelty_free = true;
           }
         } else {
           if (cat_values[metric] == "y") {
