@@ -1,6 +1,6 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const axios = require("axios");
+const axios = require('axios');
 //const metricweights = require('../../metric-weights.json');
 
 // EVENTUALLY, replace user with actual user
@@ -61,11 +61,11 @@ const metricweights = {
   },
 };
 
-ethic_ctgry = ["co_im", "eco_f", "all_n", "an_ri", "labor"];
+ethic_ctgry = ['co_im', 'eco_f', 'all_n', 'an_ri', 'labor'];
 
 const shopifyAxios = axios.create({
   // have to update 20XX-XX to latest after a year
-  baseURL: "https://ethic-marketplace.myshopify.com/admin/api/2020-01/",
+  baseURL: 'https://ethic-marketplace.myshopify.com/admin/api/2020-01/',
   auth: {
     username: process.env.SHOPIFY_STORE_USERNAME,
     password: process.env.SHOPIFY_STORE_PASSWORD,
@@ -75,11 +75,11 @@ const shopifyAxios = axios.create({
 // @route   GET api/calulate
 // @desc    Return calculated default ethic score given shopify product
 // @access  Public
-router.get("/:productID/:userID?", async (req, res) => {
+router.get('/:productID/:userID?', async (req, res) => {
   try {
     // productMetrics and userMetrics are lists of metrics
     const product_res = await shopifyAxios.get(
-      "products/" + req.params.productID + "/metafields.json"
+      'products/' + req.params.productID + '/metafields.json'
     );
     const productMetrics = product_res.data.metafields;
 
@@ -89,14 +89,15 @@ router.get("/:productID/:userID?", async (req, res) => {
         defaultScore: 0,
         possibleScore: 0,
         ethicScore: 0,
-        grade: "?",
+        grade: '?',
       });
     }
 
-    let multindex = {}, user_exists = false;
-    if (typeof req.params.userID !== "undefined") {
+    let multindex = {},
+      user_exists = false;
+    if (typeof req.params.userID !== 'undefined') {
       let user_res = await shopifyAxios.get(
-        "customers/" + req.params.userID + "/metafields.json"
+        'customers/' + req.params.userID + '/metafields.json'
       );
       let userMetrics = user_res.data.metafields;
 
@@ -120,147 +121,161 @@ router.get("/:productID/:userID?", async (req, res) => {
       }
     }
 
-    let defaultScore = { "co_im": 0, "eco_f": 0, "all_n": 0, "an_ri": 0, "labor": 0 }
-    let possibleScore = { "co_im": 0, "eco_f": 0, "all_n": 0, "an_ri": 0, "labor": 0 };
+    let defaultScore = { co_im: 0, eco_f: 0, all_n: 0, an_ri: 0, labor: 0 };
+    let possibleScore = { co_im: 0, eco_f: 0, all_n: 0, an_ri: 0, labor: 0 };
 
     for (let i = 0; i < productMetrics.length; ++i) {
       let cat_score = 0; // represents defaultScore of each category
       let cat_pscore = 0; // represents possibleScore of each category
       let cruelty_free = false;
       const category = productMetrics[i]; // metafield object of the ethic category (co_im, an_ri, etc.)
-      const cat_values = JSON.parse(category["value"]); // values from the metafield object above
+      const cat_values = JSON.parse(category['value']); // values from the metafield object above
       // console.log(category["key"], cat_values);
 
       for (const metric in cat_values) {
         // console.log(metric, ':', metricweights[category["key"]][metric], cat_values[metric]);
-        if (metric === "business_size") {
+        if (metric === 'business_size') {
           // Business size affects the default score
           // small = +2, medium = +1, large = +0
-          if (cat_values[metric] == "s") {
-            cat_score += metricweights["co_im"]["business_size"];
-            cat_pscore += metricweights["co_im"]["business_size"];
-          } else if (cat_values[metric] == "m") {
-            cat_score += metricweights["co_im"]["business_size"] / 2;
-            cat_pscore += metricweights["co_im"]["business_size"];
-          } else if (cat_values[metric] == "l") {
-            cat_pscore += metricweights["co_im"]["business_size"];
+          if (cat_values[metric] == 's') {
+            cat_score += metricweights['co_im']['business_size'];
+            cat_pscore += metricweights['co_im']['business_size'];
+          } else if (cat_values[metric] == 'm') {
+            cat_score += metricweights['co_im']['business_size'] / 2;
+            cat_pscore += metricweights['co_im']['business_size'];
+          } else if (cat_values[metric] == 'l') {
+            cat_pscore += metricweights['co_im']['business_size'];
           }
-        } else if (metric == "ewg" || metric == "consumerLabs") {
+        } else if (metric == 'ewg' || metric == 'consumerLabs') {
           // EWG and Consumer Labs metrics are scaled from 1 to 10 (EWG is inversed, lower is better)
-          if (metric == "ewg") {
+          if (metric == 'ewg') {
             cat_score +=
-              (metricweights["all_n"][metric] * (10 - cat_values[metric])) / 10;
-          } else if (metric == "consumerLabs") {
+              (metricweights['all_n'][metric] * (10 - cat_values[metric])) / 10;
+          } else if (metric == 'consumerLabs') {
             cat_score +=
-              (metricweights["all_n"][metric] * cat_values[metric]) / 10;
+              (metricweights['all_n'][metric] * cat_values[metric]) / 10;
           }
-          cat_pscore += metricweights["all_n"][metric];
-        } else if (metric === "transparency") {
-          if (cat_values[metric] == "h") {
-            cat_score += metricweights["all_n"]["transparency"];
-            cat_pscore += metricweights["all_n"]["transparency"];
-          } else if (cat_values[metric] == "m") {
-            cat_score += metricweights["all_n"]["transparency"] / 2;
-            cat_pscore += metricweights["co_im"]["transparency"];
-          } else if (cat_values[metric] == "l") {
-            cat_pscore += metricweights["co_im"]["transparency"];
+          cat_pscore += metricweights['all_n'][metric];
+        } else if (metric === 'transparency') {
+          if (cat_values[metric] == 'h') {
+            cat_score += metricweights['all_n']['transparency'];
+            cat_pscore += metricweights['all_n']['transparency'];
+          } else if (cat_values[metric] == 'm') {
+            cat_score += metricweights['all_n']['transparency'] / 2;
+            cat_pscore += metricweights['all_n']['transparency'];
+          } else if (cat_values[metric] == 'l') {
+            cat_pscore += metricweights['all_n']['transparency'];
           }
-        } else if (metric == "bcorp") {
+        } else if (metric == 'bcorp') {
           // this accounts for bcorp within co_im, eco_f, all_n, and labor respectively
           // CHANGE THIS TO REFERENCE THE METRIC WEIGHTS INSTEAD OF RAW VALUES
           // also, need to make sure they actually go to the right category instead of all labor.
-          if (cat_values[metric] == "y") {
-            defaultScore["co_im"] += 2;
-            defaultScore["eco_f"] += 2;
-            defaultScore["all_n"] += 2.2222;
+          if (cat_values[metric] == 'y') {
+            defaultScore['co_im'] += 2;
+            defaultScore['eco_f'] += 2;
+            defaultScore['all_n'] += 2.2222;
             cat_score += 1.4285;
-            possibleScore["co_im"] += 2;
-            possibleScore["eco_f"] += 2;
-            possibleScore["all_n"] += 2.2222;
+            possibleScore['co_im'] += 2;
+            possibleScore['eco_f'] += 2;
+            possibleScore['all_n'] += 2.2222;
             cat_pscore += 1.4285;
-          } else if (cat_values[metric] == "n") {
-            possibleScore["co_im"] += 2;
-            possibleScore["eco_f"] += 2;
-            possibleScore["all_n"] += 2.2222;
+          } else if (cat_values[metric] == 'n') {
+            possibleScore['co_im'] += 2;
+            possibleScore['eco_f'] += 2;
+            possibleScore['all_n'] += 2.2222;
             cat_pscore += 1.4285;
           }
-        } else if (metric == "plastic_free" || metric == "compostable") {
+        } else if (metric == 'plastic_free' || metric == 'compostable') {
           // these just hold certification that dont impact calculations
           continue;
-        } else if (metric == "leaping_bunny" || metric == "peta") {
+        } else if (metric == 'leaping_bunny' || metric == 'peta') {
           // if the product is either leaping bunny or peta certified, award the cruelty_free weight to the score
           if (cruelty_free) {
             continue;
-          } else if (cat_values["leaping_bunny"] == "y" || cat_values["peta"] == "y") {
-            cat_score += metricweights[category["key"]]["cruelty_free"];
-            cat_pscore += metricweights[category["key"]]["cruelty_free"];
+          } else if (
+            cat_values['leaping_bunny'] == 'y' ||
+            cat_values['peta'] == 'y'
+          ) {
+            cat_score += metricweights[category['key']]['cruelty_free'];
+            cat_pscore += metricweights[category['key']]['cruelty_free'];
             cruelty_free = true;
           } else {
-            cat_pscore += metricweights[category["key"]]["cruelty_free"];
+            cat_pscore += metricweights[category['key']]['cruelty_free'];
           }
         } else {
-          if (cat_values[metric] == "y") {
-            cat_score += metricweights[category["key"]][metric];
-            cat_pscore += metricweights[category["key"]][metric];
-          } else if (cat_values[metric] == "n") {
-            cat_pscore += metricweights[category["key"]][metric];
+          if (cat_values[metric] == 'y') {
+            cat_score += metricweights[category['key']][metric];
+            cat_pscore += metricweights[category['key']][metric];
+          } else if (cat_values[metric] == 'n') {
+            cat_pscore += metricweights[category['key']][metric];
           }
         }
       }
       // console.log('  ', category["key"], 'd/p-score:', cat_score, cat_pscore);
-      defaultScore[category["key"]] += cat_score;
-      possibleScore[category["key"]] += cat_pscore;
+      defaultScore[category['key']] += cat_score;
+      possibleScore[category['key']] += cat_pscore;
     }
-    let userDScore = {}, userPScore = {};
+    let userDScore = {},
+      userPScore = {};
     if (user_exists) {
       for (let i = 0; i < ethic_ctgry.length; ++i) {
-        userDScore[ethic_ctgry[i]] = defaultScore[ethic_ctgry[i]] * multindex[ethic_ctgry[i]];
-        userPScore[ethic_ctgry[i]] = possibleScore[ethic_ctgry[i]] * multindex[ethic_ctgry[i]];
+        userDScore[ethic_ctgry[i]] =
+          defaultScore[ethic_ctgry[i]] * multindex[ethic_ctgry[i]];
+        userPScore[ethic_ctgry[i]] =
+          possibleScore[ethic_ctgry[i]] * multindex[ethic_ctgry[i]];
       }
     }
 
     let results = {
       defaultScore: defaultScore,
       possibleScore: possibleScore,
-      ethicScore: Math.round((sumScore(defaultScore) / sumScore(possibleScore)) * 100),
-      ethicGrade: getGrade(Math.round((sumScore(defaultScore) / sumScore(possibleScore)) * 100)),
+      ethicScore: Math.round(
+        (sumScore(defaultScore) / sumScore(possibleScore)) * 100
+      ),
+      ethicGrade: getGrade(
+        Math.round((sumScore(defaultScore) / sumScore(possibleScore)) * 100)
+      ),
       userDScore: userDScore,
       userPScore: userPScore,
-      userScore: Math.round((sumScore(userDScore) / sumScore(userPScore)) * 100),
-      userGrade: getGrade(Math.round((sumScore(userDScore) / sumScore(userPScore)) * 100)),
+      userScore: Math.round(
+        (sumScore(userDScore) / sumScore(userPScore)) * 100
+      ),
+      userGrade: getGrade(
+        Math.round((sumScore(userDScore) / sumScore(userPScore)) * 100)
+      ),
     };
     res.json(results);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server Error");
+    res.status(500).send('Server Error');
   }
 });
 
 function getGrade(score) {
   if (score < 70) {
-    return "D";
+    return 'D';
   } else if (score < 80) {
-    return "C";
+    return 'C';
   } else if (score < 90) {
-    return "B";
+    return 'B';
   } else {
-    return "A";
+    return 'A';
   }
 }
 
 function userMetricsExist(userMetrics) {
-  return userMetrics.some(cat => cat.key === "co_im") &&
-    userMetrics.some(cat => cat.key === "eco_f") &&
-    userMetrics.some(cat => cat.key === "all_n") &&
-    userMetrics.some(cat => cat.key === "an_ri") &&
-    userMetrics.some(cat => cat.key === "labor");
-};
+  return (
+    userMetrics.some((cat) => cat.key === 'co_im') &&
+    userMetrics.some((cat) => cat.key === 'eco_f') &&
+    userMetrics.some((cat) => cat.key === 'all_n') &&
+    userMetrics.some((cat) => cat.key === 'an_ri') &&
+    userMetrics.some((cat) => cat.key === 'labor')
+  );
+}
 
 function scale(num, in_min, in_max, out_min, out_max) {
-  return (
-    ((num - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min
-  );
-};
+  return ((num - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min;
+}
 
 function sumScore(score) {
   let sum = 0;

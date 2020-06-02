@@ -220,12 +220,67 @@ router.post('/allProducts', async (req, res) => {
 router.post('/updateProducts', async (req, res) => {
   const body = req.body;
   const idList = body['idList'];
+
   let metafieldMap = {
     an_ri: body['an_ri'],
     co_im: body['co_im'],
     eco_f: body['eco_f'],
     labor: body['labor'],
     all_n: body['all_n'],
+  };
+
+  let defaultValues = {
+    an_ri: ['vegan', 'donate_to_animalRights', 'leaping_bunny', 'peta'],
+    co_im: [
+      'USA_made',
+      'employs_locally',
+      'community_activism',
+      'business_size',
+      'donates_locally',
+      'one_percent_for_the_planet',
+      'political_donations',
+      'donate_to_oppressed',
+      'zip_code',
+    ],
+    eco_f: [
+      'sustainable_packaging',
+      'sustainable_materials',
+      'plastic_free',
+      'compostable',
+      'zeroCarbon_shipping',
+      'zeroCarbon_manufacturing',
+      'manufacturing_impact',
+      'fsc',
+      'rainforest_alliance',
+      'cradle_to_cradle',
+      'donate_to_environment',
+    ],
+    labor: [
+      'childcare',
+      'gym_recreation',
+      'educational_ops',
+      'healthcare',
+      'mobility',
+      'can_unionize',
+      'living_wage',
+      'safe_work_conditions',
+      'no_child_labor',
+      'empower_oppressed',
+      'co_op',
+      'ethical_materials_sourcing',
+      'bcorp',
+      'fair_trade',
+    ],
+    all_n: [
+      'certified_organic',
+      'organic_practices',
+      'allNatural_ingredients',
+      'reef_safe',
+      'ewg',
+      'madeSafe',
+      'consumerLabs',
+      'transparency',
+    ],
   };
 
   console.log(idList);
@@ -246,51 +301,51 @@ router.post('/updateProducts', async (req, res) => {
   for (let pid of idList) {
     try {
       const data = await shopifyAxios.get(pid + '/metafields.json');
-      let existingMetrics = data.metafields;
-      if (existingMetrics === undefined) {
-        // no metafields exist yet
-        for (let newCategoryKey in metafieldMap) {
-          sleep(550);
+      let existingMetafields = data.metafields;
+      let existingCategories = [];
+      for (let metafield in existingMetafields) {
+        existingCategories.push(metafield.key);
+      }
+
+      for (let metafield of Object.keys(metafieldMap)) {
+        sleep(550);
+        if (metafield in existingCategories) {
+          // update existing metafield
+          let existingCategory = existingMetafields[metafield];
+          let existingCategoryDict = JSON.parse(existingCategory.value);
+          let new_dict = metafieldMap[metafield];
+          for (let key of new_dict) {
+            existingCategoryDict[key] = new_dict[key];
+          }
+          let res = await shopifyAxios.put(
+            pid + '/metafields/' + existingCategory.id + '.json',
+            {
+              metafield: {
+                id: existingCategory.id,
+                value: JSON.stringify(existingCategoryDict),
+                value_type: 'string',
+              },
+            }
+          );
+        } else {
+          // one or more metafields is missing
+          let newMetafield = metafieldMap[metafield];
+
+          // Fill metafield with default values for untouched metrics
+          for (let metric of defaultValues[metafield]) {
+            if (!(metric in metafieldMap[metafield])) {
+              newMetafield[metric] = 'n/a';
+            }
+          }
+
           let res = await shopifyAxios.post(pid + '/metafields.json', {
             metafield: {
-              key: newCategoryKey,
-              value: JSON.stringify(metafieldMap[newCategoryKey]),
+              key: metafield,
+              value: JSON.stringify(newMetafield),
               value_type: 'string',
               namespace: 'ethic-metric',
             },
           });
-        }
-      } else {
-        for (let existingCategory of existingMetrics) {
-          sleep(550);
-          if (existingCategory.key in metafieldMap) {
-            // update existing metafield
-            let existingCategoryDict = JSON.parse(existingCategory.value);
-            let new_dict = metafieldMap[existingCategory.key];
-            for (let key of new_dict) {
-              existingCategoryDict[key] = new_dict[key];
-            }
-            let res = await shopifyAxios.put(
-              pid + '/metafields/' + category.id + '.json',
-              {
-                metafield: {
-                  id: existingCategory.id,
-                  value: JSON.stringify(existingCategoryDict),
-                  value_type: 'string',
-                },
-              }
-            );
-          } else {
-            // one or more metafields is missing
-            let res = await shopifyAxios.post(pid + '/metafields.json', {
-              metafield: {
-                key: existingCategory.key,
-                value: JSON.stringify(metafieldMap[existingCategory.key]),
-                value_type: 'string',
-                namespace: 'ethic-metric',
-              },
-            });
-          }
         }
       }
     } catch (err) {

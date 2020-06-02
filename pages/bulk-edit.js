@@ -475,7 +475,8 @@ class BulkEdit extends React.Component {
         const results = res.data;
         console.log(results);
         this.setState({
-          backendSent: 'Bulk updated ' + this.state.idList.length + ' products',
+          backendSent:
+            'Bulk updated ' + this.state.selected.length + ' products',
         });
       });
   }

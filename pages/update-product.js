@@ -112,9 +112,9 @@ class UpdateProduct extends React.Component {
   }
 
   metricOptions = [
+    { label: 'N/A', value: 'n/a' },
     { label: 'Yes', value: 'y' },
     { label: 'No', value: 'n' },
-    { label: 'N/A', value: 'n/a' },
   ];
 
   // The following label objects only includes labels for metrics that have yes, no, and n/a options
@@ -217,7 +217,8 @@ class UpdateProduct extends React.Component {
 
     try {
       const prodInfoRes = await axios.get(
-        'http://localhost:5000/api/shopifyProduct/' + this.state.productID
+        'https://scoring-system-278723.uc.r.appspot.com/api/shopifyProduct/' +
+          this.state.productID
       );
       const prodInfo = prodInfoRes.data;
       this.setState({
@@ -227,7 +228,8 @@ class UpdateProduct extends React.Component {
       });
 
       const prodScoreRes = await axios.get(
-        'http://localhost:5000/api/calculate/' + this.state.productID
+        'https://scoring-system-278723.uc.r.appspot.com/api/calculate/' +
+          this.state.productID
       );
       const prodScore = prodScoreRes.data;
       this.setState({
@@ -236,7 +238,7 @@ class UpdateProduct extends React.Component {
       });
 
       const metricsRes = await axios.get(
-        'http://localhost:5000/api/shopifyProduct/metrics/' +
+        'https://scoring-system-278723.uc.r.appspot.com/api/shopifyProduct/metrics/' +
           this.state.productID
       );
       const prodMetrics = metricsRes.data.metafields;
@@ -317,7 +319,7 @@ class UpdateProduct extends React.Component {
       // If metafield already exists, then update
       if (this.state[category + '_exists'] == true) {
         await axios.put(
-          'http://localhost:5000/api/shopifyProduct/metrics/' +
+          'https://scoring-system-278723.uc.r.appspot.com/api/shopifyProduct/metrics/' +
             this.state.productID +
             '/' +
             this.state[category + '_metricId'],
@@ -332,7 +334,7 @@ class UpdateProduct extends React.Component {
       } else {
         // Else create the metafield for the first time.
         await axios.put(
-          'http://localhost:5000/api/shopifyProduct/metrics/' +
+          'https://scoring-system-278723.uc.r.appspot.com/api/shopifyProduct/metrics/' +
             this.state.productID,
           {
             product: {
@@ -349,7 +351,7 @@ class UpdateProduct extends React.Component {
           }
         );
         const res = await axios.get(
-          'http://localhost:5000/api/shopifyProduct/metrics/' +
+          'https://scoring-system-278723.uc.r.appspot.com/api/shopifyProduct/metrics/' +
             this.state.productID
         );
         const prodMetrics = res.data.metafields;
@@ -385,7 +387,8 @@ class UpdateProduct extends React.Component {
       }
       // Recalculate Score upon Changes
       const res = await axios.get(
-        'http://localhost:5000/api/calculate/' + this.state.productID
+        'https://scoring-system-278723.uc.r.appspot.com/api/calculate/' +
+          this.state.productID
       );
       const prodScore = res.data;
       this.setState({
@@ -510,10 +513,10 @@ class UpdateProduct extends React.Component {
                   <Select
                     label='Business Size'
                     options={[
+                      { label: 'N/A', value: 'n/a' },
                       { label: 'Small: Less Than 50 Employees', value: 's' },
                       { label: 'Medium: Less Than 500 Employees', value: 'm' },
                       { label: 'Large: More than 500 Employees', value: 'l' },
-                      { label: 'N/A', value: 'n/a' },
                     ]}
                     id='business_size'
                     value={this.state.co_im.business_size}
@@ -539,7 +542,7 @@ class UpdateProduct extends React.Component {
             <Form onSubmit={this.handleSubmit('eco_f')}>
               <FormLayout>
                 <FormLayout.Group>
-                  {Object.keys(this.state.eco_f).map((metric) => (
+                  {Object.keys(this.eco_f_labels).map((metric) => (
                     <Select
                       label={this.eco_f_labels[metric]}
                       key={metric}
@@ -574,10 +577,10 @@ class UpdateProduct extends React.Component {
                   <Select
                     label='Transparency'
                     options={[
+                      { label: 'N/A', value: 'n/a' },
                       { label: 'High', value: 'h' },
                       { label: 'Medium', value: 'm' },
                       { label: 'Low', value: 'l' },
-                      { label: 'N/A', value: 'n/a' },
                     ]}
                     id='transparency'
                     value={this.state.all_n.transparency}
@@ -613,7 +616,7 @@ class UpdateProduct extends React.Component {
             <Form onSubmit={this.handleSubmit('an_ri')}>
               <FormLayout>
                 <FormLayout.Group>
-                  {Object.keys(this.state.an_ri).map((metric) => (
+                  {Object.keys(this.an_ri_labels).map((metric) => (
                     <Select
                       label={this.an_ri_labels[metric]}
                       key={metric}
@@ -635,7 +638,7 @@ class UpdateProduct extends React.Component {
             <Form onSubmit={this.handleSubmit('labor')}>
               <FormLayout>
                 <FormLayout.Group>
-                  {Object.keys(this.state.labor).map((metric) => (
+                  {Object.keys(this.labor_labels).map((metric) => (
                     <Select
                       label={this.labor_labels[metric]}
                       key={metric}
