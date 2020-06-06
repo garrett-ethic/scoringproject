@@ -221,7 +221,7 @@ router.post('/updateProducts', async (req, res) => {
   const body = req.body;
   const idList = body['idList'];
 
-  let metafieldMap = {
+  let metafieldUpdates = {
     an_ri: body['an_ri'],
     co_im: body['co_im'],
     eco_f: body['eco_f'],
@@ -229,7 +229,7 @@ router.post('/updateProducts', async (req, res) => {
     all_n: body['all_n'],
   };
 
-  let defaultValues = {
+  let metricKeys = {
     an_ri: ['vegan', 'donate_to_animalRights', 'leaping_bunny', 'peta'],
     co_im: [
       'USA_made',
@@ -283,57 +283,57 @@ router.post('/updateProducts', async (req, res) => {
     ],
   };
 
-  console.log(idList);
   // if the value is the default, which is leave alone
   // then do not update the metric.
-  for (let categoryKey in metafieldMap) {
-    let category = metafieldMap[categoryKey];
+  for (let categoryKey in metafieldUpdates) {
+    let category = metafieldUpdates[categoryKey];
     for (let metricKey in category) {
       if (category[metricKey] === '') {
         delete category[metricKey];
       }
     }
     if (Object.keys(category).length === 0) {
-      delete metafieldMap[categoryKey];
+      delete metafieldUpdates[categoryKey];
     }
   }
-  console.log(metafieldMap);
+
   for (let pid of idList) {
     try {
-      const data = await shopifyAxios.get(pid + '/metafields.json');
-      let existingMetafields = data.metafields;
-      let existingCategories = [];
-      for (let metafield in existingMetafields) {
-        existingCategories.push(metafield.key);
+      const res = await shopifyAxios.get(pid + '/metafields.json');
+      // let existingMetafields = res.data.metafields;
+      let existingMetafields = {};
+      for (let metafield of res.data.metafields) {
+        existingMetafields[metafield.key] = metafield;
       }
 
-      for (let metafield of Object.keys(metafieldMap)) {
+      for (let metafield of Object.keys(metafieldUpdates)) {
         sleep(550);
-        if (metafield in existingCategories) {
+        if (metafield in existingMetafields) {
           // update existing metafield
           let existingCategory = existingMetafields[metafield];
-          let existingCategoryDict = JSON.parse(existingCategory.value);
-          let new_dict = metafieldMap[metafield];
-          for (let key of new_dict) {
-            existingCategoryDict[key] = new_dict[key];
+          let existingValues = JSON.parse(existingCategory.value);
+          let new_changes = metafieldUpdates[metafield];
+
+          for (let key of Object.keys(new_changes)) {
+            existingValues[key] = new_changes[key];
           }
-          let res = await shopifyAxios.put(
+          await shopifyAxios.put(
             pid + '/metafields/' + existingCategory.id + '.json',
             {
               metafield: {
                 id: existingCategory.id,
-                value: JSON.stringify(existingCategoryDict),
+                value: JSON.stringify(existingValues),
                 value_type: 'string',
               },
             }
           );
         } else {
           // one or more metafields is missing
-          let newMetafield = metafieldMap[metafield];
+          let newMetafield = metafieldUpdates[metafield];
 
           // Fill metafield with default values for untouched metrics
-          for (let metric of defaultValues[metafield]) {
-            if (!(metric in metafieldMap[metafield])) {
+          for (let metric of metricKeys[metafield]) {
+            if (!(metric in metafieldUpdates[metafield])) {
               newMetafield[metric] = 'n/a';
             }
           }
@@ -355,10 +355,6 @@ router.post('/updateProducts', async (req, res) => {
   }
 
   res.json('product update successful!');
-  /*} catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
-  }*/
 });
 
 router.get('/newProducts', async (req, res) => {
