@@ -3,12 +3,15 @@ import axios from 'axios';
 import {
   Autocomplete,
   TextContainer,
+  Banner,
   Card,
   Checkbox,
   ChoiceList,
   Scrollable,
   FormLayout,
+  DisplayText,
   TextField,
+  TextStyle,
   Button,
   Form,
   Heading,
@@ -17,8 +20,8 @@ import {
   Layout,
   Page,
   DataTable,
-  DisplayText,
   FooterHelp,
+  Spinner,
   Link,
   Select,
 } from '@shopify/polaris';
@@ -54,12 +57,14 @@ class BulkEdit extends React.Component {
       operator: ['OR'],
       finishedTags: ['...'],
       backendSent: '',
+      updateSuccessBanner: false,
+      isUpdating: false,
 
       vendorDeselectedOptions: [],
       vendorSelectedOptions: [],
       vendorInputValue: '',
       vendorOptions: [],
-      vendorOperator: ['AND'],
+      vendorOperator: ['OR'],
       finishedVendors: ['...'],
 
       allProducts: [],
@@ -141,7 +146,7 @@ class BulkEdit extends React.Component {
       this
     );
 
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
     this.handleUpdateChange = this.handleUpdateChange.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handleProductChange = this.handleProductChange.bind(this);
@@ -386,9 +391,12 @@ class BulkEdit extends React.Component {
           });
         }
       });
+    this.setState({
+      pageLoading: false,
+    });
   }
 
-  handleSubmit(event) {
+  handleSearchSubmit(event) {
     this.setState(
       {
         idList: [],
@@ -467,22 +475,23 @@ class BulkEdit extends React.Component {
       labor: this.state.labor,
     });
     console.log(data);
+    this.setState({
+      isUpdating: true,
+    });
     axios
-      .post(
-        'https://scoring-system-278723.uc.r.appspot.com/api/shopifyProduct/updateProducts',
-        data,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      )
+      .post('http://localhost:5000/api/shopifyProduct/updateProducts', data, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
       .then((res) => {
         const results = res.data;
         console.log(results);
         this.setState({
           backendSent:
-            'Bulk updated ' + this.state.selected.length + ' products',
+            'Bulk updated ' + this.state.selected.length + ' product(s)',
+          updateSuccessBanner: true,
+          isUpdating: false,
         });
       });
   }
@@ -490,13 +499,19 @@ class BulkEdit extends React.Component {
   render() {
     return (
       <Page>
-        <DisplayText size='large'>Search Products By Tag</DisplayText>
+        <DisplayText size='large'>Bulk Editing Page</DisplayText>
+        <br />
         <Layout>
-          <Layout.Section>
-            <Card sectioned>
-              <Form noValidate onSubmit={this.handleSubmit}>
-                <FormLayout>
-                  <div>
+          <Layout.AnnotatedSection
+            title='Search For Products'
+            description='The current logic for this search sequence prioritizes vendors first. If the OR option for Vendors is selected, then the product will be added to the search result if the combination of tags is present OR the vendor matches. If the AND option
+            for vendors is selected, then the combination of tags needs to be present AND the vendor needs to match for the product to be part of the search result.  In addition, 
+            if you are only planning to search via tags only (the vendor field is empty), then make sure that the OR option for vendors is selected. Otherwise, you will not get any results'
+          >
+            <Form noValidate onSubmit={this.handleSearchSubmit}>
+              <FormLayout>
+                <Card sectioned>
+                  <Card.Section>
                     <Autocomplete
                       allowMultiple
                       options={this.state.options}
@@ -512,22 +527,38 @@ class BulkEdit extends React.Component {
                       onSelect={this.setSelectedOptions}
                       listTitle='Suggested Tags'
                     ></Autocomplete>
-                    Chosen Tags
-                    {this.state.selectedOptions.map((tag) => (
-                      <li>{tag}</li>
-                    ))}
-                    <ChoiceList
-                      title='Logical Operator'
-                      choices={[
-                        { label: 'OR', value: 'OR' },
-                        { label: 'AND', value: 'AND' },
-                      ]}
-                      selected={this.state.operator}
-                      onChange={this.handleOperatorChange}
-                    />
-                  </div>
+                    <br />
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-around',
+                      }}
+                    >
+                      <div>
+                        <h3>
+                          <TextStyle variation='strong'>
+                            Selected Tags:
+                          </TextStyle>
+                        </h3>
+                        {this.state.selectedOptions.map((tag) => (
+                          <li>{tag}</li>
+                        ))}
+                      </div>
+                      <div>
+                        <ChoiceList
+                          title='Logical Operator'
+                          choices={[
+                            { label: 'OR', value: 'OR' },
+                            { label: 'AND', value: 'AND' },
+                          ]}
+                          selected={this.state.operator}
+                          onChange={this.handleOperatorChange}
+                        />
+                      </div>
+                    </div>
+                  </Card.Section>
 
-                  <div>
+                  <Card.Section>
                     <Autocomplete
                       allowMultiple
                       options={this.state.vendorOptions}
@@ -543,28 +574,47 @@ class BulkEdit extends React.Component {
                       onSelect={this.vendorSetSelectedOptions}
                       listTitle='Suggested Vendors'
                     ></Autocomplete>
-                    Chosen Vendors
-                    {this.state.vendorSelectedOptions.map((vendor) => (
-                      <li>{vendor}</li>
-                    ))}
-                    <ChoiceList
-                      title='Logical Operator'
-                      choices={[
-                        { label: 'OR', value: 'OR' },
-                        { label: 'AND', value: 'AND' },
-                      ]}
-                      selected={this.state.vendorOperator}
-                      onChange={this.vendorHandleOperatorChange}
-                    />
-                  </div>
-                  <Button submit>Search</Button>
-                </FormLayout>
-              </Form>
-            </Card>
-          </Layout.Section>
-          {/* </Layout> */}
+                    <br />
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-around',
+                      }}
+                    >
+                      <div>
+                        <h3>
+                          <TextStyle variation='strong'>
+                            Selected Vendors:
+                          </TextStyle>
+                        </h3>
+                        {this.state.vendorSelectedOptions.map((vendor) => (
+                          <li>{vendor}</li>
+                        ))}
+                      </div>
+                      <div>
+                        <ChoiceList
+                          title='Logical Operator'
+                          choices={[
+                            { label: 'OR', value: 'OR' },
+                            { label: 'AND', value: 'AND' },
+                          ]}
+                          selected={this.state.vendorOperator}
+                          onChange={this.vendorHandleOperatorChange}
+                        />
+                      </div>
+                    </div>
+                    <div style={{ textAlign: 'center' }}>
+                      <Button submit>Search</Button>
+                    </div>
+                  </Card.Section>
+                </Card>
+              </FormLayout>
+            </Form>
+          </Layout.AnnotatedSection>
           <Layout.Section>
-            <Heading>Product Results</Heading>
+            <DisplayText element='h6' size='small'>
+              <TextStyle variation='strong'>Product Results </TextStyle>
+            </DisplayText>
             <Subheading size='medium'>
               We retrieved {this.state.productNumber} products for
               {this.state.finishedTags.map((tag) => (
@@ -574,28 +624,32 @@ class BulkEdit extends React.Component {
                 <li>{vendor}</li>
               ))}
             </Subheading>
-
+            <br />
             <Card>
-              <Checkbox
-                label='Select all products'
-                checked={this.state.selectedAll}
-                onChange={this.handleSelectChange}
-              />
-              <Scrollable shadow style={{ height: '400px' }}>
-                <ChoiceList
-                  allowMultiple
-                  title=''
-                  choices={this.state.productRows.map((value, index) => {
-                    return {
-                      label: value[0],
-                      value: value[1],
-                      helpText: value[1] + '\t' + value[2] + '\t' + value[3],
-                    };
-                  })}
-                  selected={this.state.selected}
-                  onChange={this.handleProductChange}
+              <Card.Section>
+                <Checkbox
+                  label='Select all products'
+                  checked={this.state.selectedAll}
+                  onChange={this.handleSelectChange}
                 />
-              </Scrollable>
+              </Card.Section>
+              <Card.Section>
+                <Scrollable shadow style={{ height: '400px' }}>
+                  <ChoiceList
+                    allowMultiple
+                    title=''
+                    choices={this.state.productRows.map((value, index) => {
+                      return {
+                        label: value[0],
+                        value: value[1],
+                        helpText: value[1] + '\t' + value[2] + '\t' + value[3],
+                      };
+                    })}
+                    selected={this.state.selected}
+                    onChange={this.handleProductChange}
+                  />
+                </Scrollable>
+              </Card.Section>
             </Card>
 
             <Form onSubmit={this.handleMetricSubmit}>
@@ -751,13 +805,33 @@ class BulkEdit extends React.Component {
                   </FormLayout.Group>
                 </FormLayout>
               </Layout.AnnotatedSection>
-              <br />
-              <DisplayText element='p' size='medium'>
-                {' '}
-                {this.state.backendSent}
-              </DisplayText>
-              <br />
-              <Button submit>Submit</Button>
+              <Layout.AnnotatedSection
+                title='Submit Form'
+                description='You are one click away! Make sure to double check the metric changes being made.'
+              >
+                {this.state.updateSuccessBanner && (
+                  <Banner
+                    title='Bulk Edit Successful!'
+                    style={{ float: 'right' }}
+                    status='success'
+                    onDismiss={() => {
+                      this.setState({ updateSuccessBanner: false });
+                    }}
+                  >
+                    <p>{this.state.backendSent} </p>
+                  </Banner>
+                )}
+                <br />
+                <div style={{ textAlign: 'center' }}>
+                  {this.state.isUpdating && (
+                    <Spinner color='teal' accessibilityLabel='' size='large' />
+                  )}
+                </div>
+                <br />
+                <div style={{ textAlign: 'center' }}>
+                  <Button submit>Submit</Button>
+                </div>
+              </Layout.AnnotatedSection>
             </Form>
             <FooterHelp>
               Ethic Score's{' '}

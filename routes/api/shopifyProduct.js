@@ -423,7 +423,7 @@ router.put('/metrics/:id', async (req, res) => {
   }
 });
 
-// @route   PUT api/shopifyProduct/metrics/:id
+// @route   PUT api/shopifyProduct/metrics/:prodID/:metaID
 // @desc    Updates a single metafield for a specified product
 // @access  Private
 router.put('/metrics/:prodID/:metaID', async (req, res) => {
@@ -433,6 +433,29 @@ router.put('/metrics/:prodID/:metaID', async (req, res) => {
       req.body
     );
     res.json(metafield.data);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
+// @route   DELETE api/shopifyProduct/metrics/:id
+// @desc    Deletes ALL Metafields for specified product
+// @access  Private
+router.delete('/metrics/:prodID/', async (req, res) => {
+  try {
+    const productMetricsRes = await shopifyAxios.get(
+      req.params.prodID + '/metafields.json'
+    );
+    let productMetrics = productMetricsRes.data.metafields;
+
+    for (let i = 0; i < productMetrics.length; ++i) {
+      await shopifyAxios.delete(
+        req.params.prodID + '/metafields/' + productMetrics[i].id + '.json'
+      );
+    }
+
+    res.json('product Metrics successfully deleted');
   } catch (err) {
     console.log(err.message);
     res.status(500).send('Server error');

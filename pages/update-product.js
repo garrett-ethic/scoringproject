@@ -433,7 +433,13 @@ class UpdateProduct extends React.Component {
           >
             <TextContainer spacing='tight'>
               {this.state.loadFailure && (
-                <Banner title='Failed to Load Product' status='critical'>
+                <Banner
+                  title='Failed to Load Product'
+                  status='critical'
+                  onDismiss={() => {
+                    this.setState({ loadFailure: false });
+                  }}
+                >
                   <p>Please enter a valid product id</p>
                 </Banner>
               )}
