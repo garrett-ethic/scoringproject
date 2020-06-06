@@ -479,11 +479,15 @@ class BulkEdit extends React.Component {
       isUpdating: true,
     });
     axios
-      .post('http://localhost:5000/api/shopifyProduct/updateProducts', data, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
+      .post(
+        'https://scoring-system-278723.uc.r.appspot.com/api/shopifyProduct/updateProducts',
+        data,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      )
       .then((res) => {
         const results = res.data;
         console.log(results);
