@@ -50,6 +50,10 @@ Next, log on to the [Shopify Partners](https://www.shopify.com/partners) with Et
 7. Save changes
 8. Visit the app on the test development store and if you followed the steps, the embedded app should be up and running. 
 
+> **We didn't realize this until after setting up for production. For production, the forwarding URL should be the deployed app URL. So as of now, if the forwarding URL is changed for local development purposes, then the live version of the embedded app won't be available to be used.**
+
+> It might be beneficial to create an entirely new app on the Shopify Partner's dashboard and use those app keys for development
+
 ## Deployment
 
 Example using Google Cloud App Engine
