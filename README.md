@@ -50,18 +50,6 @@ Next, log on to the [Shopify Partners](https://www.shopify.com/partners) with Et
 7. Save changes
 8. Visit the app on the test development store and if you followed the steps, the embedded app should be up and running. 
 
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
 ## Deployment
 
 Example using Google Cloud App Engine
@@ -131,7 +119,7 @@ The current weight of each metric used for calculation can be found [here](https
 
 ## Project Update Notes
 * 3/10/2020 - [Project Requirement Document](https://docs.google.com/document/d/1JFjLBBLm9yKrprHkP-3ic495K3CZOJm6MAN8k8H1Z68/edit?usp=sharing)
-* 6/1/2020 - [End of UCI collaboration](https://docs.google.com/document/d/1xnWTuZslykBLVktodUSABQz9F9WFUNYVrISUsip4DKc/edit?usp=sharing)
+* 6/1/2020 - [UCI Dev Notes](https://docs.google.com/document/d/1xnWTuZslykBLVktodUSABQz9F9WFUNYVrISUsip4DKc/edit?usp=sharing)
 
 ## Authors
 
