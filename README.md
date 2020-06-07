@@ -124,6 +124,7 @@ The current weight of each metric used for calculation can be found [here](https
 ## Project Update Notes
 * 3/10/2020 - [Project Requirement Document](https://docs.google.com/document/d/1JFjLBBLm9yKrprHkP-3ic495K3CZOJm6MAN8k8H1Z68/edit?usp=sharing)
 * 6/1/2020 - [UCI Dev Notes](https://docs.google.com/document/d/1xnWTuZslykBLVktodUSABQz9F9WFUNYVrISUsip4DKc/edit?usp=sharing)
+* 6/4/2020 - [UCI Project Demo](https://youtu.be/_k-yVTR4frA)
 
 ## Authors
 
