@@ -31,7 +31,7 @@
     "@shopify/koa-shopify-auth": "^3.1.61",
     "@shopify/polaris": "^4.22.0",
     "@zeit/next-css": "^1.0.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "concurrently": "^5.2.0",
     "cors": "^2.8.5",
     "dompurify": "^2.0.11",
